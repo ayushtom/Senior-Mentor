@@ -1,8 +1,8 @@
 const { UserInputError } = require('apollo-server');
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken')
-const { validateRegisterInput,validateLoginInput } =require('../../util/validators')
-const User=require('../../models/User.model');
+const { validateRegisterInput,validateLoginInput } =require('../../../middlewares/validators')
+const User=require('../../../models/User.model');
 
 
 function generateToken(user){

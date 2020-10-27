@@ -1,7 +1,7 @@
 {
   "name": "merng-social",
   "version": "1.0.0",
-  "description": "",
+  "description": "Social Networking Site for College Students for academic purposes",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,11 +12,22 @@
   "dependencies": {
     "apollo-server": "^2.18.2",
     "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "graphql": "^15.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9",
+    "mongoose-sequence": "^5.3.0",
     "nodemon": "^2.0.6",
     "validator": "^13.1.17"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayushtom/Senior-Mentor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ayushtom/Senior-Mentor/issues"
+  },
+  "homepage": "https://github.com/ayushtom/Senior-Mentor#readme"
 }

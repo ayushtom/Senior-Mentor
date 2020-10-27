@@ -1,11 +1,12 @@
+require('dotenv').config();
+
 const express = require('express');
 const { ApolloServer} = require('apollo-server-express');
 const mongoose=require('mongoose');
+const cookieParser = require('cookie-parser'); 
 
-const typeDefs=require('./graphql/typeDefs')
-const resolvers=require('./graphql/resolvers')
-const Post=require('./models/Post.model')
-require('dotenv').config();
+const typeDefs=require('./controllers/graphql/typeDefs');
+const resolvers=require('./controllers/graphql/resolvers');
 
 const server = new ApolloServer({ 
     typeDefs, 
@@ -15,18 +16,28 @@ const server = new ApolloServer({
 });
 
 const app = express();
+
+app.use(cookieParser()); 
+
+const register = require("./controllers/userRegisterController");
+const login  = require("./controllers/userLoginController"); 
+const profile = require("./controllers/userProfileController"); 
+
+app.use("/", register);
+app.use("/", login);
+app.use("/", profile); 
+
 server.applyMiddleware({ app });
-
-const uri= process.env.URI;
-mongoose.connect(uri,{useNewUrlParser: true,useCreateIndex: true
-,   useUnifiedTopology: true,
-});
-
-
-const connection=mongoose.connection;
-connection.once('open',() =>{
-    console.log("mongodb connection established successfully");
-})
+mongoose
+    .connect(
+    process.env.URI,
+    { useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex:true,
+      useFindAndModify: false
+    })
+    .then(() => console.log("MongoDB successfully connected"))
+    .catch(err => console.log(err));
 
 
 app.listen({ port: 4000 }, () =>
