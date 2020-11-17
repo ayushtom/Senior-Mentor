@@ -4,6 +4,8 @@ const express = require('express');
 const { ApolloServer} = require('apollo-server-express');
 const mongoose=require('mongoose');
 const cookieParser = require('cookie-parser'); 
+var cors = require('cors')
+
 
 const typeDefs=require('./controllers/graphql/typeDefs');
 const resolvers=require('./controllers/graphql/resolvers');
@@ -16,16 +18,17 @@ const server = new ApolloServer({
 });
 
 const app = express();
+app.use(cors())
 
 app.use(cookieParser()); 
 
-const register = require("./controllers/userRegisterController");
-const login  = require("./controllers/userLoginController"); 
-const profile = require("./controllers/userProfileController"); 
+// const register = require("./controllers/userRegisterController");
+// const login  = require("./controllers/userLoginController"); 
+// const profile = require("./controllers/userProfileController"); 
 
-app.use("/", register);
-app.use("/", login);
-app.use("/", profile); 
+// app.use("/", register);
+// app.use("/", login);
+// app.use("/", profile); 
 
 server.applyMiddleware({ app });
 mongoose

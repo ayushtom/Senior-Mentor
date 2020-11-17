@@ -2,17 +2,13 @@ const validator = require('validator');
 
 
 module.exports.validateRegisterInput=(
-    username,
     password,
     confirm_password,
     email
     
 ) => {
     const errors={}
-    if(validator.isEmpty(username))
-    {
-        errors.username='username must not be empty'
-    }
+
     if(validator.isEmpty(email))
     {
         errors.email='email must not be empty'
@@ -42,12 +38,12 @@ module.exports.validateRegisterInput=(
 }
 
 
-module.exports.validateLoginInput=(username,password)=>
+module.exports.validateLoginInput=(email,password)=>
 {
     const errors={}
-    if(validator.isEmpty(username))
+    if(validator.isEmpty(email))
     {
-        errors.username='username must not be empty'
+        errors.username='email must not be empty'
     }
     if(validator.isEmpty(password))
     {

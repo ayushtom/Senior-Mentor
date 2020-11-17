@@ -11,10 +11,10 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required: [true,"Password is required"]
     }
-
+    
 });
 
-UserSchema.plugin(AutoIncrement, {inc_field: 'user_id'});
+UserSchema.plugin(AutoIncrement, {inc_field: 'User_id'});
 module.exports = User = mongoose.model("user", UserSchema); 
 
 /* 

@@ -5,18 +5,18 @@ const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
     body:String,
-    username:String,
+    email:String,
     createdAt:String,
     comments:[
         {
             body:String,
-            username:String,
+            email:String,
             createdAt:String
         }
     ],
     likes:[
         {
-            username:String,
+            email:String,
             createdAt:String
         }
     ],

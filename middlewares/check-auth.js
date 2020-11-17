@@ -12,6 +12,7 @@ module.exports=(context)=>{
             try
             {
                 const user=jwt.verify(token,process.env.KEY);
+                console.log(user);
                 return user;
             }
             catch(err)

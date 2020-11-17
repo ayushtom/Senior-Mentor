@@ -7,7 +7,7 @@ module.exports = {
   Mutation: {
     async createComment(_, { postId, body }, context)
     {
-      const { username } = checkAuth(context);
+      const { email } = checkAuth(context);
       if (body.trim() === '') {
         throw new UserInputError('Empty comment', {
           errors: {
@@ -21,7 +21,7 @@ module.exports = {
       if (post) {
         post.comments.unshift({
           body,
-          username,
+          email,
           createdAt: new Date().toISOString()
         });
         await post.save();
@@ -29,14 +29,14 @@ module.exports = {
       } else throw new UserInputError('Post not found');
     },
     async deleteComment(_, { postId, commentId }, context) {
-      const { username } = checkAuth(context);
+      const { email } = checkAuth(context);
 
       const post = await Post.findById(postId);
  
       if (post) {
         const commentIndex = post.comments.findIndex((c) => c.id === commentId);
 
-        if (post.comments[commentIndex].username === username) {
+        if (post.comments[commentIndex].email === email) {
           post.comments.splice(commentIndex, 1);
           await post.save();
           return post;

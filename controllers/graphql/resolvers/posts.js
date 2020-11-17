@@ -1,6 +1,7 @@
 const Post=require('../../../models/Post.model');
 const checkAuth=require('../../../middlewares/check-auth')
-const { AuthenticationError,UserInputError }=require('apollo-server')
+const { AuthenticationError,UserInputError }=require('apollo-server');
+const { argsToArgsConfig } = require('graphql/type/definition');
 
 module.exports={
     Query: {
@@ -16,7 +17,8 @@ module.exports={
         async getPost(_,{ postId })
         {
             try{
-                const post=await Post.find(postId);
+
+                const post=await Post.findById(postId);
                 if(post)
                 {
                     return post
@@ -35,14 +37,16 @@ module.exports={
     {
         async createPost(_,{ body },context)
         {
+            if(body.trim() ===' ')
+            {
+                throw new Error('Post Body Must not be Empty')
+            }
             const user=checkAuth(context)
             const newPost=new Post({
                 body,
-                user:user.id,
-                username:user.username,
+                email:user.email,
                 createdAt: new Date().toISOString()
             })
-
             const post=newPost.save();
 
             return post
@@ -55,7 +59,7 @@ module.exports={
             try
             {
                 const post=await Post.findById(postId)
-                if(user.username === post.username)
+                if(user.email === post.email)
                 {
                     await post.deleteOne()
                     return ('post deleted successfully')
@@ -74,7 +78,7 @@ module.exports={
         
         async likePost(_, { postId }, context) 
         {
-            const { username } = checkAuth(context);
+            const { email } = checkAuth(context);
       
             const post = await Post.findById(postId);
             if (!post) {
@@ -82,11 +86,11 @@ module.exports={
 
             }
 
-             if (post.likes.find((like) => like.username === username)) {
-                post.likes = post.likes.filter((like) => like.username !== username);
+             if (post.likes.find((like) =>like!=null && like.email === email)) {
+                post.likes = post.likes.filter((like) => like.email !== email);
               } else {
                 post.likes.push({
-                  username,
+                  email,
                   createdAt: new Date().toISOString()
                 });
               }

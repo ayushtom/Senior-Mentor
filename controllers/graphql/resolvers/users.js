@@ -9,16 +9,15 @@ function generateToken(user){
     return jwt.sign({
         id:user.id,
         email:user.email,
-        username:user.username
     },process.env.KEY,{expiresIn:'1hr'})
 
 }
 
 module.exports={
     Mutation:{
-        async login(_,{username, password}){
-            const{ errors,valid }=validateLoginInput(username,password)
-            const user= await User.findOne({username})
+        async login(_,{email, password}){
+            const{ errors,valid }=validateLoginInput(email,password)
+            const user= await User.findOne({email})
             if(!valid)
             {
                 throw new UserInputError('Errors', { errors })
@@ -47,26 +46,24 @@ module.exports={
             }
 
         },
-        async register(_,{registerInput:{username,email,password,confirm_password}}){
+        async register(_,{registerInput:{email,password,confirm_password}}){
 
-            const{ errors,valid }=validateRegisterInput(username,password,confirm_password,email)
+            const{ errors,valid }=validateRegisterInput(password,confirm_password,email)
             if(!valid)
             {
                 throw new UserInputError('Errors', { errors })
             }
-            const user=await User.findOne({ username });
-            if(user)
-            {
-                throw new UserInputError('Username is taken',{
-                    errors:{
-                        username:'This username is taken'
-                    }
-                })
-            }
+            const user=await User.findOne({email});
+            if (user) {
+                throw new UserInputError('Email is taken', {
+                  errors: {
+                    username: 'This Email is taken'
+                  }
+                });
+              }
             
             password=await bcrypt.hash(password,12);
             const newUser=new User({
-                username,
                 email,
                 password,
                 createdAt : new Date().toISOString()
@@ -79,6 +76,7 @@ module.exports={
             return{
                 ...res._doc,
                 id:res._id,
+                user_id:res.user_id,
                 token
             }
         }
