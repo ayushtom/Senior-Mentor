@@ -5,7 +5,6 @@ import moment from 'moment';
 import { AuthContext } from '../context/auth';
 import LikeButton from './LikeBut';
 import DeleteButton from './DeleteButton';
-import MyPopup from '../utils/MyPopup';
 
 function PostCard({
   post: { body, createdAt, id, email, comments, likes }
@@ -13,14 +12,7 @@ function PostCard({
   const { user } = useContext(AuthContext);
   console.log(body)
 
-  function likePost(){
-    console.log("like post")
-  }
-
-  function commentOnPost(){
-    console.log("comment on post")
-  }
-
+  
 
   return (
     <Card fluid>
@@ -47,12 +39,12 @@ function PostCard({
       </Label>
     </Button> */}
     <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
-            <Button color="blue" basic>
-              <Icon name="comments" />
-            </Button>
-            <Label basic color="blue" pointing="left">
-              {comments.length}
-            </Label>
+      <Button color="blue" basic>
+        <Icon name="comments" />
+      </Button>
+      <Label basic color="blue" pointing="left">
+        {comments.length}
+      </Label>
     </Button>
     {user && user.email === email && <DeleteButton postId={id} />}
       </Card.Content>

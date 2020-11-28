@@ -25,6 +25,7 @@ function App() {
         <AuthRoute exact path="/login" component={Login} />
         <AuthRoute exact path="/register" component={Register} />
         <Route exact path="/posts/:postId" component={SinglePost} />
+        <Route exact path="/profile" component={SinglePost} />
         <Route path="/live" exact component={Join} />
         <Route path="/live/chat" exact component={Chat} /> 
       </Container>

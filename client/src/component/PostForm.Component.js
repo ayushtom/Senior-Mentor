@@ -56,13 +56,13 @@ const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
             value={values.body}
             error={error ? true : false}
           />
-          <button
+          <Button
                         type="submit"
                         className="ui button teal"
                         disabled={values.body.trim() === ''}
                       >
                         Submit
-                      </button>
+                      </Button>
         </Form.Field>
       </Form>
       {error && (

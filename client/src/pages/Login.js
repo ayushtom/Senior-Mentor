@@ -15,7 +15,6 @@ export default function Login(props) {
     password: '',
   });
 
-
   
   const[loginUser,{loading}]=useMutation(LOGIN_USER,{
     update(_,{data: { login: userData }}) {
