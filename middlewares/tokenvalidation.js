@@ -8,7 +8,9 @@ var failureObj = {
 
 module.exports = {
     checkToken: function(req,res,next){
-        token = req.cookies[process.env.COOKIE]; 
+        //token = req.cookies[process.env.COOKIE]; 
+        const authheader=context.req.headers.authorization;
+        const token = authheader.split('Bearer ')[1];
         if(token){
             jwt.verify(token, jwtsalt, (err,decoded)=>{
                 if(err){
