@@ -5,6 +5,7 @@ import "./Chat.css";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input"; 
 import Messages from "../Messages/Messages";
+import jwtDecode from 'jwt-decode';
 
 // Right side components
 import InfoBarRight from "../InfobarRight/InfoBarRight"
@@ -23,11 +24,26 @@ const Chat = ({ location })=> {
     useEffect(() => {
         const { name, room } = queryString.parse(location.search); 
 
-        socket = io(ENDPOINT);
-
+        //socket = io(ENDPOINT);
+        const token = localStorage.getItem('jwtToken');
+        const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
+        console.log(decodedToken); 
+        
+        console.log(token); 
+        socket = io.connect(ENDPOINT, {
+            query: `token=${token}`
+        });
+        
+        // socket.on('connect',  (socket) => {
+        //     socket
+        //       .on('authenticated', function () {
+        //         //do other things
+        //       })
+        //       .emit('authenticate', {token}); //send the jwt
+        // });
         setName(name);
         setRoom(room); 
-
+             
         socket.emit('join',{name,room},()=>{
             //this function is called if server wants to reply with a message(eg:error) on this join event 
         }); //{name,room} es6 is actually {name:name, room:room} 
