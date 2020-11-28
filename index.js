@@ -1,8 +1,6 @@
 require('dotenv').config();
-const socketio = require("socket.io"); 
 const http = require("http");
 const express = require('express');
-
 
 const { ApolloServer } = require('apollo-server-express');
 const mongoose=require('mongoose');
@@ -19,11 +17,9 @@ const server = new ApolloServer({
 });
 
 const app = express();
-var cors = require('cors');
-app.use(cors()); 
-app.use(cookieParser()); 
 
 const httpserver = http.createServer(app);
+const socketio = require("socket.io"); 
 const io = socketio(httpserver, {
   cors: {
     origin: '*',
@@ -31,7 +27,16 @@ const io = socketio(httpserver, {
 });
 
 const { addUser,removeUser,getUser,getUsersInRoom } = require("./controllers/HandleChat/userController"); 
+
+const socketioJwt = require('socketio-jwt'); 
+io.use(socketioJwt.authorize({
+    secret: process.env.KEY,
+    handshake: true
+}));
 io.on('connection', socket => { 
+    //console.log(authenticated);
+    console.log(`hello! ${socket.decoded_token.name}`); 
+
     socket.on('join',({name,room},callBack)=>{ 
 
         const user = addUser({id:socket.id,name,room});  //destructuring the object 
@@ -66,6 +71,10 @@ io.on('connection', socket => {
 });
 
 const router = require("./controllers/HandleChat/chatController");
+
+var cors = require('cors');
+app.use(cors()); 
+app.use(cookieParser()); 
 app.use(router); 
 
 // const register = require("./controllers/userRegisterController");
