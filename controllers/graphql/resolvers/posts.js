@@ -1,7 +1,7 @@
 const Post=require('../../../models/Post.model');
 const checkAuth=require('../../../middlewares/check-auth')
 const { AuthenticationError,UserInputError }=require('apollo-server');
-const { argsToArgsConfig } = require('graphql/type/definition');
+const User=require('../../../models/User.model')
 
 module.exports={
     Query: {
@@ -37,14 +37,17 @@ module.exports={
     {
         async createPost(_,{ body },context)
         {
+            
             if(body.trim() ===' ')
             {
                 throw new Error('Post Body Must not be Empty')
             }
             const user=checkAuth(context)
+            const email=user.email
             const newPost=new Post({
                 body,
-                email:user.email,
+                email:email,
+                name:user.name,
                 createdAt: new Date().toISOString()
             })
             const post=newPost.save();

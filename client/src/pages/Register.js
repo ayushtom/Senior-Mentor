@@ -42,6 +42,15 @@ export default function Register(props) {
       <Form onSubmit={onSubmit} noValidate className={loading? 'loading':''}>
         <h1>Register</h1>
         <Form.Input
+        label="Full Name"
+        placeholder="Name"
+        name="name"
+        type="text"
+        value={values.name}
+        error={errors.name ? true : false}
+        onChange={onChange}
+        />
+        <Form.Input
         label="Email"
         placeholder="Email"
         name="email"
@@ -92,15 +101,18 @@ const REGISTER_USER = gql`
     $email: String!
     $password: String!
     $confirmPassword: String!
+    $name:String!
   ) {
     register(
       registerInput: {
         email: $email
         password: $password
         confirm_password: $confirmPassword
+        name:$name
       }
     ) {
       id
+      name
       email
       createdAt
       token

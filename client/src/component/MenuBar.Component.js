@@ -24,9 +24,7 @@ export default function Menubar(){
       />
       <Menu.Menu position="right">
       <Menu.Item name={user.email} active as={Link} to="/profile" />
-
-       
-        <Menu.Item
+      <Menu.Item
           name="chat"
           active={activeItem === 'chat'}
           onClick={handleItemClick}

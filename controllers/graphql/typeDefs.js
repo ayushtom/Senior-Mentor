@@ -8,6 +8,7 @@ type Post
     body:String!
     createdAt:String!
     email:String!
+    name:String!
     comments:[Comment]!
     likes:[Like]!
     likeCount: Int!
@@ -17,6 +18,7 @@ type User
 {
     id:ID!
     email:String!
+    name:String!
     token:String!
     createdAt:String!
 }
@@ -54,13 +56,14 @@ input RegisterInput
     password:String!
     confirm_password:String!
     email:String!
+    name:String!
 }
 input ProfileInput
 {
     email: String!
     first_name: String!
     last_name: String!
-    year: String!
+    year: Int!
     branch: String!
 
 

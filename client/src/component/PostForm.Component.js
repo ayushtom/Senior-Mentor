@@ -83,6 +83,7 @@ const CREATE_POST_MUTATION = gql`
       body
       createdAt
       email
+      name
       likes {
         id
         email

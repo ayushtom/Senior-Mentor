@@ -20,15 +20,16 @@ function Profile(props){
   });
 
 
-  const[profilesave,{loading}]=useMutation(SAVE_PROFILE)
+  const[profilesave]=useMutation(SAVE_PROFILE)
  
   function save_profile() {
     profilesave();
   }
 
+
   
   return(
-    <Form onSubmit={onSubmit} noValidate className={loading? 'loading':''}>
+    <Form onSubmit={onSubmit} noValidate>
       <Form.Input
         label="First Name"
         placeholder="First Name"

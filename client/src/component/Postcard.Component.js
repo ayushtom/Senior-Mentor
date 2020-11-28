@@ -7,7 +7,7 @@ import LikeButton from './LikeBut';
 import DeleteButton from './DeleteButton';
 
 function PostCard({
-  post: { body, createdAt, id, email, comments, likes }
+  post: { name,body, createdAt, id, email, comments, likes }
 }) {
   const { user } = useContext(AuthContext);
   console.log(body)
@@ -22,7 +22,7 @@ function PostCard({
           size="mini"
           src="https://react.semantic-ui.com/images/avatar/large/molly.png"
         />
-        <Card.Header>{email}</Card.Header>
+        <Card.Header>{name}</Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>
           {moment(createdAt).fromNow()}
         </Card.Meta>
