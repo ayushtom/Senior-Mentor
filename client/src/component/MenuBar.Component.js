@@ -5,9 +5,9 @@ import {Link} from 'react-router-dom'
 import { AuthContext } from '../context/auth';
 export default function Menubar(){
   const { user, logout } = useContext(AuthContext);
-    const pathname=window.location.pathname;
-    const path= pathname==='/' ? 'home' : pathname.substr(1)
-    const [activeItem,setActiveItem]=useState(path)
+  const pathname=window.location.pathname;
+  const path= pathname==='/' ? 'home' : pathname.substr(1)
+  const [activeItem,setActiveItem]=useState(path)
 
   const handleItemClick = (e, { name }) => setActiveItem(name)
 
@@ -44,6 +44,13 @@ export default function Menubar(){
           onClick={handleItemClick}
           as={Link}
           to="/register"
+        />
+        <Menu.Item
+          name="chat"
+          active={activeItem === 'chat'}
+          onClick={handleItemClick}
+          as={Link}
+          to="/live"
         />
       </Menu.Menu>
     </Menu>

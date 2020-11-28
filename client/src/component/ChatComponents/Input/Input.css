@@ -1,0 +1,27 @@
+.ChatboxForm {
+display: flex;
+border-top: 2px solid #D3D3D3;
+}
+
+.ChatInput {
+border: none;
+border-radius: 0;
+padding: 3% 5%; /* */ 
+width: 80%; 
+font-size: 1.2em; /* 1.2em */
+}
+
+.ChatInput:focus, textarea:focus, select:focus{
+outline: none;
+}
+
+.sendButton {
+color: #fff !important;
+text-transform: uppercase;
+text-decoration: none;
+background: #2979FF;
+padding: 20px;
+display: inline-block;
+border: none;
+width: 20%;
+}
