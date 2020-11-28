@@ -11,7 +11,6 @@ export default function Menubar(){
 
   const handleItemClick = (e, { name }) => setActiveItem(name)
 
-
   
   const menuBar = user ? (
     <Menu pointing secondary size="huge" color="teal">
@@ -23,7 +22,7 @@ export default function Menubar(){
         to="/"
       />
       <Menu.Menu position="right">
-      <Menu.Item name={user.email} active as={Link} to="/profile" />
+      <Menu.Item name={user.name} active as={Link} to="/profile" />
       <Menu.Item
           name="chat"
           active={activeItem === 'chat'}

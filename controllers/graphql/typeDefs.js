@@ -46,7 +46,7 @@ type Profile
     email: String!
     first_name: String!
     last_name: String!
-    year: String!
+    year: Int!
     branch: String!
     skillset: [String] 
 

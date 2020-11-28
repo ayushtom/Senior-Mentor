@@ -1,14 +1,16 @@
-import React,{ useContext } from 'react'
+import React from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import { useMutation }  from '@apollo/client'
 import { AuthContext } from '../context/auth';
 import { useForm } from '../utils/hooks';
 
-import gql from 'graphql-tag'
+import axios from 'axios';
 
-function Profile(props){
-  const { user } = useContext(AuthContext);
+
+
+function Profile(){
   
+
   const { onChange, onSubmit, values } = useForm(save_profile, {
     first_name:'',
     last_name:'',
@@ -17,16 +19,13 @@ function Profile(props){
     email:''
 
  
-  });
-
-
-  const[profilesave]=useMutation(SAVE_PROFILE)
- 
-  function save_profile() {
-    profilesave();
   }
+  );
 
+  save_profile(){
+    axios.post("http://localhost:4000/profile")
 
+  }
   
   return(
     <Form onSubmit={onSubmit} noValidate>
@@ -80,33 +79,8 @@ function Profile(props){
 }
 
 
-const SAVE_PROFILE= gql`
-mutation saveProfile(
-  $email:String!,
-  $first_name:String!,
-  $last_name:String!,
-  $year:Int!,
-  $branch:String!,
 
-){
-    saveProfile(
-      profileInput: {
-        email: $email,
-        first_name: $first_name,
-        last_name: $last_name,
-        year: $year,
-        branch: $branch,
-      }
-    ) {
-      id
-      email
-      first_name
-      last_name
-      year
-      branch
-    }
-  }
-`;
+
  
 
 export default Profile
