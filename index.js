@@ -77,6 +77,10 @@ app.use(cors());
 app.use(cookieParser()); 
 app.use(router); 
 
+const viewAll = require("./controllers/viewAllUsers");
+const saveProfile = require("./controllers/saveProfileData");
+app.use("/",viewAll); 
+app.use("/",saveProfile); 
 // const register = require("./controllers/userRegisterController");
 // const login  = require("./controllers/userLoginController"); 
 // const profile = require("./controllers/userProfileController"); 

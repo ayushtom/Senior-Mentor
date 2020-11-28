@@ -11,7 +11,7 @@ import Register from './pages/Register'
 import MenuBar from './component/MenuBar.Component'
 import SinglePost from './pages/SinglePost'
 import Profile from './pages/Profile'
-
+import AllProfiles from './pages/AllProfiles'; 
 
 import Join from "./component/ChatComponents/Join/Join";
 import Chat from "./component/ChatComponents/Chat/Chat"; 
@@ -29,6 +29,7 @@ function App() {
         <Route exact path="/profile" component={Profile} />
         <Route path="/live" exact component={Join} />
         <Route path="/live/chat" exact component={Chat} /> 
+        <Route path="/all" axact component={AllProfiles} /> 
       </Container>
     </Router>
     </AuthProvider>
