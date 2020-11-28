@@ -21,6 +21,7 @@
     "mongoose": "^5.10.9",
     "mongoose-sequence": "^5.3.0",
     "nodemon": "^2.0.6",
+    "socket.io": "^3.0.3",
     "validator": "^13.1.17"
   },
   "repository": {
