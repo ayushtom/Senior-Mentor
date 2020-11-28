@@ -35,14 +35,14 @@ html, body {
   width: 100%;
 }
 
-.heading {
+.chatHeading {  /* was .heading */
   color: white;
   font-size: 2.5em;
   padding-bottom: 10px;
   border-bottom: 2px solid white;
 }
 
-.button {
+.JoinButton {
     color: #fff !important;
     text-transform: uppercase;
     text-decoration: none;
@@ -71,6 +71,6 @@ html, body {
 
 }
 
-button:focus {
+.JoinButton:focus {
   outline: 0;
 }

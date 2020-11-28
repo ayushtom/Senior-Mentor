@@ -33,7 +33,7 @@ const Chat = ({ location })=> {
         }); //{name,room} es6 is actually {name:name, room:room} 
 
         return () => { //component unmounting 
-            socket.emit('disconnect');
+            //socket.emit('disconnect');
             socket.off(); 
         }
     },[ENDPOINT,location.search]);  

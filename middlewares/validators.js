@@ -7,7 +7,7 @@ module.exports.validateRegisterInput=(
     email
     
 ) => {
-    const errors={}
+    const errors={};
 
     if(validator.isEmpty(email))
     {

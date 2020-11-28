@@ -7,7 +7,7 @@ import { AuthContext } from '../context/auth';
 import { useForm } from '../utils/hooks';
 export default function Register(props) {
   const context = useContext(AuthContext);
-  const [errors,setErrors]=useState({})
+  const [errors,setErrors]=useState({});
 
   const { onChange, onSubmit, values } = useForm(registerUser, {
 
@@ -15,22 +15,23 @@ export default function Register(props) {
     password: '',
     confirmPassword: ''
   });
-
-
+  
   
   const[addUser,{loading}]=useMutation(REGISTER_USER,{
     update(_,{data: { register: userData }}) {
       context.login(userData);
-      props.history.push('/');
+      props.history.push('/profile');
     },
     onError(err){
 
+      console.log(err);
+      console.log(err.graphQLErrors[0].extensions.exception); 
       console.log(err.graphQLErrors[0].extensions.exception.errors)
       setErrors(err.graphQLErrors[0].extensions.exception.errors)
     },
     variables:values
   })
-
+ 
   function registerUser() {
     addUser();
   }

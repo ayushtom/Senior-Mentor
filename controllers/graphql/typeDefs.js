@@ -55,6 +55,16 @@ input RegisterInput
     confirm_password:String!
     email:String!
 }
+input ProfileInput
+{
+    email: String!
+    first_name: String!
+    last_name: String!
+    year: String!
+    branch: String!
+
+
+}
 
 type Mutation
 {
@@ -65,6 +75,7 @@ type Mutation
     createComment(postId:ID!,body:String!):Post!
     deleteComment(postId:ID!,commentId:ID!):Post!
     likePost(postId:ID!):Post!
+    saveProfile(profileInput: ProfileInput):Profile!
      
 }
 

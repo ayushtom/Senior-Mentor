@@ -1,25 +1,111 @@
-import React from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import React,{ useContext } from 'react'
+import { Button, Form } from 'semantic-ui-react'
+import { useMutation }  from '@apollo/client'
+import { AuthContext } from '../context/auth';
+import { useForm } from '../utils/hooks';
 
-const CardExampleCard = () => (
-  <Card>
-    <Image src='/images/avatar/large/matthew.png' wrapped ui={false} />
-    <Card.Content>
-      <Card.Header>Matthew</Card.Header>
-      <Card.Meta>
-        <span className='date'>Joined in 2015</span>
-      </Card.Meta>
-      <Card.Description>
-        Matthew is a musician living in Nashville.
-      </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      <a>
-        <Icon name='user' />
-        22 Friends
-      </a>
-    </Card.Content>
-  </Card>
-)
+import gql from 'graphql-tag'
 
-export default CardExampleCard
+function Profile(props){
+  const { user } = useContext(AuthContext);
+  
+  const { onChange, onSubmit, values } = useForm(save_profile, {
+    first_name:'',
+    last_name:'',
+    year:'',
+    branch:'',
+    email:''
+
+ 
+  });
+
+
+  const[profilesave,{loading}]=useMutation(SAVE_PROFILE)
+ 
+  function save_profile() {
+    profilesave();
+  }
+
+  
+  return(
+    <Form onSubmit={onSubmit} noValidate className={loading? 'loading':''}>
+      <Form.Input
+        label="First Name"
+        placeholder="First Name"
+        name="first_name"
+        type="text"
+        value={values.first_name}
+        onChange={onChange}
+      />
+      <Form.Input
+        label="Last Name"
+        placeholder="Last Name"
+        name="last_name"
+        type="text"
+        value={values.last_name}
+        onChange={onChange}
+      />
+      <Form.Input
+        label="Email"
+        placeholder="Email"
+        name="email"
+        type="text"
+        value={values.email}
+        onChange={onChange}
+      />
+      <Form.Input
+        label="Year"
+        placeholder="Year"
+        name="year"
+        type="number"
+        value={values.year}
+        onChange={onChange}
+      />
+      <Form.Input
+        label="Branch"
+        placeholder="Branch"
+        name="branch"
+        type="text"
+        value={values.branch}
+        onChange={onChange}
+      />
+
+    
+    <Button type='submit' primary onClick={onSubmit}>Submit</Button>
+  </Form>
+
+  )
+
+}
+
+
+const SAVE_PROFILE= gql`
+mutation saveProfile(
+  $email:String!,
+  $first_name:String!,
+  $last_name:String!,
+  $year:Int!,
+  $branch:String!,
+
+){
+    saveProfile(
+      profileInput: {
+        email: $email,
+        first_name: $first_name,
+        last_name: $last_name,
+        year: $year,
+        branch: $branch,
+      }
+    ) {
+      id
+      email
+      first_name
+      last_name
+      year
+      branch
+    }
+  }
+`;
+ 
+
+export default Profile

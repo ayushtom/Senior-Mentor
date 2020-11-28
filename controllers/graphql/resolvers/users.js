@@ -1,7 +1,8 @@
 const { UserInputError } = require('apollo-server');
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken')
-const { validateRegisterInput,validateLoginInput } =require('../../../middlewares/validators')
+const { validateRegisterInput,validateLoginInput } =require('../../../middlewares/validators');
+const Profile = require('../../../models/Profile');
 const User=require('../../../models/User.model');
 
 
@@ -49,6 +50,7 @@ module.exports={
         async register(_,{registerInput:{email,password,confirm_password}}){
 
             const{ errors,valid }=validateRegisterInput(password,confirm_password,email)
+            
             if(!valid)
             {
                 throw new UserInputError('Errors', { errors })
@@ -69,9 +71,9 @@ module.exports={
                 createdAt : new Date().toISOString()
 
             })
-
             const res=await newUser.save();
-
+            console.log(errors); 
+            
             const token=generateToken(res);
             return{
                 ...res._doc,
@@ -79,6 +81,23 @@ module.exports={
                 user_id:res.user_id,
                 token
             }
+        },
+
+        async saveProfile(_,{profileInput:{first_name,last_name,email,year,branch}}){
+            const newProfile=new Profile({
+                first_name,
+                last_name,
+                email,
+                year,
+                branch
+
+            })
+
+            const prof=newProfile.save();
+
+            return prof
+
+
         }
         
     }
