@@ -59,7 +59,7 @@ io.on('connection', socket => {
             io.to(user.room).emit('message',{user:'admin', text:`${user.name} left the chat` }); //send this message to the room 
             io.to(user.room).emit('usersOnline', { room: user.room, users: getUsersInRoom(user.room) });
         }
-        //console.log("User left"); 
+        console.log("User left"); 
     });
     
 

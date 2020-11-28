@@ -19,6 +19,13 @@ export default function Menubar(){
       <Menu.Menu position="right">
         <Menu.Item name="logout" onClick={logout} />
       </Menu.Menu>
+      <Menu.Item
+          name="chat"
+          active={activeItem === 'chat'}
+          onClick={handleItemClick}
+          as={Link}
+          to="/live"
+      />
     </Menu>
   ) : (
     <Menu pointing secondary size="massive" color="teal">
@@ -45,13 +52,7 @@ export default function Menubar(){
           as={Link}
           to="/register"
         />
-        <Menu.Item
-          name="chat"
-          active={activeItem === 'chat'}
-          onClick={handleItemClick}
-          as={Link}
-          to="/live"
-        />
+       
       </Menu.Menu>
     </Menu>
   );

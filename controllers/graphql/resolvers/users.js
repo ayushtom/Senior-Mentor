@@ -49,6 +49,7 @@ module.exports={
         async register(_,{registerInput:{email,password,confirm_password}}){
 
             const{ errors,valid }=validateRegisterInput(password,confirm_password,email)
+            
             if(!valid)
             {
                 throw new UserInputError('Errors', { errors })
@@ -69,9 +70,9 @@ module.exports={
                 createdAt : new Date().toISOString()
 
             })
-
             const res=await newUser.save();
-
+            console.log(errors); 
+            
             const token=generateToken(res);
             return{
                 ...res._doc,
