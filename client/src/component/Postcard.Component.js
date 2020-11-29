@@ -10,7 +10,7 @@ function PostCard({
   post: { name,body, createdAt, id, email, comments, likes }
 }) {
   const { user } = useContext(AuthContext);
-  console.log(body)
+  //console.log(body)
 
   
 
