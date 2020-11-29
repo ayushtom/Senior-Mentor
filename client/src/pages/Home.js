@@ -13,7 +13,6 @@ function Home() {
     FETCH_POSTS_QUERY
   );
 
-  console.log(posts)
   return(
     <Grid columns={3}>
       <Grid.Row className="page-title">

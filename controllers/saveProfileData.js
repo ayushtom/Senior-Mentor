@@ -3,6 +3,8 @@ const router = express.Router();
 const Profile= require('../models/Profile')
 const { checkToken } = require("../middlewares/tokenvalidation"); 
 router.use(express.json());
+
+
 router.post("/add",async (req,res)=>{
     const body = req.body; 
     const decoded = req.decode; 
@@ -36,6 +38,35 @@ router.post("/add",async (req,res)=>{
     }
     
 }); 
+
+
+router.get("/",async(req,res)=>{
+    try{
+        const email=req.body.email
+        const profile=await Profile.find({email})
+        if(profile)
+        {
+            console.log(profile)
+            return res.json({profile})
+        }
+        else
+        {
+            res.json(
+                {
+                    message:"not found"
+                }
+            )
+        }
+    }
+    catch(err) { 
+        console.log(err); 
+        res.json({
+            success:0,
+            error:"Couldn't find profile data"
+        })
+    }
+    
+})
 
 module.exports = router; 
 

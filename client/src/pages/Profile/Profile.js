@@ -1,27 +1,51 @@
-import React from 'react'
+import React ,{useContext,useEffect,useState} from 'react'
 import { Card, Icon, Image } from 'semantic-ui-react'
 import './Profile.css'
+import axios from 'axios'
+import { AuthContext } from '../../context/auth'
 
-const CardExampleCard = () => (
-  <Card fluid color="teal">
+
+function Profile(){
+  const { user } = useContext(AuthContext);
+
+
+  const [response, setResponse] = useState({})
+  
+  console.log(user)
+  
+    useEffect(() => {
+      axios.get("http://localhost:4000/profile",user.email)
+      .then((res)=>{
+          const response = res; 
+          setResponse(response); 
+      })
+      .catch((err)=>{
+          console.log(err); 
+      });     
+      //getItems().then(data => setItems(data));
+  }, []);
     
-    <Card.Content>
-    <Image size="mini" src wrapped ui={false} />
-      <Card.Header>Matthew</Card.Header>
-      <Card.Meta>
-        <span className='date'>Joined in 2015</span>
-      </Card.Meta>
-      <Card.Description>
-        Matthew is a musician living in Nashville.
-      </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      <a>
-        <Icon name='user' />
-        22 Friends
-      </a>
-    </Card.Content>
-  </Card>
-)
+ 
+  return(
+  
+  <Card fluid color="teal">
+      
+      <Card.Content>
+      <Image size="mini" src wrapped ui={false} />
+        <Card.Header>{response.first_name} {response.last_name}</Card.Header>
+        <Card.Meta>
+          <span className='date'>Year of Student: {response.year}</span>
+        </Card.Meta>
+        <Card.Description>
+          {response.branch}
+        </Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+       {response.email}
+      </Card.Content>
+    </Card>
+  )
+  
+}
 
-export default CardExampleCard
+export default Profile
