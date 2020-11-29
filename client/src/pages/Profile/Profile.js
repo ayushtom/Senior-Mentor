@@ -15,7 +15,8 @@ function Profile() {
     axios
       .get("http://localhost:4000/profile", {email : user.email})
       .then((res) => {
-        const response = res;
+        const response = res.data;
+        console.log(res)
         setResponse(response);
       })
       .catch((err) => {
@@ -27,7 +28,7 @@ function Profile() {
   return (
     <Card fluid color="teal">
       <Card.Content>
-        <Image size="mini" src wrapped ui={false} />
+
         <Card.Header>
           {response.first_name} {response.last_name}
         </Card.Header>

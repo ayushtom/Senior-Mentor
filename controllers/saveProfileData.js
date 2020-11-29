@@ -47,7 +47,7 @@ router.get("/",async(req,res)=>{
         if(profile)
         {
             console.log(profile)
-            return res.json({profile})
+            return res.json({data:profile})
         }
         else
         {
