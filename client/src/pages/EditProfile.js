@@ -9,8 +9,6 @@ import axios from 'axios';
 
 
 function Profile(){
-  
-
   const { onChange, onSubmit, values } = useForm(save_profile, {
     first_name:'',
     last_name:'',

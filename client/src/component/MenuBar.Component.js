@@ -31,7 +31,7 @@ export default function Menubar() {
       <Menu.Menu position="right">
       <Menu.Item name={user.name} active as={Link} to="/profile" />
 
-        <Menu.Item name={user.email} active as={Link} to="/profile" />
+        
         <Menu.Item
           name="chat"
           active={activeItem === "chat"}

@@ -1,16 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const User = require("../models/User.model");
+const Profile= require('../models/Profile')
 const { checkToken } = require("../middlewares/tokenvalidation"); 
-
-router.post("/saveprofile",checkToken,async (req,res)=>{
+router.use(express.json());
+router.post("/add",async (req,res)=>{
     const body = req.body; 
     const decoded = req.decode; 
-    console.log(decoded); 
+    // console.log(decoded); 
     try {
-        res.json({
-            success:1, 
+        const first_name=req.body.first_name;
+        const last_name=req.body.last_name;
+        const year=req.body.year;
+        const branch=req.body.branch;
+        const email=req.body.email;
+        const prof=new Profile({
+            first_name,
+            last_name,
+            year,
+            branch,
+            email
         })
+    
+        prof.save()
+        .then(()=> res.json("profile added"))
+        .catch(err => res.status(400).json('Error: '+err));
+
+
+       
     } catch(err) { 
         console.log(err); 
         res.json({

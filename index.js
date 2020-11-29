@@ -79,7 +79,7 @@ app.use(router);
 
 const viewAll = require("./controllers/viewAllUsers");
 const saveProfile = require("./controllers/saveProfileData");
-const profile=require("./controllers/profilesaver")
+const profile=require("./controllers/saveProfileData")
 app.use("/",viewAll); 
 app.use("/",saveProfile); 
 app.use("/profile",profile)

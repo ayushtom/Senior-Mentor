@@ -53,6 +53,7 @@ function SinglePost(props) {
       id,
       body,
       createdAt,
+      name,
       email,
       comments,
       likes
@@ -71,7 +72,7 @@ function SinglePost(props) {
           <Grid.Column width={10}>
             <Card fluid>
               <Card.Content>
-                <Card.Header>{email}</Card.Header>
+                <Card.Header>{name}</Card.Header>
                 <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
                 <Card.Description>{body}</Card.Description>
               </Card.Content>
@@ -165,6 +166,7 @@ const FETCH_POST_QUERY = gql`
       body
       createdAt
       email
+      name
       likeCount
       likes {
         email

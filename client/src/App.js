@@ -10,8 +10,9 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import MenuBar from './component/MenuBar.Component'
 import SinglePost from './pages/SinglePost'
-import Profile from './pages/Profile'
-import AllProfiles from './pages/AllProfiles'; 
+import EditProfile from './pages/EditProfile'
+import AllProfiles from './pages/AllProfiles'
+import Profile from './pages/Profile/Profile'
 
 import Join from "./component/ChatComponents/Join/Join";
 import Chat from "./component/ChatComponents/Chat/Chat"; 
@@ -26,6 +27,7 @@ function App() {
         <AuthRoute exact path="/login" component={Login} />
         <AuthRoute exact path="/register" component={Register} />
         <Route exact path="/posts/:postId" component={SinglePost} />
+        <Route exact path="/profile/add" component={EditProfile} />
         <Route exact path="/profile" component={Profile} />
         <Route path="/live" exact component={Join} />
         <Route path="/live/chat" exact component={Chat} /> 
