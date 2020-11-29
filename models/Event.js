@@ -2,23 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const EventSchema = new Schema({
-    name:String,
-    body:String,
+     
+    eventbody:String,
     email:String,
     createdAt:String,
-    comments:[
-        {
-            body:String,
-            email:String,
-            createdAt:String
-        }
-    ],
-    likes:[
-        {
-            email:String,
-            createdAt:String
-        }
-    ],
     user:
     {
         type:Schema.Types.ObjectId,
@@ -27,5 +14,5 @@ const EventSchema = new Schema({
 });
 
 
-const User = mongoose.model("event", EventSchema);
-module.exports=User;
+const Event = mongoose.model("event", EventSchema);
+module.exports=Event;
