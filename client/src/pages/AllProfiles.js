@@ -1,5 +1,8 @@
 import { defaultDataIdFromObject } from "@apollo/client";
 import React,{ useState,useEffect } from "react";
+import ProfileCard from "../component/ProfileListEach/ProflileListEach";
+import { Card } from 'semantic-ui-react'; 
+
 const axios = require('axios'); 
 const SERVER = 'http://localhost:4000';
 
@@ -22,9 +25,9 @@ const AllProfiles = ()=>{
     
     console.log(response); 
     return (
-        <div> 
-            {response.map((prof)=>{ return <div key={prof.id}>{prof.name}</div> })}
-        </div> 
+        <Card.Group> 
+            {response.map((profile)=>{ return <ProfileCard key={profile.id} profile={profile} /> })}
+        </Card.Group> 
     ); 
 }
 

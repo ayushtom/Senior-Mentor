@@ -3,7 +3,7 @@ const router = express.Router();
 router.use(express.json()); 
 
 const Profile = require("../models/Profile"); 
-const { checkToken } = require("../middlewares/tokenvalidation");
+const checkAuth = require("../middlewares/check-auth");
 
 const profileProps =  [
     'user_id', 'image_link', 'first_name', 'last_name', 'year', 'branch'
@@ -32,10 +32,10 @@ async function returnProfile(user_id)
     return profile; 
 }
 
-router.post("/profile",checkToken,(req,res)=>{
+router.post("/profile",checkAuth,(req,res)=>{
 
-    const user_id = req.decode.payload.user_id; 
-    const email = req.decode.payload.password; 
+    const user_id = req.decode.token.user_id; 
+    const email = req.decode.token.email; 
     var body = req.body; 
     body.email = email; 
 
@@ -58,9 +58,9 @@ router.post("/profile",checkToken,(req,res)=>{
     
 }); 
 
-router.get("/profile",checkToken,(req,res)=>{ 
+router.get("/profile",checkAuth,(req,res)=>{ 
 
-    const user_id = req.decode.payload.user_id; 
+    const user_id = req.decode.token.user_id; 
     
     returnProfile(user_id)
     .then((profile)=>{

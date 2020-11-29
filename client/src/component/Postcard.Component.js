@@ -15,7 +15,7 @@ function PostCard({
   
 
   return (
-    <Card fluid>
+    <Card fluid >
       <Card.Content>
         <Image
           floated="right"

@@ -28,11 +28,12 @@ function Home() {
           {loading ? (
             <h1>Loading...</h1>
           ):(
-            <Transition.Group>
+            <Transition.Group> 
             {posts && posts.map(post => (
-              <Grid.Column key={post.id} style={{marginBottom:20}}>
+              <Grid.Column key={post.id} style={ {marginBottom:20,"width":"100%" }}>
                 <PostCard post={post} />
               </Grid.Column>
+              
             ))}
             </Transition.Group>
 

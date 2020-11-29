@@ -21,9 +21,17 @@ function Profile(){
  
   }
   );
+  
+  function save_profile(){
+    axios.post('http://localhost:4000/profile/add', values)
+    .then(function (response) {
+      console.log("hey");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
-  save_profile(){
-    axios.post("http://localhost:4000/profile")
+   
 
   }
   
