@@ -23,7 +23,7 @@ const AllProfiles = ()=>{
     }, []);
     
     
-    console.log(response); 
+    //console.log(response); 
     return (
         <Card.Group> 
             {response.map((profile)=>{ return <ProfileCard key={profile.id} profile={profile} /> })}

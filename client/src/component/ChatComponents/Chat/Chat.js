@@ -25,11 +25,16 @@ const Chat = ({ location })=> {
         const { name, room } = queryString.parse(location.search); 
 
         //socket = io(ENDPOINT);
-        const token = localStorage.getItem('jwtToken');
-        const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
-        console.log(decodedToken); 
+        let token = null;
+        let decoded = null;  
+        try {
+            token = localStorage.getItem('jwtToken');
+            decoded = jwtDecode(token);
+        } catch(x) { 
+            console.log("no token / bad token")
+        }
         
-        console.log(token); 
+        //console.log(token); 
         socket = io.connect(ENDPOINT, {
             query: `token=${token}`
         });
