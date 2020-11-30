@@ -16,10 +16,12 @@ function Profile() {
     //const x = queryString.parse(window.location.search);
     //console.log(x);   
     //const { id } = queryString.parse(window.location.search);  
-    console.log(window.location); 
+    const arr = window.location.href.split("/"); 
+    const myid = arr[arr.length-1]; 
+    console.log(myid); 
 
     axios
-      .get("http://localhost:4000/profile/"+user.id)
+      .get("http://localhost:4000/profile/"+myid)
       .then((res) => {
         const response = res.data;
         console.log(response)
