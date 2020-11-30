@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Card, Icon, Image } from "semantic-ui-react";
+import { Button } from 'semantic-ui-react'
+import { Link } from "react-router-dom"; 
+
 import "./Profile.css";
 import axios from "axios";
 import { AuthContext } from "../../context/auth";
@@ -19,7 +22,6 @@ function Profile() {
     const arr = window.location.href.split("/"); 
     const myid = arr[arr.length-1]; 
     console.log(myid); 
-
     axios
       .get("http://localhost:4000/profile/"+myid)
       .then((res) => {
@@ -45,7 +47,15 @@ function Profile() {
         </Card.Meta>
         <Card.Description>{response.branch}</Card.Description>
       </Card.Content>
-      <Card.Content extra>{response.email}</Card.Content>
+      <Card.Content extra>{response.email}
+        
+      </Card.Content>
+
+      <Link to={`/profile/add`}>
+          <Button primary>
+            Edit Profile
+          </Button>
+        </Link>
     </Card>
   );
 }

@@ -1,37 +1,51 @@
-import React,{useContext} from 'react'
+import React,{ useContext, useState,useEffect} from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import { useMutation }  from '@apollo/client'
 import { AuthContext } from '../context/auth';
 import { useForm } from '../utils/hooks';
 
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 
 export default function EditProfile(){
 
   const {user} = useContext(AuthContext);
+  const [response, setResponse] = useState({});
+  // const [values, setValues] = useState({});
+
   const token = localStorage.getItem('jwtToken')
   console.log(user)
-  const { onChange, onSubmit, values } = useForm(save_profile, {
-    first_name:'',
-    last_name:'',
-    year:'',
-    branch:'',
-    email:''
-  }
-  );
-
   
+  
+  
+  useEffect(() => {
+
+  axios
+    .get("http://localhost:4000/profile/"+user.id)
+    .then((res) => {
+      const response = res.data;
+      console.log(response)
+      setResponse(response.userp[0]);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }, []);
   
   function save_profile(){
-    values.user_id = user.id
-    axios.post('http://localhost:4000/profile/add', values, {headers: {
+
+    
+
+    response.user_id = user.id
+    axios.post('http://localhost:4000/profile/add', response, {headers: {
       'Authorization': "Bearer " + token
     }})
     .then(function (response) {
       console.log("hey");
-      console.log(response); 
+      console.log(response);
+      window.location.replace('/profile/view/'+user.id)
     })
     .catch(function (error) {
       console.log(error);
@@ -40,6 +54,15 @@ export default function EditProfile(){
    
 
   }
+  const onChange = (event) => {
+    
+    setResponse({ ...response, [event.target.name]: event.target.value });
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    save_profile()
+  };
   
   return(
     <Form onSubmit={onSubmit} noValidate>
@@ -48,7 +71,7 @@ export default function EditProfile(){
         placeholder="First Name"
         name="first_name"
         type="text"
-        value={values.first_name}
+        value={response.first_name}
         onChange={onChange}
       />
       <Form.Input
@@ -56,7 +79,7 @@ export default function EditProfile(){
         placeholder="Last Name"
         name="last_name"
         type="text"
-        value={values.last_name}
+        value={response.last_name}
         onChange={onChange}
       />
       <Form.Input
@@ -64,7 +87,7 @@ export default function EditProfile(){
         placeholder="Email"
         name="email"
         type="text"
-        value={values.email}
+        value={response.email}
         onChange={onChange}
       />
       <Form.Input
@@ -72,7 +95,7 @@ export default function EditProfile(){
         placeholder="Year"
         name="year"
         type="number"
-        value={values.year}
+        value={response.year}
         onChange={onChange}
       />
       <Form.Input
@@ -80,12 +103,14 @@ export default function EditProfile(){
         placeholder="Branch"
         name="branch"
         type="text"
-        value={values.branch}
+        value={response.branch}
         onChange={onChange}
       />
 
     
     <Button type='submit' primary onClick={onSubmit}>Submit</Button>
+
+    
   </Form>
 
   )
