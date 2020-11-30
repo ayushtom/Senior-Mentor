@@ -21,7 +21,7 @@ function Profile() {
       .get("http://localhost:4000/profile/"+id)
       .then((res) => {
         const response = res.data;
-        console.log(res)
+        console.log(response)
         setResponse(response);
       })
       .catch((err) => {
