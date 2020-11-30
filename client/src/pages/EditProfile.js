@@ -11,7 +11,7 @@ import axios from 'axios';
 export default function EditProfile(){
 
   const {user} = useContext(AuthContext);
-  const token=localStorage.getItem('jwtToken')
+  const token = localStorage.getItem('jwtToken')
   console.log(user)
   const { onChange, onSubmit, values } = useForm(save_profile, {
     first_name:'',
@@ -26,9 +26,12 @@ export default function EditProfile(){
   
   function save_profile(){
     values.user_id = user.id
-    axios.post('http://localhost:4000/profile/add', values)
+    axios.post('http://localhost:4000/profile/add', values, {headers: {
+      'Authorization': "Bearer " + token
+    }})
     .then(function (response) {
       console.log("hey");
+      console.log(response); 
     })
     .catch(function (error) {
       console.log(error);

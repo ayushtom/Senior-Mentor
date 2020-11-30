@@ -29,7 +29,7 @@ export default function Menubar() {
         to="/profile/all"
       />
       <Menu.Menu position="right">
-      <Menu.Item name={user.name} active as={Link} to={`/profile/${user.id}`} />
+      <Menu.Item name={user.name} active as={Link} to={`/profile/view/${user.id}`} />
 
         
         <Menu.Item

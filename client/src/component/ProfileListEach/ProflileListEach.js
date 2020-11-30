@@ -60,7 +60,7 @@ const ProfileCard = ({profile}) => {
       </Card.Content>
       <Card.Content extra>
         <div className='ui two buttons'>
-        <Link to={`/profile/${profile.user_id}`}>
+        <Link to={`/profile/view/${profile.user_id}`}>
           <Button basic color='blue'>
             View
           </Button>

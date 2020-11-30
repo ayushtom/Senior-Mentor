@@ -21,15 +21,17 @@ router.post("/profile/add",checkToken, async (req,res)=>{
         let result; 
         if(exists.length) {
             //update
-            const prof = ({
-                user_id, 
+            //console.log("inside update"); 
+            const prof = { 
                 first_name,
                 last_name,
                 year,
                 branch,
                 email
-            });
-            result = await Profile.update({user_id},{prof}, {new:true} ); 
+            };
+            result = await Profile.findOneAndUpdate({user_id},prof, {new:true} ); 
+            console.log(result); 
+
         } else {
             //insert 
             const prof = new Profile({

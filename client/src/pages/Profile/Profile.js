@@ -3,26 +3,27 @@ import { Card, Icon, Image } from "semantic-ui-react";
 import "./Profile.css";
 import axios from "axios";
 import { AuthContext } from "../../context/auth";
+import queryString from "query-string"; 
+
 
 function Profile() {
+  
   const { user } = useContext(AuthContext);
-
   const [response, setResponse] = useState({});
-
-  console.log(user);
-//   const res = await axios.post('https://httpbin.org/post', body, {
-//   headers: {
-//     'Authorization': token
-//   }
-// });
-  const id=user.user_id
+  //console.log(user);
   useEffect(() => {
+    
+    //const x = queryString.parse(window.location.search);
+    //console.log(x);   
+    //const { id } = queryString.parse(window.location.search);  
+    console.log(window.location); 
+
     axios
-      .get("http://localhost:4000/profile/"+id)
+      .get("http://localhost:4000/profile/"+user.id)
       .then((res) => {
         const response = res.data;
         console.log(response)
-        setResponse(response);
+        setResponse(response.userp[0]);
       })
       .catch((err) => {
         console.log(err);
