@@ -15,8 +15,6 @@ function Profile(){
     year:'',
     branch:'',
     email:''
-
- 
   }
   );
   

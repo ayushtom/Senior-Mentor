@@ -31,7 +31,7 @@ function App() {
         <Route exact path="/profile" component={Profile} />
         <Route path="/live" exact component={Join} />
         <Route path="/live/chat" exact component={Chat} /> 
-        <Route path="/all" axact component={AllProfiles} /> 
+        <Route path="/profile/all" axact component={AllProfiles} /> 
       </Container>
     </Router>
     </AuthProvider>

@@ -6,6 +6,7 @@ import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input"; 
 import Messages from "../Messages/Messages";
 import jwtDecode from 'jwt-decode';
+import { Redirect } from "react-router-dom";
 
 // Right side components
 import InfoBarRight from "../InfobarRight/InfoBarRight"
@@ -32,7 +33,9 @@ const Chat = ({ location })=> {
             decoded = jwtDecode(token);
         } catch(x) { 
             console.log("no token / bad token")
+            1 && <Redirect to="/login" /> 
         }
+        
         
         //console.log(token); 
         socket = io.connect(ENDPOINT, {

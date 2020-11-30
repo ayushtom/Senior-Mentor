@@ -26,7 +26,7 @@ export default function Menubar() {
         active={activeItem === "community"}
         onClick={handleItemClick}
         as={Link}
-        to="/all"
+        to="/profile/all"
       />
       <Menu.Menu position="right">
       <Menu.Item name={user.name} active as={Link} to="/profile" />
@@ -56,7 +56,7 @@ export default function Menubar() {
         active={activeItem === "community"}
         onClick={handleItemClick}
         as={Link}
-        to="/all"
+        to="/profile/all"
       />
       <Menu.Menu position="right">
         <Menu.Item
