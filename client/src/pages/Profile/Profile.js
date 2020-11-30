@@ -10,10 +10,15 @@ function Profile() {
   const [response, setResponse] = useState({});
 
   console.log(user);
-
+//   const res = await axios.post('https://httpbin.org/post', body, {
+//   headers: {
+//     'Authorization': token
+//   }
+// });
+  const id=user.user_id
   useEffect(() => {
     axios
-      .get("http://localhost:4000/profile", {email : user.email})
+      .get("http://localhost:4000/profile/"+id)
       .then((res) => {
         const response = res.data;
         console.log(res)

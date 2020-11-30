@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import { useMutation }  from '@apollo/client'
 import { AuthContext } from '../context/auth';
@@ -8,7 +8,11 @@ import axios from 'axios';
 
 
 
-function Profile(){
+export default function EditProfile(){
+
+  const {user} = useContext(AuthContext);
+  const token=localStorage.getItem('jwtToken')
+  console.log(user)
   const { onChange, onSubmit, values } = useForm(save_profile, {
     first_name:'',
     last_name:'',
@@ -19,9 +23,11 @@ function Profile(){
  
   }
   );
+
+  
   
   function save_profile(){
-    values.user_id = 
+    values.user_id = user.id
     axios.post('http://localhost:4000/profile/add', values)
     .then(function (response) {
       console.log("hey");
@@ -90,4 +96,3 @@ function Profile(){
 
  
 
-export default Profile
