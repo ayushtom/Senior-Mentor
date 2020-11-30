@@ -131,7 +131,7 @@ function SinglePost(props) {
                   {user && user.email === comment.email && (
                     <DeleteButton postId={id} commentId={comment.id} />
                   )}
-                  <Card.Header>{comment.email}</Card.Header>
+                  <Card.Header>{comment.name}</Card.Header>
                   <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
                   <Card.Description>{comment.body}</Card.Description>
                 </Card.Content>
@@ -152,6 +152,7 @@ const SUBMIT_COMMENT_MUTATION = gql`
       comments {
         id
         body
+        name
         createdAt
         email
       }
@@ -169,12 +170,14 @@ const FETCH_POST_QUERY = gql`
       name
       likeCount
       likes {
+        name
         email
       }
       commentCount
       comments {
         id
         email
+        name
         createdAt
         body
       }

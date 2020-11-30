@@ -26,6 +26,7 @@ type Comment
 {
     id:ID!
     email:String!
+    name:String!
 
     createdAt:String!
     body:String!
@@ -33,6 +34,8 @@ type Comment
 type Like
 {
     id:ID!
+    name:String!
+
     email:String!
     createdAt:String!
 } 

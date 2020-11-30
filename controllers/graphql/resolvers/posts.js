@@ -81,7 +81,7 @@ module.exports={
         
         async likePost(_, { postId }, context) 
         {
-            const { email } = checkAuth(context);
+            const { email,name } = checkAuth(context);
       
             const post = await Post.findById(postId);
             if (!post) {
@@ -94,6 +94,7 @@ module.exports={
               } else {
                 post.likes.push({
                   email,
+                  name,
                   createdAt: new Date().toISOString()
                 });
               }
