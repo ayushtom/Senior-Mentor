@@ -10,6 +10,7 @@ const PostSchema = new Schema({
     createdAt:String,
     comments:[
         {
+            name:String,
             body:String,
             email:String,
             createdAt:String
@@ -17,6 +18,7 @@ const PostSchema = new Schema({
     ],
     likes:[
         {
+            name:String,
             email:String,
             createdAt:String
         }
