@@ -77,12 +77,14 @@ app.use(cors());
 app.use(cookieParser()); 
 app.use(router); 
 
-const viewAll = require("./controllers/viewAllUsers");
-const saveProfile = require("./controllers/saveProfileData");
-const profile=require("./controllers/saveProfileData")
-app.use("/",viewAll); 
+const viewProfile = require("./controllers/viewProfile");
+const saveProfile = require("./controllers/editProfile");
+const editProfile=require("./controllers/editProfile")
+
+
+app.use("/",viewProfile); //view all profiles or particular profile 
 app.use("/",saveProfile); 
-app.use("/profile",profile)
+app.use("/",editProfile); 
 // const register = require("./controllers/userRegisterController");
 // const login  = require("./controllers/userLoginController"); 
 // const profile = require("./controllers/userProfileController"); 

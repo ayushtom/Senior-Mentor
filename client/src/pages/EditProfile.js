@@ -21,6 +21,7 @@ function Profile(){
   );
   
   function save_profile(){
+    values.user_id = 
     axios.post('http://localhost:4000/profile/add', values)
     .then(function (response) {
       console.log("hey");

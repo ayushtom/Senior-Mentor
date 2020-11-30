@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const jwtsalt = process.env.JWT_SALT;
+const jwtsalt = process.env.KEY;
 
 var failureObj = {
     success : 0,
@@ -9,8 +9,9 @@ var failureObj = {
 module.exports = {
     checkToken: function(req,res,next){
         //token = req.cookies[process.env.COOKIE]; 
-        const authheader=context.req.headers.authorization;
+        const authheader=req.headers.authorization;
         const token = authheader.split('Bearer ')[1];
+    
         if(token){
             jwt.verify(token, jwtsalt, (err,decoded)=>{
                 if(err){
