@@ -19,8 +19,6 @@ export default function EditProfile(){
     year:'',
     branch:'',
     email:''
-
- 
   }
   );
 

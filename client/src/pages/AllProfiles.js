@@ -11,7 +11,7 @@ const AllProfiles = ()=>{
     const [response,setResponse] = useState([]);
     
     useEffect(() => {
-        axios.get(`${SERVER}/all`,{})
+        axios.get(`${SERVER}/profile/all`,{})
         .then((res)=>{
             const response = res.data.allUsers; 
             setResponse(response); 

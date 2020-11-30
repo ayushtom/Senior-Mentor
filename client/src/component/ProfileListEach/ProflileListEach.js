@@ -12,24 +12,37 @@ try {
     console.log("no token / bad token")
 }
 
-/*
-const decodedToken = "ASDS"; //jwtDecode(localStorage.getItem('jwtToken'));
-console.log(decodedToken); 
-const myname = decodedToken.name.split(" ").join("") + decodedToken.id.toString(); 
-let cardname = null; 
-const getName = (profile)=>{
-    cardname = profile.first_name + profile.last_name + profile.user_id.toString(); 
-}*/
+const goToChat = (cardName)=> {
+  console.log(cardName,"cardName"); 
+  console.log(decoded); 
+  return (
+    <Link  to={`/live/chat?name=${myname}&room=${cardName}`}>
+      <Button basic color='green'>
+        Message
+      </Button>
+    </Link>
+  ); 
+}
+ 
+const goToLogin = ()=>{
+  return (
+    <Link  to={`/login`}>
+      <Button basic color='green'>
+        Message
+      </Button>
+    </Link>
+  ); 
+}
+
 const ProfileCard = ({profile}) => { 
 
     const [cardName,setcardName] = useState(); 
 
     useEffect(() => {
-        //console.log(profile.name.split(" ").join("") + profile.user_id.toString()); 
         setcardName(profile.name.split(" ").join("") + profile.user_id.toString()); 
-        //console.log("cardname",cardName); 
     }, []); 
-     
+    
+
     return(
     <Card style={{"width":"200px"}}>
       <Card.Content>
@@ -47,14 +60,12 @@ const ProfileCard = ({profile}) => {
       </Card.Content>
       <Card.Content extra>
         <div className='ui two buttons'>
+        <Link to={`/profile/${profile.user_id}`}>
           <Button basic color='blue'>
-            Ping
+            View
           </Button>
-          <Link onClick={ e => decoded && {cardName} && e.preventDefault() } to={`/live/chat?name=${myname}&room=${cardName}`}>
-            <Button basic color='green'>
-                Message
-            </Button>
-          </Link>
+        </Link>
+        { decoded ? goToChat(cardName) :  goToLogin() }
         </div>
       </Card.Content>
     </Card>
