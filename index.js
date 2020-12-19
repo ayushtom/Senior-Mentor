@@ -39,7 +39,8 @@ io.on('connection', socket => {
 
     socket.on('join',({name,room},callBack)=>{ 
 
-        const user = addUser({id:socket.id,name,room});  //destructuring the object 
+        const user = addUser({id:socket.id,name:name,room:room});  //destructuring the object 
+        //console.log(user);
         if(user.error) return callBack(user.error); 
         
         socket.join(user.room) //joins a user in a room 
@@ -47,7 +48,7 @@ io.on('connection', socket => {
         socket.broadcast.to(user.room).emit('message',{user:'admin', text:`${user.name} has joined the room`}); //sends message to all users in room except this user
         
         io.to(user.room).emit('usersOnline', { room: user.room, users: getUsersInRoom(user.room) });
-
+        
         callBack(); // passing no errors to frontend for now 
     }); 
 

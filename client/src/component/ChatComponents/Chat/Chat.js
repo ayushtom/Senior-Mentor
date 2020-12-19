@@ -18,7 +18,7 @@ const Chat = ({ location })=> {
     const [ room, setRoom ] = useState(''); 
     const [ message, setMessage ] = useState('');   // for sending message 
     const [ messages, setMessages ] = useState([]); // for received message 
-    const [ usersOnline, setUsersOnline ] = useState('');
+    const [ usersOnline, setUsersOnline ] = useState([]);
 
     const ENDPOINT = 'localhost:4000'; //server 
 
@@ -42,13 +42,7 @@ const Chat = ({ location })=> {
             query: `token=${token}`
         });
         
-        // socket.on('connect',  (socket) => {
-        //     socket
-        //       .on('authenticated', function () {
-        //         //do other things
-        //       })
-        //       .emit('authenticate', {token}); //send the jwt
-        // });
+        
         setName(name);
         setRoom(room); 
              
@@ -63,13 +57,15 @@ const Chat = ({ location })=> {
     },[ENDPOINT,location.search]);  
 
     useEffect(()=>{
-        socket.on('message',(message)=>{
-            //console.log(message); 
-            setMessages([...messages,message]); 
-            //console.log("Socket code ran"); 
+        socket.on('message',(receivedMessage)=>{
+            setMessages((messages) => [...messages,receivedMessage]); 
         });
+        socket.on('usersOnline',(users)=>{
+            setUsersOnline(users);
+            console.log(usersOnline); 
+        }); 
         //console.log("use effect ran"); 
-    },[message]); // for received message 
+    },[]); // for received message 
 
     // socket.on('usersOnline',(users)=>{
     //     setUsersOnline(users); 
