@@ -38,10 +38,21 @@ function Profile() {
   return (
     <Card fluid color="teal">
       <Card.Content>
-
-        <Card.Header>
-          {response.first_name} {response.last_name}
-        </Card.Header>
+        <div className="strip">
+          <div>
+            <Card.Header className="name">
+              {response.first_name} {response.last_name}
+            </Card.Header> 
+          </div>
+          <div>
+              <Image
+                style={{marginBottom:"10px", display:"inline-block", width:"200px"}}
+                //floated='middle'
+                size='medium'
+                src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+              />
+          </div>
+        </div>
         <Card.Meta>
           <span className="date">Year of Student: {response.year}</span>
         </Card.Meta>
