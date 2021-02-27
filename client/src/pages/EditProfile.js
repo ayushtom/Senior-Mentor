@@ -21,7 +21,6 @@ export default function EditProfile(){
   
   
   useEffect(() => {
-
   axios
     .get("http://localhost:4000/profile/"+user.id)
     .then((res) => {

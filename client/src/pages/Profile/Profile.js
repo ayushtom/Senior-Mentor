@@ -6,24 +6,29 @@ import { Link } from "react-router-dom";
 import "./Profile.css";
 import axios from "axios";
 import { AuthContext } from "../../context/auth";
-import queryString from "query-string"; 
+import jwtDecode from 'jwt-decode';
 
+let decoded = null;  
+let myId = null; 
+try {
+     decoded = jwtDecode(localStorage.getItem('jwtToken'));
+     myId = decoded.id; 
+     console.log("My Id is ", myId); 
+} catch(x) { 
+    console.log("no token / bad token")
+}
 
 function Profile() {
   
   const { user } = useContext(AuthContext);
   const [response, setResponse] = useState({});
   //console.log(user);
-  useEffect(() => {
-    
-    //const x = queryString.parse(window.location.search);
-    //console.log(x);   
-    //const { id } = queryString.parse(window.location.search);  
-    const arr = window.location.href.split("/"); 
-    const myid = arr[arr.length-1]; 
-    console.log(myid); 
+  const arr = window.location.href.split("/"); 
+  const currentProfileId = arr[arr.length-1];
+  useEffect(() => { 
+    console.log(currentProfileId); 
     axios
-      .get("http://localhost:4000/profile/"+myid)
+      .get("http://localhost:4000/profile/"+currentProfileId)
       .then((res) => {
         const response = res.data;
         console.log(response)
@@ -33,7 +38,7 @@ function Profile() {
         console.log(err);
       });
     //getItems().then(data => setItems(data));
-  }, []);
+  }, [currentProfileId]);
 
   return (
     <Card fluid color="teal">
@@ -58,15 +63,18 @@ function Profile() {
         </Card.Meta>
         <Card.Description>{response.branch}</Card.Description>
       </Card.Content>
-      <Card.Content extra>{response.email}
-        
+      <Card.Content extra>
+        {response.email}
       </Card.Content>
-
-      <Link to={`/profile/add`}>
+      {
+        (currentProfileId === myId) && 
+        <Link to={`/profile/add`}> 
           <Button primary>
             Edit Profile
           </Button>
         </Link>
+      }
+      
     </Card>
   );
 }

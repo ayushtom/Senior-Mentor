@@ -14,7 +14,6 @@ try {
 
 const goToChat = (cardName)=> {
   console.log(cardName,"cardName"); 
-  console.log(decoded); 
   return (
     <Link  to={`/live/chat?name=${myname}&room=${cardName}`}>
       <Button basic color='green'>
@@ -47,8 +46,7 @@ const ProfileCard = ({profile}) => {
     <Card style={{"width":"200px"}}>
       <Card.Content>
         <Image
-          style={{"margin-bottom":"10px"}}
-          //floated='middle'
+          style={{"marginBottom":"10px"}}
           size='medium'
           src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
         />

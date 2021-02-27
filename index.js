@@ -80,7 +80,7 @@ app.use(router);
 
 const viewProfile = require("./controllers/viewProfile");
 const saveProfile = require("./controllers/editProfile");
-const editProfile=require("./controllers/editProfile")
+const editProfile = require("./controllers/editProfile")
 
 
 app.use("/",viewProfile); //view all profiles or particular profile 
