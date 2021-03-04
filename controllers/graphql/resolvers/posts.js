@@ -1,7 +1,7 @@
-const Post=require('../../../models/Post.model');
-const checkAuth=require('../../../middlewares/check-auth')
-const { AuthenticationError,UserInputError }=require('apollo-server');
-const User=require('../../../models/User.model')
+const Post = require('../../../models/Post');
+const checkAuth = require('../../../middlewares/check-auth')
+const { AuthenticationError,UserInputError } = require('apollo-server');
+const User = require('../../../models/User')
 
 module.exports={
     Query: {

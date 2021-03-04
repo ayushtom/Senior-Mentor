@@ -33,6 +33,7 @@ io.use(socketioJwt.authorize({
     secret: process.env.KEY,
     handshake: true
 }));
+
 io.on('connection', socket => { 
     //console.log(authenticated);
     console.log(`hello! ${socket.decoded_token.name}`); 

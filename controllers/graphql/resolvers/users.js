@@ -3,7 +3,7 @@ const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken')
 const { validateRegisterInput,validateLoginInput } =require('../../../middlewares/validators');
 const Profile = require('../../../models/Profile');
-const User=require('../../../models/User.model');
+const User=require('../../../models/User');
 
 
 function generateToken(user){

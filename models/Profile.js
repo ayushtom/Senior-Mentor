@@ -10,10 +10,13 @@ const ProfileSchema = new mongoose.Schema({
     image_link : String, 
     first_name : String, 
     last_name : String,
-    year : Number, 
+    year : String, 
     branch : String, 
-    skillset : [String]
-    
+    skillset : [String],
+    bio : String,
+    resume_attachment : String,
+    isVerified : Boolean, 
+
 });
 
 module.exports = Profile = mongoose.model("profile", ProfileSchema); 
