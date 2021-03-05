@@ -6,17 +6,22 @@ const ProfileSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    email: String,
-    image_link : String, 
     first_name : String, 
     last_name : String,
     year : String, 
     branch : String, 
-    skillset : [String],
+    email: String, //redundant 
+    image_link : String, 
+    skillset : [{
+        type: String
+    }],
     bio : String,
     resume_attachment : String,
-    isVerified : Boolean, 
-
-});
+    isVerified : Boolean,  
+},
+    {   
+        timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } 
+    }
+);
 
 module.exports = Profile = mongoose.model("profile", ProfileSchema); 
