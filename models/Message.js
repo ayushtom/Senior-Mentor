@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const MessageSchema = new Schema({
+    typeId: Number, //typeId = 2 -> Personal Chat, typeId = 3 -> Group Chat 
     groupId : String, 
     message : String,
     attachment : String, 

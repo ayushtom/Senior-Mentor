@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const GroupSchema = new Schema({
     groupId : String, 
+    groupName : String, 
     groupDescription : String,
     isPublic : Boolean,   
     groupOwner:

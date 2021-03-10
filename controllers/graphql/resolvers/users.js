@@ -8,10 +8,11 @@ const User=require('../../../models/User');
 
 function generateToken(user){
     return jwt.sign({
-        id:user.user_id,
-        email:user.email,
-        name:user.name
-    },process.env.KEY,{expiresIn:'1hr'})
+        id : user.user_id,
+        _id : user._id, 
+        email : user.email,
+        name : user.name
+    },process.env.KEY,{expiresIn : '1hr'});
 
 }
 

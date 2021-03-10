@@ -38,14 +38,15 @@ io.on('connection', socket => {
     //console.log(authenticated);
     console.log(`hello! ${socket.decoded_token.name}`); 
 
-    socket.on('join',({name,room},callBack)=>{ 
+    socket.on('join',({name,room,roomName},callBack)=>{ 
+        console.log("Handshake query ", socket.decoded_token);
 
         const user = addUser({id:socket.id,name:name,room:room});  //destructuring the object 
         //console.log(user);
         if(user.error) return callBack(user.error); 
         
         socket.join(user.room) //joins a user in a room 
-        socket.emit('message',{user:'admin', text:`Welcome ${user.name} in room ${user.room}.`}); //send to user
+        socket.emit('message',{user:'admin', text:`Welcome ${user.name} in room ${roomName}.`}); //send to user
         socket.broadcast.to(user.room).emit('message',{user:'admin', text:`${user.name} has joined the room`}); //sends message to all users in room except this user
         
         io.to(user.room).emit('usersOnline', { room: user.room, users: getUsersInRoom(user.room) });

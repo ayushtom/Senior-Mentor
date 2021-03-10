@@ -12,10 +12,10 @@ try {
     console.log("no token / bad token")
 }
 
-const goToChat = (cardName)=> {
-  console.log(cardName,"cardName"); 
+const goToChat = (roomId,roomName)=> {
+  console.log(roomId,"roomId"); 
   return (
-    <Link  to={`/live/chat?name=${myname}&room=${cardName}`}>
+    <Link  to={`/live/chat?name=${myname}&room=${roomId}&roomName=${roomName}`}>
       <Button basic color='green'>
         Message
       </Button>
@@ -35,11 +35,16 @@ const goToLogin = ()=>{
 
 const ProfileCard = ({profile}) => { 
 
-    const [cardName,setcardName] = useState(); 
+    const [roomId,setRoomId] = useState(); 
 
     useEffect(() => {
-        setcardName(profile.name.split(" ").join("") + profile.user_id.toString()); 
-    }, []); 
+      if(profile.user_id < decoded.id){
+        setRoomId(`P-${profile.user_id}-${decoded.id}`);
+      } else {
+        setRoomId(`P-${decoded.id}-${profile.user_id}`)
+      }
+      //  setRoomId(profile.name.split(" ").join("") + profile.user_id.toString()); 
+    }, [profile]); 
     
 
     return(
@@ -63,7 +68,7 @@ const ProfileCard = ({profile}) => {
             View
           </Button>
         </Link>
-        { decoded ? goToChat(cardName) :  goToLogin() }
+        { decoded ? goToChat(roomId,profile.name) :  goToLogin() }
         </div>
       </Card.Content>
     </Card>

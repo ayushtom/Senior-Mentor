@@ -10,12 +10,14 @@ import { Redirect } from "react-router-dom";
 
 // Right side components
 import InfoBarRight from "../InfobarRight/InfoBarRight"
+
 let socket; 
 
 const Chat = ({ location })=> { 
 
     const [ name, setName ] = useState('');
     const [ room, setRoom ] = useState(''); 
+    const [ roomName, setRoomName ] = useState(''); 
     const [ message, setMessage ] = useState('');   // for sending message 
     const [ messages, setMessages ] = useState([]); // for received message 
     const [ usersOnline, setUsersOnline ] = useState([]);
@@ -23,7 +25,7 @@ const Chat = ({ location })=> {
     const ENDPOINT = 'localhost:4000'; //server 
 
     useEffect(() => {
-        const { name, room } = queryString.parse(location.search); 
+        const { name, room, roomName } = queryString.parse(location.search); 
 
         //socket = io(ENDPOINT);
         let token = null;
@@ -45,8 +47,8 @@ const Chat = ({ location })=> {
         
         setName(name);
         setRoom(room); 
-             
-        socket.emit('join',{name,room},()=>{
+        setRoomName(roomName)
+        socket.emit('join',{name,room,roomName},()=>{
             //this function is called if server wants to reply with a message(eg:error) on this join event 
         }); //{name,room} es6 is actually {name:name, room:room} 
 

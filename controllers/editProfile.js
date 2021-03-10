@@ -11,11 +11,11 @@ router.post("/profile/add",checkToken, async (req,res)=>{
         const body = req.body; 
         const decoded = req.decode; 
         const user_id = decoded.id; 
-        const first_name=body.first_name;
-        const last_name=body.last_name;
-        const year=body.year;
-        const branch=body.branch;
-        const email=body.email;
+        const first_name = body.first_name;
+        const last_name = body.last_name;
+        const year = body.year;
+        const branch = body.branch;
+        const email = body.email;
         
         const exists = await Profile.find({user_id}); 
         let result; 
