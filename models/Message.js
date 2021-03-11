@@ -22,5 +22,5 @@ const MessageSchema = new Schema({
 );
 
 
-const Message = mongoose.model("message", EventSchema);
+const Message = mongoose.model("message", MessageSchema);
 module.exports = Message;

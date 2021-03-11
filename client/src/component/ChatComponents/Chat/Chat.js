@@ -41,7 +41,11 @@ const Chat = ({ location })=> {
         
         //console.log(token); 
         socket = io.connect(ENDPOINT, {
-            query: `token=${token}`
+            query: {
+                token,
+                room,
+                roomName
+            }//`token=${token}`
         });
         
         

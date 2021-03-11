@@ -26,7 +26,7 @@ const AllProfiles = ()=>{
     //console.log(response); 
     return (
         <Card.Group> 
-            {response.map((profile)=>{ return <ProfileCard key={profile.id} profile={profile} /> })}
+            {response.map((profile,index)=>{ return <ProfileCard key={index} profile={profile} /> })}
         </Card.Group> 
     ); 
 }

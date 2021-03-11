@@ -2,6 +2,7 @@ import React,{ useState,useEffect } from 'react'
 import { Link } from "react-router-dom"; 
 import { Button, Card, Image } from 'semantic-ui-react'
 import jwtDecode from 'jwt-decode';
+import { decode } from 'jsonwebtoken';
 
 let decoded = null;  
 let myname = null; 
@@ -38,10 +39,13 @@ const ProfileCard = ({profile}) => {
     const [roomId,setRoomId] = useState(); 
 
     useEffect(() => {
-      if(profile.user_id < decoded.id){
-        setRoomId(`P-${profile.user_id}-${decoded.id}`);
-      } else {
-        setRoomId(`P-${decoded.id}-${profile.user_id}`)
+      //let decoded = jwtDecode(localStorage.getItem('jwtToken'));
+      if(decoded) {
+        if(profile.user_id < decoded.id){
+          setRoomId(`P-${profile.user_id}-${decoded.id}`);
+        } else {
+          setRoomId(`P-${decoded.id}-${profile.user_id}`)
+        }
       }
       //  setRoomId(profile.name.split(" ").join("") + profile.user_id.toString()); 
     }, [profile]); 
