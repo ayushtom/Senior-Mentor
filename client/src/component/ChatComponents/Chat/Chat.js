@@ -51,8 +51,10 @@ const Chat = ({ location })=> {
         
         setName(name);
         setRoom(room); 
-        setRoomName(roomName)
-        socket.emit('join',{name,room,roomName},()=>{
+        setRoomName(roomName);
+        socket.emit('join',(oldMessages)=>{
+            console.log(oldMessages); 
+            setMessages(oldMessages); 
             //this function is called if server wants to reply with a message(eg:error) on this join event 
         }); //{name,room} es6 is actually {name:name, room:room} 
 
@@ -89,7 +91,7 @@ const Chat = ({ location })=> {
     return (
         <div className="outerContainer">
             <div className="container">
-                <InfoBar room={room}/> 
+                <InfoBar roomName={roomName}/> 
                 <Messages messages={messages} name={name}/>
                 <Input setMessage={setMessage} sendMessage={sendMessage} message={message} /> 
             </div>

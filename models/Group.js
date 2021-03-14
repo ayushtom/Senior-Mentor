@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const GroupSchema = new Schema({
+    typeId: Number, //typeId = 2 -> Personal Chat, typeId = 3 -> Group Chat 
     groupId : String, 
     groupName : String, 
     groupDescription : String,
@@ -11,7 +12,7 @@ const GroupSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'user'
     },
-    groupMembers : [{
+    groupMembers : [{ 
         type:Schema.Types.ObjectId,
         ref:'user'
     }]
@@ -22,5 +23,5 @@ const GroupSchema = new Schema({
 );
 
 
-const Group = mongoose.model("group", EventSchema);
-module.exports = Message;
+const Group = mongoose.model("group", GroupSchema);
+module.exports = Group;
