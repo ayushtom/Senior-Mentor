@@ -22,8 +22,10 @@ router.get("/profile/all",async (req,res)=>{
 router.get("/profile/:id",async (req,res)=>{
 
     const user_id = req.params.id;
+    console.log(user_id+"yay")
     try {
         const userp = await Profile.find({user_id});
+        console.log(userp)
         res.json({
             success:1, 
             userp
