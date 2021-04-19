@@ -5,5 +5,6 @@ module.exports = {
     Post : require("./Post"),
     User : require("./User"),
     UserNotification : require("./UserNotification"),
-    Comment : require("./Comment")
+    Comment : require("./Comment"),
+    Like : require("./Like")
 }

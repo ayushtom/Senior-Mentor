@@ -23,7 +23,24 @@ router.post("/post", checkToken, async(req,res)=>{
     }
 })
 
-router.get("/post", checkToken, async(req,res)=>{
+router.get("/post/:id", checkToken, async(req,res)=>{
+    const userId = res.locals.userId; 
+    const postId = req.params.id; 
+    try { 
+        const { 
+             body  
+        } = req.body; 
+        const result = await postController.getPostById(postId); 
+        res.status(200).json(result); 
+    } catch(err) {
+        console.log(err); 
+        res.status(err.status).json({
+            error : err.message
+        })
+    }
+})
+
+router.get("/posts", checkToken, async(req,res)=>{
     try { 
         const userId = res.locals.userId; 
         const result = await postController.postsByUser(userId)
@@ -36,11 +53,12 @@ router.get("/post", checkToken, async(req,res)=>{
     }
 })
 
-router.post("/post/comment", checkToken, async(req,res)=>{
+router.post("/post/comment/:id", checkToken, async(req,res)=>{
     const userId = res.locals.userId; 
+    const postId = req.params.id; 
     try { 
         const { 
-            postId, body  
+             body  
         } = req.body; 
         const result = await postController.addComment(userId, postId, body); 
         res.status(200).json(result); 
@@ -52,7 +70,21 @@ router.post("/post/comment", checkToken, async(req,res)=>{
     }
 })
 
-router.get("/posts", async(req,res)=>{
+router.put("/post/like/:id", checkToken, async(req,res)=>{
+    const userId = res.locals.userId; 
+    const postId = req.params.id; 
+    try { 
+        const result = await postController.toggleLike(userId, postId); 
+        res.status(200).json(result); 
+    } catch(err) {
+        console.log(err); 
+        res.status(err.status).json({
+            error : err.message
+        })
+    }
+})
+
+router.get("/posts/all", async(req,res)=>{
     try { 
         const result = await postController.allPosts()
         

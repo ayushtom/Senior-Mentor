@@ -39,6 +39,19 @@ const postsByUser = async(userId) => {
     }  
 }
 
+const getPostById = async(postId) => {
+    try {
+        let post = await model.Post.findById(postId) 
+        .populate("userId","_id firstName lastName imageLink")
+        .populate("comments.userId","_id firstName lastName imageLink") 
+        .populate("likes.userId","_id firstName lastName imageLink"); 
+
+        return post; 
+    } catch(err){
+        Promise.reject(err); 
+    }  
+}
+
 const addComment = async(userId, postId, body) => {
     try {
         const post = await model.Post.findById(postId);
@@ -56,6 +69,44 @@ const addComment = async(userId, postId, body) => {
         Promise.reject(err); 
     }  
 }
+
+const toggleLike = async(userId, postId) => {
+    try {
+        const post = await model.Post.findById(postId);
+        console.log(post);
+        let likes = post.likes; 
+        
+        let i = 0; 
+        for(i=0; i<likes.length; i++) { 
+            console.log(likes[i].userId, userId); 
+            if(String(likes[i].userId) === String(userId)) {
+                likes[i].isLike = !likes[i].isLike;
+                break;  
+            } 
+        }
+        if(likes.length == 0 || i === likes.length) { 
+            let like = new model.Like({
+                userId : userId,
+                isLike : 1 
+            })
+            likes.push(like); 
+        }
+
+        post.likes = likes; 
+        await post.save(); 
+        //const user = await model.User.findById(userId); 
+
+        // const comment = new model.Like({
+        //     body : body, 
+        //     userId : userId 
+        // })
+         
+        return post; 
+    } catch(err){
+        Promise.reject(err); 
+    }  
+}
+
 /*
 try {
         const res = await model.Post.create({
@@ -71,5 +122,7 @@ module.exports = {
     newPost,
     allPosts,
     postsByUser,
-    addComment 
+    getPostById, 
+    addComment,
+    toggleLike
 }
