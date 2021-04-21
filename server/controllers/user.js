@@ -5,19 +5,24 @@ const {
     giveToken, hashData 
 } = require("../helpers/helpers");
 
+const findByEmail = async(email) => {
+    const exists = await model.User.findOne({email}); 
+    return exists; 
+}
+
 const registerUser = async (data) => {
     try {
         let {
             email, password, firstName, lastName, year, branch
         } = data; 
         
-        const exists = await model.User.findOne({email}); 
+        const exists = await findByEmail(email); 
         if(exists) { 
-            throw createError(400, "Email already exists"); 
+            
         }
 
         password = hashData(password);
-        const user = await model.User.create({
+      throw createError(400, "Email already exists");   const user = await model.User.create({
             email, password, firstName, lastName, year, branch
         })
 
@@ -105,5 +110,6 @@ module.exports = {
     loginUser, 
     updateUserDetails,
     getProfile, 
-    getAllProfiles 
+    getAllProfiles,
+    findByEmail
 }

@@ -6,7 +6,7 @@ const {
 } = require("../middlewares/checkToken"); 
 
 const {
-    registerUser, loginUser, updateUserDetails, getProfile, getAllProfiles 
+    registerUser, loginUser, updateUserDetails, getProfile, getAllProfiles, findByEmail
 } = require("../controllers/user");
 
 router.post("/register", async(req,res)=>{
@@ -100,6 +100,26 @@ router.get("/profiles", async(req,res) => {
         res.status(200).json(profile); 
     } catch(err) { 
         console.log(err); 
+        res.status(500).json(err); 
+    }
+})
+
+router.post("/checkEmailExists", async(req,res)=>{
+    try {
+        const email = req.body.email; 
+        const exists = await findByEmail(email); 
+        if(exists) {
+            res.status(200).json({
+                exists : true
+            }); 
+        } else {
+            res.status(200).json({
+                exists : false
+            });
+        }
+        
+    } catch(err) {
+        console.log(err.code, err.err, err);
         res.status(500).json(err); 
     }
 })
