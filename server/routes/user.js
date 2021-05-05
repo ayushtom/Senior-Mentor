@@ -14,7 +14,6 @@ router.post("/register", async(req,res)=>{
         const {
             email, password, firstName, lastName, year, branch
         } = req.body;
-        console.log(req.body);
 
         if(!(email && password && firstName && lastName)) { 
             return res.status(400).json({

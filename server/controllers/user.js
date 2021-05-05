@@ -18,20 +18,21 @@ const registerUser = async (data) => {
         
         const exists = await findByEmail(email); 
         if(exists) { 
-            
+            throw createError(400, "Email already exists");   
         }
-
+        
         password = hashData(password);
-      throw createError(400, "Email already exists");   const user = await model.User.create({
+        const user = await model.User.create({
             email, password, firstName, lastName, year, branch
         })
+      
 
         const token = giveToken({
             userId : user._id 
         }); 
 
         return {
-            jwt : token
+            jwt : token,
         };   
        
     } catch(err) {
