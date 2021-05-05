@@ -137,7 +137,7 @@ export default function Navbar({open,setOpen}) {
             </ListItem>
             )}
 
-            {userData.loggedIn && (
+            {userData.loggedIn && userData.token && (
             <ListItem button component={Link} to={`/profile/view/${userData.token.userId}`} key="5">
               <ListItemText primary="My Profile" />
             </ListItem>

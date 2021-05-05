@@ -11,7 +11,7 @@ router.post("/post", checkToken, async(req,res)=>{
         const { 
             title, body, attachment 
         } = req.body; 
-        // console.log(body+"yay");
+        console.log(body+"yay");
         const result = await postController.newPost(userId, {
             title, body 
         })

@@ -7,6 +7,9 @@ import {Typography,Grid,Box,TextField,Container,Button,Select,MenuItem,FormContr
 
 import { makeStyles } from '@material-ui/core/styles';
 
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+
 const useStyles = makeStyles((theme) => ({
     paper: {
       marginTop: theme.spacing(8),
@@ -54,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
   },
   }));
 
+  const imp={headers: {
+    'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+  }}
 export default function ProfileForm({prevStep,handleChange,handleSubmit,values}) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
@@ -72,10 +78,12 @@ export default function ProfileForm({prevStep,handleChange,handleSubmit,values})
           {
             setLoading(false);
             setOpen(true)
-            setMessage("Please Enter All Data")
+            setMessage("Please Enter All Details")
           }
           else
-          {axios.post("http://localhost:5000/register",{
+          {
+          axios.post("http://localhost:5000/register",
+          {
             email:values.email,
             firstName:values.firstName,
             lastName:values.lastName,
@@ -164,7 +172,7 @@ export default function ProfileForm({prevStep,handleChange,handleSubmit,values})
             </Grid>
           
           <Grid item xs={12} sm={6}>
-          <Button fullWidth onClick={()=>prevStep()} variant="contained" color="primary"> Prev</Button>
+          <Button fullWidth onClick={()=>prevStep()} variant="contained" color="primary">Back</Button>
           </Grid>
           <Grid item xs={12} sm={6}>
           <Button fullWidth type="submit" variant="contained" color="primary" onClick={handleButtonClick}> Submit</Button>
