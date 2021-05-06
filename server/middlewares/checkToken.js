@@ -9,7 +9,7 @@ module.exports = {
         //token = req.cookies[process.env.COOKIE]; 
         const authheader=req.headers.authorization;
         const token = authheader;
-        console.log(token, jwtsalt)
+        console.log(`Token : ${token}, JWT_SALT : ${jwtsalt}`)
         if(token){
             jwt.verify(token, jwtsalt, (err,decoded)=>{
                 console.log(err); 

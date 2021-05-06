@@ -43,6 +43,9 @@ const registerUser = async (data) => {
 const loginUser = async (email, password) => {
     try {
         const user = await model.User.findOne({email}); 
+        if(!user) {
+            return createError(500,"User does not exist"); 
+        }
         console.log(password, user.password); 
         if(!compareSync(password,user.password)){ 
             throw createError(401, "Wrong Password")
