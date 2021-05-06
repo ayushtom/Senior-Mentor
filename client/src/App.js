@@ -11,6 +11,7 @@ import Profile from './pages/Profile/Profile'
 import Community from './pages/Community/Community'
 import NotificationPage from './pages/NotificationPage/NotificationPage'
 import MobilePostForm from './pages/MobilePostForm/MobilePostForm'
+import Chat from './pages/Chat/Chat' 
 import jwt_decode from "jwt-decode";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -97,7 +98,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/chat" component={Login} />
+        <Route exact path="/chat" component={Chat} />
         <Route exact path="/community" component={Community} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/profile/view/:id" component={Profile} />
