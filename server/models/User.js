@@ -10,13 +10,28 @@ const UserSchema = new Schema({
     year : String, 
     branch : String, 
     imageLink : String, 
-    skillset : [{
-        type: String
-    }],
+    skills : [
+        {
+            type:Schema.Types.ObjectId,
+            ref:'skill'
+        }
+    ],
     bio : String,
     resumeAttachment : String,
     isVerified : Boolean,
-    isProfileComplete : Boolean  
+    isProfileComplete : Boolean,
+    projects :[
+        {
+            type:Schema.Types.ObjectId,
+            ref:'project'
+        }
+    ],
+    internships :[
+        {
+            type:Schema.Types.ObjectId,
+            ref:'internship'
+        }
+    ]
 },
 {   
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } 

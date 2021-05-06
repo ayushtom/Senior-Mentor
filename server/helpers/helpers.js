@@ -30,5 +30,16 @@ module.exports = {
         let hash = hashSync(data, salt)
         console.log(hash); 
         return hash
+    },
+    skillExists : (skillArray, skill) => { 
+        for(let i = 0; i < skillArray.length; i++){
+            if(skillArray.skill === skill) return 1; 
+        }
+        return 0; 
+    },
+    removeSkillFromArray : (skillArray, skill) => {
+        return skillArray.filter((x) => {
+            return x.skill !== skill ;
+        })
     }
 }

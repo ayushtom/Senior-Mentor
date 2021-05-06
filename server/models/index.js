@@ -6,5 +6,8 @@ module.exports = {
     User : require("./User"),
     UserNotification : require("./UserNotification"),
     Comment : require("./Comment"),
-    Like : require("./Like")
+    Like : require("./Like"),
+    Project : require("./Project"),
+    Internship : require("./Internship"),
+    Skill : require("./Skill")
 }
