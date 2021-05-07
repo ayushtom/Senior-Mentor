@@ -79,9 +79,7 @@ const ChatLeft = () => {
                   </>)
                 })}
               </List>
-            </Typography>
-
-            
+            </Typography>            
         </Container> 
     )
 }
