@@ -23,17 +23,17 @@ const useStyles = makeStyles((theme) => ({
         textAlign:'left', 
         backgroundColor: 'grey',
         color : 'white',
-        padding: '5px 15px',
-        marginLeft: '5px',
-        borderRadius: '5px 25px 0px 5px'
+        padding: theme.spacing(1,2),
+        marginLeft: theme.spacing(2),
+        borderRadius: theme.spacing(1,4,0,1)
     },
     textRight: {
         textAlign:'right', 
         backgroundColor: '#25D366',
         color : 'white',
-        padding: '5px 15px',
-        marginRight: '5px',
-        borderRadius: '25px 5px 5px 0px'
+        padding: theme.spacing(1,2),
+        marginRight: theme.spacing(2),
+        borderRadius: theme.spacing(4,1,1,0)
     }
 }));
 
@@ -42,8 +42,7 @@ const LeftMessage = ({message}) => {
     const user = message.userId; 
     const fullName = `${user.firstName} ${user.lastName}`; 
     return (
-        <Box display="flex" justifyContent="flex-start">
-            {/* <ListItem alignItems="flex-start" className={classes.root}> */}
+        <Box display="flex" justifyContent="flex-start" style={{marginLeft:"1rem"}}>
                 <Box display="flex" flexDirection="column" justifyContent="center">
                     <Box>
                         <Avatar alt={fullName} src="/static/images/avatar/1.jpg" />
@@ -60,7 +59,6 @@ const LeftMessage = ({message}) => {
                         }
                     />
                 </Box>
-            {/* </ListItem> */}
         </Box>
     )
 }
@@ -70,8 +68,7 @@ const RightMessage = ({message}) => {
     const user = message.userId; 
     const fullName = `${user.firstName} ${user.lastName}`; 
     return (
-        <Box display="flex" justifyContent="flex-end">
-            {/* <ListItem alignItems="flex-start" className={classes.root}> */}
+        <Box display="flex" justifyContent="flex-end" style={{marginRight:"1rem"}}>
                 <Box>
                     <ListItemText
                         className={classes.textRight}
@@ -83,12 +80,11 @@ const RightMessage = ({message}) => {
                         }
                     />
                 </Box>
-                <Box display="flex-end" flexDirection="column" justifyContent="center">
+                <Box display="flex" flexDirection="column" justifyContent="center">
                     <Box>
                         <Avatar alt={fullName} src="/static/images/avatar/1.jpg" />
                     </Box>
                 </Box>
-            {/* </ListItem> */}
         </Box>
     )
 }

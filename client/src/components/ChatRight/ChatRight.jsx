@@ -13,34 +13,44 @@ import Input from "./Input/Input";
 
 const useStyles = makeStyles((theme) => ({
     container: {
+        heigth : "80%", 
         margin : theme.spacing(1), 
-        padding: theme.spacing(2),
+        padding: theme.spacing(0),
         textAlign: 'center',
-        color: 'black',
+        color: 'black'
     },
     infobar : {
-      position : "sticky", 
       backgroundColor : "#424242",
       padding : theme.spacing(2),
       top : theme.spacing(0),
       textAlign : 'center',
       color : "white",
       marginBottom : theme.spacing(1),
-      zIndex : "1" 
+    },
+    messageStyle : {
+      overflow : "auto",
+      flex:"auto"
     }
 }));
 
 const ChatRight = () => {
     const classes = useStyles();
     return (
-        <Container maxWidth="lg" className={classes.container} style={{ backgroundColor: 'black', height: '100vh' }}>
-            <Container className={classes.infobar}>
-              <Box display="flex" justifyContent="space-between"> 
-                <Box><Link to="/"><ChevronLeftIcon style={{color:"white"}}/></Link></Box>
-                <Box><Typography variant="h5">Group XYZ</Typography></Box>
+        <Container className={classes.container} style={{  height: '100vh' }}>
+              <Box display="flex" flexDirection="column" justifyContent="space-between">
+                <Box className={classes.infobar}>
+                  <Box display="flex" justifyContent="space-between"> 
+                    <Box><Link to="/"><ChevronLeftIcon style={{color:"white"}}/></Link></Box>
+                    <Box><Typography variant="h5">Group XYZ</Typography></Box>
+                  </Box>
+                </Box>
+                <Box style={{height:"78vh",overflow:"auto"}}>
+                  <Messages /> 
+                </Box>
+                <Box>
+                  <Input /> 
+                </Box>
               </Box>
-            </Container>
-            <Messages /> 
         </Container> 
     )
 }

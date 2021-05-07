@@ -7,6 +7,16 @@ import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
+    },
+    // chatLeft : {
+    //   [theme.breakpoints.up('md')]: {
+    //     display:"none"
+    //   },
+    // },
+    chatRight : {
+      [theme.breakpoints.down('sm')]: {
+        display:"none"
+      },
     }
 }));
 
@@ -14,11 +24,11 @@ const Chat = () => {
     const classes = useStyles();
     return (
     <div className={classes.root}>
-      <Grid container spacing={1}>
+      <Grid container direction="row" spacing={1}>
         <Grid item md={4} sm={12} xs={12}>
           <ChatLeft />
         </Grid>
-        <Grid item md={8} sm={12} xs={12}>
+        <Grid item md={8} className={classes.chatRight}>
           <ChatRight />
         </Grid>
       </Grid>

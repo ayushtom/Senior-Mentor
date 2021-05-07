@@ -57,7 +57,7 @@ const arr = [
 const ChatLeft = () => {
     const classes = useStyles();
     return (
-        <Container maxWidth="lg" className={classes.container} style={{ backgroundColor: 'black', height: '100vh' }}>
+        <Container maxWidth="lg" className={classes.container} style={{height: '100vh' }}>
             <Container className={classes.infobar}>
               <Box display="flex" justifyContent="space-between"> 
                 <Box><Link to="/"><ChevronLeftIcon style={{color:"white"}}/></Link></Box>
