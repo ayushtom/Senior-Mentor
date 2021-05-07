@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 const arr = [
   {
-    chatName : "Thanmay Bhat",
+    chatName : "Tanmay Bhat",
     lastMessage : "I thought you're gonna call me"
   },{
     chatName : "Jeff Bezos",
@@ -57,15 +57,13 @@ const arr = [
 const ChatLeft = () => {
     const classes = useStyles();
     return (
-        <Container maxWidth="lg" className={classes.container} style={{ backgroundColor: '#cfe8fc', height: '100vh' }}>
-            {/*<Container style={{ position:"fixed" }}> */}
-              <Container className={classes.infobar}>
-                <Box display="flex" justifyContent="space-between"> 
-                  <Box><Link to="/"><ChevronLeftIcon style={{color:"white"}}/></Link></Box>
-                  <Box><Typography variant="h5">Chat List</Typography></Box>
-                </Box>
-              </Container>
-            {/*</Container> */}
+        <Container maxWidth="lg" className={classes.container} style={{ backgroundColor: 'black', height: '100vh' }}>
+            <Container className={classes.infobar}>
+              <Box display="flex" justifyContent="space-between"> 
+                <Box><Link to="/"><ChevronLeftIcon style={{color:"white"}}/></Link></Box>
+                <Box><Typography variant="h5">Chat List</Typography></Box>
+              </Box>
+            </Container>
             <Typography component="div">
               <List className={classes.list}>
                 {arr.map((x)=>{
