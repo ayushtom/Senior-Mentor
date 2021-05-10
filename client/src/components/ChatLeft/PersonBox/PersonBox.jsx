@@ -31,18 +31,11 @@ const PersonBox = ({chatHead, lastMessage})=>{
           primary={chatHead}
           secondary={
             <React.Fragment>
-              {/* <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Ali Connors
-              </Typography> */}
               {lastMessage}
             </React.Fragment>
           }
         />
+        
       </ListItem>
       
     )

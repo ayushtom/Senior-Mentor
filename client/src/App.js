@@ -3,6 +3,7 @@ import React,{useState,useEffect} from 'react'
 import clsx from 'clsx';
 import {BrowserRouter as Router,Route} from 'react-router-dom'
 import UserContext from './context/context';
+import { SocketContext, socket}  from "./context/socketContext"; 
 import Navbar from './components/Navbar/Navbar'
 import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
@@ -12,6 +13,8 @@ import Community from './pages/Community/Community'
 import NotificationPage from './pages/NotificationPage/NotificationPage'
 import MobilePostForm from './pages/MobilePostForm/MobilePostForm'
 import Chat from './pages/Chat/Chat' 
+import ChatPersonal from './pages/ChatPersonal/ChatPersonal' 
+
 import jwt_decode from "jwt-decode";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -95,12 +98,14 @@ function App() {
     <div className={classes.root}>
     <Router>
     <UserContext.Provider value={{ userData, setUserData }}>
+    <SocketContext.Provider value={socket}>
       <Navbar open={open} setOpen={setOpen}/>
       <div className={clsx(classes.content, {[classes.contentShift]: open})}>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/chat" component={Chat} />
+        <Route exact path="/chat/pc/:groupId" component={ChatPersonal} /> {/* Personal chat*/}
         <Route exact path="/community" component={Community} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/profile/view/:id" component={Profile} />
@@ -111,6 +116,7 @@ function App() {
         
         
       </div>
+      </SocketContext.Provider>
       </UserContext.Provider>
 
       

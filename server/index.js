@@ -1,8 +1,21 @@
 const app = require("./app");
 const mongoose = require("mongoose"); 
 
+const socketio = require("socket.io");
+const http = require("http");
+const server = http.createServer(app);
 
-app.listen(process.env.port || 5000, async ()=>{
+const io = socketio(server,{
+    cors: {
+    origin: "*", // put frontend url in production 
+    credentials: true
+    }
+}); 
+
+require("./sockets/index.js")(io);
+
+
+server.listen(process.env.port || 5000, async ()=>{
     try {   
         console.log("Seniormentor server is running");
         console.log(process.env.URI); 

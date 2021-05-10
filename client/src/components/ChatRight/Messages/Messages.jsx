@@ -2,6 +2,7 @@ import React from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import Message from "./Message/Message"; 
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 
 /*
 message = [{
@@ -104,7 +105,7 @@ const styles = {
 const Messages = () => {
     const classes = useStyles();
     return (
-        <ScrollToBottom style={{height:"60vh"}}>
+        <Box style={{height:"60vh"}}>
             {
                 messages.map((x,i)=>{
                     return (
@@ -112,7 +113,7 @@ const Messages = () => {
                     )
                 })
             }
-        </ScrollToBottom>
+        </Box>
     )
 }
 
