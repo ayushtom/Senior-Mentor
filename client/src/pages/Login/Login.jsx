@@ -57,6 +57,7 @@ export default function Login() {
       setUserData({
         token: decoded,
         loggedIn:true,
+        tokenNumber:loginRes.data.jwt
       });
       console.log(decoded);
       history.push('/');

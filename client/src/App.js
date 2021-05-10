@@ -67,6 +67,7 @@ function App() {
   const [userData, setUserData] = useState({
     token: undefined,
     loggedIn:false,
+    tokenNumber:undefined
   });
 
   
@@ -81,7 +82,8 @@ function App() {
       var decoded = jwt_decode(tokenval);
         setUserData({
           token:decoded,
-          loggedIn:true
+          loggedIn:true,
+          tokenNumber:tokenval
         });
       
     };
