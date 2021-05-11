@@ -1,17 +1,57 @@
 const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/post")
+const multer = require('multer');
+
 const {
     checkToken
 } = require("../middlewares/checkToken");
 
-router.post("/post", checkToken, async(req,res)=>{
+
+//to store image in uploads folder
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + file.originalname);
+    }
+});
+
+//filter to check the type of file uploaded 
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        // rejects storing a file
+        cb(null, false);
+    }
+}
+
+//final upload function called in post method
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+        //50MB
+    },
+    fileFilter: fileFilter
+});
+
+
+router.post("/post", checkToken, upload.single('attachment'), async(req,res)=>{
     const userId = res.locals.userId; 
     try { 
         const { 
             title, body, attachment 
         } = req.body; 
-        console.log(body+"yay");
+
+        let attachment = null;
+        if(req.file){
+            attachment = req.file.path; 
+        }
+         
+        console.log("Adding new post");
         const result = await postController.newPost(userId, {
             title, body 
         })
