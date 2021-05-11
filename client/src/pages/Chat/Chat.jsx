@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Chat = () => {
+  const { userData } = useContext(UserContext);
+    console.log(userData.tokenNumber); 
     const classes = useStyles();
     return (
     <div className={classes.root}>

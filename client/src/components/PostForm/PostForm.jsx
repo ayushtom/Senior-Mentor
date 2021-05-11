@@ -100,8 +100,6 @@ export default function PostForm({postCounter,setPostCounter}) {
             <FormControl fullWidth className={classes.input}>
                 <TextField multiline value={values.body} onChange={onChange} id="outlined-basic" label="What's on your mind?" />
             </FormControl>
-
-        
         </div>
         <div className={classes.buttons}>
         <input accept="image/*" className={classes.mediainput} id="icon-button-file" type="file"/>
