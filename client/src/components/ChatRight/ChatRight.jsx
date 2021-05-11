@@ -33,15 +33,15 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ChatRight = () => {
+const ChatRight = ({prevLink, infobarName}) => {
     const classes = useStyles();
     return (
         <Container className={classes.container} style={{  height: '100vh' }}>
               <Box display="flex" flexDirection="column" justifyContent="space-between">
                 <Box className={classes.infobar}>
                   <Box display="flex" justifyContent="space-between"> 
-                    <Box><Link to="/"><ChevronLeftIcon style={{color:"white"}}/></Link></Box>
-                    <Box><Typography variant="h5">Group XYZ</Typography></Box>
+                    <Box><Link to={prevLink}><ChevronLeftIcon style={{color:"white"}}/></Link></Box>
+                    <Box><Typography variant="h5">{infobarName}</Typography></Box>
                   </Box>
                 </Box>
                 <Box style={{height:"78vh",overflow:"auto"}}>

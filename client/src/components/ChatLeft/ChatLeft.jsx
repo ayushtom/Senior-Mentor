@@ -66,17 +66,13 @@ const ChatLeft = () => {
             </Container>
             <Typography component="div">
               <List className={classes.list}>
-                {arr.map((x)=>{
-                  return(<>
-                    <PersonBox chatHead={x.chatName} lastMessage={x.lastMessage}/>   
-                    <Divider variant="inset" component="li" />
-                  </>)
-                })}
-                {arr.map((x)=>{
-                  return(<>
-                    <PersonBox chatHead={x.chatName} lastMessage={x.lastMessage}/>   
-                    <Divider variant="inset" component="li" />
-                  </>)
+                {arr.map((x,i)=>{
+                  return(
+                    <div key={i}>
+                      <PersonBox chatHead={x.chatName} lastMessage={x.lastMessage}/> 
+                      <Divider variant="inset" component="li" />  
+                    </div>
+                  )
                 })}
               </List>
             </Typography>            

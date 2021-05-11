@@ -1,6 +1,8 @@
 const { sign } = require("jsonwebtoken");
 const { genSaltSync, hashSync } = require('bcryptjs');
 const model = require("../models/index"); 
+const jwt = require('jsonwebtoken');
+const jwtsalt = process.env.JWT_SALT 
 
 module.exports = {
     giveToken : (data) => { 
@@ -41,5 +43,18 @@ module.exports = {
         return skillArray.filter((x) => {
             return x.skill !== skill ;
         })
+    },
+    decodeToken :  (token, callBack) =>{
+        if(!token){
+            callBack(null); 
+        }
+        jwt.verify(token, jwtsalt, (err,decoded)=>{
+            console.log(err); 
+            if(err){
+                callBack(null)
+            } else {
+                callBack(decoded);
+            }
+        });
     }
 }

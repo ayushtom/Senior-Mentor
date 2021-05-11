@@ -1,7 +1,8 @@
-import React from 'react';
-
+import React,{useContext} from 'react';
+import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import {Card,CardActionArea ,CardActions,CardContent,CardMedia,Button,Typography } from '@material-ui/core';
+import UserContext from '../../context/context';  
 
 import defaultUser from '../../assets/img/defaultUser.jpg'
 
@@ -30,8 +31,18 @@ const useStyles = makeStyles({
   });
 
 export default function ProfileCard({profile}) {
-    const classes = useStyles();
+  const { userData } = useContext(UserContext); 
+  const myId = userData.token.userId; 
+  const friendId = profile._id; 
+  let groupId = null; 
+  if(myId < friendId){
+    groupId = `${myId}-${friendId}`
+  } else {
+    groupId = `${friendId}-${myId}`
+  }
 
+  const classes = useStyles();
+  //let myId = u
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -56,7 +67,16 @@ export default function ProfileCard({profile}) {
           Add Friend
         </Button>
         <Button size="small" color="primary">
-          Message
+          <Link 
+            to={{
+              pathname : `/chat/pc/${groupId}`,
+              state : {groupName :`${profile.firstName} ${profile.lastName}`}
+            }} 
+            style={{textDecoration:"none",color:"inherit"}}
+            
+            >
+            Message
+          </Link>
         </Button>
       </CardActions>
     </Card>
