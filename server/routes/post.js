@@ -1,21 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/post")
-const { upload } = require("../middlewares/upload"); 
-
 const {
     checkToken
 } = require("../middlewares/checkToken");
 
-router.post("/post", checkToken, upload.single('attachment'), async(req,res)=>{
+router.post("/post", checkToken, async(req,res)=>{
     const userId = res.locals.userId; 
     try { 
         const { 
-            title, body 
+            title, body, attachment 
         } = req.body; 
-        const attachment = req.file.path; 
-
-        console.log("Adding new post");
+        console.log(body+"yay");
         const result = await postController.newPost(userId, {
             title, body 
         })
