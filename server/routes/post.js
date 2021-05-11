@@ -7,11 +7,11 @@ const {
     checkToken
 } = require("../middlewares/checkToken");
 
-
+ 
 //to store image in uploads folder
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads/');
+        cb(null, '../uploads/');
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + file.originalname);
@@ -43,17 +43,19 @@ router.post("/post", checkToken, upload.single('attachment'), async(req,res)=>{
     const userId = res.locals.userId; 
     try { 
         const { 
-            title, body, attachment 
+            title, body 
         } = req.body; 
 
         let attachment = null;
+
         if(req.file){
+            console.log("ABC ABCB ", req.file.path); 
             attachment = req.file.path; 
         }
          
         console.log("Adding new post");
         const result = await postController.newPost(userId, {
-            title, body 
+            title, body, attachment
         })
         res.status(200).json(result); 
     } catch(err) {

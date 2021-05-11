@@ -12,7 +12,7 @@ import UserContext from '../../context/context'
 
 import { useForm } from '../../utils/hook';
 
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.post['Content-Type'] = 'application/json'; //x-www-form-urlencoded';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -79,28 +79,31 @@ export default function PostForm({postCounter,setPostCounter}) {
     const[imageData,setImageData]=useState('')
     const [previewFile, setpreviewFile] = useState(null)
 
-
+    let imageFormObj = new FormData();
     const submitPostCallback=()=>{
-        axios.post("http://localhost:5000/post",{
-            body:values.body,
-            attachment:imageData
-        },{
+
+        imageFormObj.append("body", values.body);
+        
+        axios.post("http://localhost:5000/post",imageFormObj,{
             headers:{
                 authorization: userData.tokenNumber
         }})
         .then((response)=>{
             setPostCounter(postCounter+1)
+        
             values.body=''
             values.attachment=''
             alert("Image has been successfully uploaded using multer");
         })
     }
 
+   
     function uploadImage(e) {
         console.log(e.target.files);
-        
+        imageFormObj.append("attachment", e.target.files[0]);
+
         // stores a readable instance of 
-        setImageData(e.target.files[0])
+        setImageData(imageFormObj)
         setpreviewFile(URL.createObjectURL(e.target.files[0])) 
   
         // the image being uploaded using multer
@@ -113,7 +116,7 @@ export default function PostForm({postCounter,setPostCounter}) {
         //   .catch((err) => {
         //     console.log(err);
         //   });
-      } 
+    } 
 
     
 

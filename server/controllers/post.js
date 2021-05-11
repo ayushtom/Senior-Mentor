@@ -4,7 +4,7 @@ const model = require('../models');
 // } =
 const newPost = async (userId, data) => {
     const {
-        title, body 
+        title, body, attachment
     } = data 
     try {
         const res = await model.Post.create({
