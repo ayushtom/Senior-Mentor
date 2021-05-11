@@ -30,7 +30,9 @@ module.exports = (io) => {
     io.on("connection",(socket)=>{
         console.log("Heree", socket.id, socket.userId);
 
-        socket.on("personal-chat",()=>{
+        socket.on("personal-chat",(data)=>{
+            const { to, body } = data; 
+            
             
         })
     })
