@@ -15,7 +15,7 @@ import Chat from './pages/Chat/Chat'
 import jwt_decode from "jwt-decode";
 
 import { makeStyles } from '@material-ui/core/styles';
-import {Container,createMuiTheme,CssBaseline} from '@material-ui/core'
+import {Container} from '@material-ui/core'
 
 
 const drawerWidth = 240;

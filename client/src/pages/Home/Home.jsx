@@ -18,6 +18,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 
+
 const useStyles = makeStyles((theme) => ({
     leftContainer:{
       [theme.breakpoints.down('md')]: {
@@ -50,9 +51,10 @@ export default function Home() {
   const [postCounter,setPostCounter]=useState(0)
 
   useEffect(() => {
-    axios.get("http://localhost:5000/posts")
+    axios.get("http://localhost:5000/posts/all")
     .then((response)=>{
       var res=response.data
+      console.log(res);
       setPosts(res)
     })
     .catch((err)=>{
@@ -73,9 +75,9 @@ export default function Home() {
                 <PostForm postCounter={postCounter} setPostCounter={setPostCounter} />
               </Grid>
             )}
-            {posts.length!==0 && posts.map((posts,index)=>(
+            {posts.length!==0 && posts.map((post,index)=>(
               <Grid item>
-                <PostCard key={index} posts={posts} />
+                <PostCard key={index} post={post}/>
               </Grid>
             ))}
           </Grid>

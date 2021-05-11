@@ -19,7 +19,7 @@ const newPost = async (userId, data) => {
 
 const allPosts = async() => {
     try {
-        const res = await model.Post.find({})
+        const res = await model.Post.find({}).sort({ createdAt:-1})
         .populate("userId","_id firstName lastName imageLink"); 
         return res; 
     } catch(err){

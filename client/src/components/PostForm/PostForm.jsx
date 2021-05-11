@@ -1,5 +1,6 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import clsx from  'clsx';
+import axios from 'axios'
 
 import {Card,Typography,FormControl,TextField,Button } from '@material-ui/core'
 
@@ -7,7 +8,11 @@ import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { makeStyles } from '@material-ui/core/styles';
 
+import UserContext from '../../context/context'
+
 import { useForm } from '../../utils/hook';
+
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,8 +68,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PostForm({postCounter,setPostCounter}) {
 
+    const { userData } = useContext(UserContext);
+    
+
+
     const submitPostCallback=()=>{
-        setPostCounter(postCounter+1)
+        axios.post("http://localhost:5000/post",{
+            body:values.body
+        },{
+            headers:{
+                authorization: userData.tokenNumber
+        }})
+        .then((response)=>{
+            setPostCounter(postCounter+1)
+            values.body=''
+            values.attachment=''
+        })
     }
 
     // function uploadImage(e) {
@@ -98,7 +117,7 @@ export default function PostForm({postCounter,setPostCounter}) {
     <Card className={clsx(classes.card)}>
         <div className={classes.post}>
             <FormControl fullWidth className={classes.input}>
-                <TextField multiline value={values.body} onChange={onChange} id="outlined-basic" label="What's on your mind?" />
+                <TextField name='body' multiline value={values.body} onChange={onChange} id="outlined-basic" label="What's on your mind?" />
             </FormControl>
 
         
@@ -110,7 +129,7 @@ export default function PostForm({postCounter,setPostCounter}) {
                     <PhotoCamera />
                 </IconButton>
             </label>
-            <Button className={classes.postButton} variant="contained" color="primary">
+            <Button onClick={onSubmit} className={classes.postButton} variant="contained" color="primary">
                 Post
             </Button>
         </div>

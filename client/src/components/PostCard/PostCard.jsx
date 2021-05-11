@@ -1,13 +1,16 @@
 import React,{useState} from 'react';
 import clsx from  'clsx';
+import moment from 'moment';
+
 
 import {Card,Typography,CardHeader,CardContent,CardActions,Avatar,IconButton,Menu,MenuItem } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+import LikeButton from '../LikeButton/LikeButton'
 
 const useStyles = makeStyles((theme) => ({
     
@@ -32,10 +35,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function PostCard() {
+export default function PostCard({post}) {
     const classes = useStyles();
     const [like, setlike] = useState(false)
     const [anchorEl, setAnchorEl] = React.useState(null);
+
+    var postFullname=post.userId.firstName+' '+post.userId.lastName;
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -49,7 +54,7 @@ export default function PostCard() {
     <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            {post.userId.firstName.charAt(0)}
           </Avatar>
         }
         action={
@@ -58,24 +63,21 @@ export default function PostCard() {
           </IconButton>
         }
         
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title= {postFullname} 
+        subheader={moment(post.createdAt).fromNow()}
       />
       <CardContent>
         <Typography variant="body2" color="textPrimary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+        {post.body}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton onClick={()=>{setlike(!like)}} className={like?classes.likeIcon:classes.unlikeIcon} aria-label="Like">
-          <FavoriteIcon />
-        </IconButton>
-        <Typography variant="subtitle2">43</Typography>
+        <LikeButton like={like} setlike={setlike} />
         <IconButton aria-label="Comment">
           <ChatIcon />
         </IconButton>
         <Typography variant="subtitle2">43</Typography>
+        
         <Menu
         id="simple-menu"
         anchorEl={anchorEl}
