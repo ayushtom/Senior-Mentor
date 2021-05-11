@@ -1,14 +1,17 @@
 import React,{useContext} from "react";
-import UserContext from '../../context/context' 
 import { useParams,useLocation } from "react-router-dom"
 import ChatRight from "../../components/ChatRight/ChatRight";
+import UserContext from '../../context/context' 
+import { SocketContext, socket}  from "../../context/socketContext"; 
 
 
 const ChatPersonal = () => {
-    let { groupId } = useParams();
-    let { groupName} = useLocation().state; 
+    let { groupName } = useParams();
+    let { friendName } = useLocation().state; 
+    
     return (
-        <ChatRight groupId={groupId} infobarName={groupName} prevLink={"/chat"}/>
+        
+        <ChatRight groupName={groupName} infobarName={friendName} prevLink={"/chat"}/>
     );
 
 }

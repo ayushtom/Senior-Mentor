@@ -34,11 +34,11 @@ export default function ProfileCard({profile}) {
   const { userData } = useContext(UserContext); 
   const myId = userData.token.userId; 
   const friendId = profile._id; 
-  let groupId = null; 
+  let groupName = null; 
   if(myId < friendId){
-    groupId = `${myId}-${friendId}`
+    groupName = `${myId}-${friendId}`
   } else {
-    groupId = `${friendId}-${myId}`
+    groupName = `${friendId}-${myId}`
   }
 
   const classes = useStyles();
@@ -69,8 +69,8 @@ export default function ProfileCard({profile}) {
         <Button size="small" color="primary">
           <Link 
             to={{
-              pathname : `/chat/pc/${groupId}`,
-              state : {groupName :`${profile.firstName} ${profile.lastName}`}
+              pathname : `/chat/pc/${groupName}`,
+              state : { friendName :`${profile.firstName} ${profile.lastName}`}
             }} 
             style={{textDecoration:"none",color:"inherit"}}
             

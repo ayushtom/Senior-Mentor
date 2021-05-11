@@ -10,7 +10,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Box from '@material-ui/core/Box';
 import Messages from "./Messages/Messages";
 import Input from "./Input/Input";
-import { SocketContext } from '../../context/socketContext' 
+import SocketContext from '../../context/context' 
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -34,16 +34,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ChatRight = ({prevLink, infobarName, groupName}) => {
+const ChatPersonal = ({prevLink, friendData, groupName}) => {
     const currentGroupName = groupName; 
     const [messages, setMessages] = useState([]); 
     const [inputMessage, setInputMessage] = useState('');
     const socket = useContext(SocketContext); 
 
     useEffect(()=>{
-      // let result = await axios.get(`http://localhost:5000/groupMessages/${groupName}`); 
-      // let messages =  result.data 
-      // setMessages(messages); 
+      let result = await axios.get(`http://localhost:5000/groupMessages/${groupName}`); 
+      let messages =  result.data 
+      setMessages(messages); 
 
       socket.on("incoming-message",(data)=>{
         const { groupName, body } = data; 
@@ -74,4 +74,4 @@ const ChatRight = ({prevLink, infobarName, groupName}) => {
     )
 }
 
-export default ChatRight; 
+export default ChatPersonal; 
