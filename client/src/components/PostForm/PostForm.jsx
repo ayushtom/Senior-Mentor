@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React,{useContext,useState} from 'react';
 import clsx from  'clsx';
 import axios from 'axios'
 
@@ -60,6 +60,13 @@ const useStyles = makeStyles((theme) => ({
         fontSize:"large"
 
     },
+    image:{
+        width: "150px",
+        height:"150px",
+        objectFit:"contain",
+
+
+    }
     
     
 }))
@@ -69,12 +76,14 @@ const useStyles = makeStyles((theme) => ({
 export default function PostForm({postCounter,setPostCounter}) {
 
     const { userData } = useContext(UserContext);
-    
+    const[imageData,setImageData]=useState('')
+    const [previewFile, setpreviewFile] = useState(null)
 
 
     const submitPostCallback=()=>{
         axios.post("http://localhost:5000/post",{
-            body:values.body
+            body:values.body,
+            attachment:imageData
         },{
             headers:{
                 authorization: userData.tokenNumber
@@ -83,34 +92,34 @@ export default function PostForm({postCounter,setPostCounter}) {
             setPostCounter(postCounter+1)
             values.body=''
             values.attachment=''
+            alert("Image has been successfully uploaded using multer");
         })
     }
 
-    // function uploadImage(e) {
-    //     // console.log(e.target.files);
+    function uploadImage(e) {
+        console.log(e.target.files);
         
-    //     // stores a readable instance of 
-    //     let imageFormObj = new FormData();
-    //     imageFormObj.append("imageData", e.target.files[0]);
+        // stores a readable instance of 
+        setImageData(e.target.files[0])
+        setpreviewFile(URL.createObjectURL(e.target.files[0])) 
   
-    //     // the image being uploaded using multer
-    //     axios.post(`${API_URL}`, imageFormObj)
-    //       .then((data) => {
-    //         if (data.data.success) {
-    //           alert("Image has been successfully uploaded using multer");
-    //         }
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //       });
-    //   } 
+        // the image being uploaded using multer
+        // axios.post(`${API_URL}`, imageFormObj)
+        //   .then((data) => {
+        //     if (data.data.success) {
+        //       alert("Image has been successfully uploaded using multer");
+        //     }
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
+      } 
 
     
 
     const classes = useStyles();
     const { onChange, onSubmit, values } = useForm(submitPostCallback, {
        body:'',
-       attachment:''
       });
     return (
     <div>
@@ -119,9 +128,12 @@ export default function PostForm({postCounter,setPostCounter}) {
             <FormControl fullWidth className={classes.input}>
                 <TextField name='body' multiline value={values.body} onChange={onChange} id="outlined-basic" label="What's on your mind?" />
             </FormControl>
+            {previewFile && (
+                <img className={classes.image} src={previewFile}/>
+            )}
         </div>
         <div className={classes.buttons}>
-        <input accept="image/*" className={classes.mediainput} id="icon-button-file" type="file"/>
+        <input accept="image/*" className={classes.mediainput} onChange={(event)=>{uploadImage(event)}} id="icon-button-file" type="file"/>
             <label className={classes.uploadButton} htmlFor="icon-button-file">
                 <IconButton color="primary" aria-label="upload picture" component="span">
                     <PhotoCamera />
