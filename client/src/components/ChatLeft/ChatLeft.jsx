@@ -54,7 +54,12 @@ const arr = [
   }
 ]
 
-const ChatLeft = () => {
+const ChatLeft = ({chats}) => {
+    
+    // const {
+    //   group, friend, lastMessage
+    // } = chats; 
+
     const classes = useStyles();
     return (
         <Container maxWidth="lg" className={classes.container} style={{height: '100vh' }}>
@@ -65,15 +70,26 @@ const ChatLeft = () => {
               </Box>
             </Container>
             <Typography component="div">
+                
               <List className={classes.list}>
-                {arr.map((x,i)=>{
-                  return(
-                    <div key={i}>
-                      <PersonBox chatHead={x.chatName} lastMessage={x.lastMessage}/> 
-                      <Divider variant="inset" component="li" />  
-                    </div>
-                  )
-                })}
+                { 
+                  chats.map((chat,i)=>{
+                    let { group, friend, lastMessage } = chat; 
+                    let chatHead = null;
+                    if(friend) { 
+                      chatHead = `${friend.firstName} ${friend.lastName}`
+                    } else {
+                      chatHead = `${group.groupName}`
+                    }
+                    return (
+                      <div key={i}>
+                        <PersonBox chatHead={chatHead} lastMessage={lastMessage.body}/> 
+                        <Divider variant="inset" component="li" />  
+                      </div>
+                    );
+                  })
+                }
+                
               </List>
             </Typography>            
         </Container> 
