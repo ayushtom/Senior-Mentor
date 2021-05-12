@@ -12,10 +12,12 @@ const GroupSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'user'
     },
-    groupMembers : [{ 
-        type:Schema.Types.ObjectId,
-        ref:'user'
-    }]
+    groupMembers : [
+        { 
+            type:Schema.Types.ObjectId,
+            ref:'user'
+        }
+    ]
 },
 {   
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } 

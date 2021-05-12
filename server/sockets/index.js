@@ -1,9 +1,20 @@
 const { decodeToken }= require("../helpers/helpers");
+const groupControllers = require("../controllers/group");
+const { getSocket, setSocket } = require("../controllers/sockets");
+const helpers = require("../helpers/helpers"); 
 
 module.exports = (io) => { 
+    //let x = groupControllers.findOrCreatePCGroup("6092e458237b78237c09d6a3-609a3081f0759a1df8ab317b");
+    // let x =  groupControllers.addPCMessage({
+    //     groupName : "6092e458237b78237c09d6a3-609a3081f0759a1df8ab317b",
+    //     userId : "6092e458237b78237c09d6a3",
+    //     body : "Shakalalaka boom boom"
+    // })
+    //groupControllers.getUserFriendInPC("6092e458237b78237c09d6a3-609a3081f0759a1df8ab317b","6092e458237b78237c09d6a3");
+
     io.use((socket, next) => {
         const token = socket.handshake.auth.token;
-        console.log("Here", token);
+        //onsole.log("Here", token);
         if(token){
             decodeToken(token,(data)=>{
                 if(!data){
@@ -30,10 +41,24 @@ module.exports = (io) => {
     io.on("connection",(socket)=>{
         console.log("Heree", socket.id, socket.userId);
 
-        socket.on("personal-chat",(data)=>{
-            const { to, body } = data; 
-            
-            
+        const userId = socket.userId; 
+        setSocket(userId, socket.id);
+
+
+        socket.on("personal-chat",async (data)=>{
+            const { groupName , body } = data; 
+            const friendId = await helpers.getFriendIdFromGroupName(groupName); 
+            const friendSocketId = getSocket(friendId);
+
+            await groupControllers.findOrCreatePCGroup(groupName);
+
+            socket.broadcast.to(friendSocketId).emit("incoming-message",{
+                groupName : groupName,
+                groupType : 2,
+                from : userId,
+                to: friendId,
+                body : body
+            })
         })
     })
 }

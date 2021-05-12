@@ -10,7 +10,7 @@ const MessageSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'user'
     },
-    message : String,
+    body : String,
     attachmentUrl : String, 
 },
 {   
