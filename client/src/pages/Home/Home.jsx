@@ -50,6 +50,8 @@ export default function Home() {
   const [posts,setPosts] = useState([])
   const [postCounter,setPostCounter]=useState(0)
 
+  
+
   useEffect(() => {
     axios.get("http://localhost:5000/posts/all")
     .then((response)=>{
@@ -75,7 +77,7 @@ export default function Home() {
             )}
             {posts.length!==0 && posts.map((post,index)=>(
               <Grid item>
-                <PostCard key={index} post={post}/>
+                <PostCard postCounter={postCounter} setPostCounter={setPostCounter}  key={index} post={post}/>
               </Grid>
             ))}
           </Grid>

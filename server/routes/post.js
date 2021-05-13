@@ -112,6 +112,7 @@ router.post("/post/comment/:id", checkToken, async(req,res)=>{
     }
 })
 
+
 router.put("/post/like/:id", checkToken, async(req,res)=>{
     const userId = res.locals.userId; 
     const postId = req.params.id; 

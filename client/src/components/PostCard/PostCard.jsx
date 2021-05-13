@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
 import clsx from  'clsx';
 import moment from 'moment';
 
@@ -11,6 +11,9 @@ import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import LikeButton from '../LikeButton/LikeButton'
+import CommentButton from '../CommentButton/CommentButton'
+
+
 
 const API_URL = "http://localhost:5000";
 
@@ -31,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
     },
     unlikeIcon:{
         color:"none"
+    },
+    image:{
+        width: "150px",
+        height:"150px",
+        objectFit:"contain",
+
+
     }
     
     
@@ -38,10 +48,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function PostCard({post}) {
+export default function PostCard({post,postCounter,setPostCounter}) {
     const classes = useStyles();
-    const [like, setlike] = useState(false)
     const [anchorEl, setAnchorEl] = React.useState(null);
+
+
+    
 
     var postFullname=post.userId.firstName+' '+post.userId.lastName;
 
@@ -53,7 +65,7 @@ export default function PostCard({post}) {
         setAnchorEl(null);
     };
     return (
-    <Card className={clsx(classes.card)}>
+    <Card id={post._id} className={clsx(classes.card)}>
     <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -73,15 +85,15 @@ export default function PostCard({post}) {
         <Typography variant="body2" color="textPrimary" component="p">
         {post.body}
         </Typography>
-        <img className={classes.media} src={`${API_URL}`+`/`+`${post.attachment}`} alt=""/>
+        {post.attachment && (
+          <img className={classes.image} src={`${API_URL}`+`/`+`${post.attachment}`} alt=""/>
+        )}
+        
 
       </CardContent>
       <CardActions disableSpacing>
-        <LikeButton like={like} setlike={setlike} />
-        <IconButton aria-label="Comment">
-          <ChatIcon />
-        </IconButton>
-        <Typography variant="subtitle2">43</Typography>
+            <LikeButton postCounter={postCounter} setPostCounter={setPostCounter} data={post.likes} postinfo={post._id}/>
+            <CommentButton postCounter={postCounter} setPostCounter={setPostCounter} postinfo={post._id} data={post.comments}/>
         
         <Menu
         id="simple-menu"
@@ -92,7 +104,7 @@ export default function PostCard({post}) {
       >
         <MenuItem onClick={handleClose}>Edit Post</MenuItem>
         <MenuItem onClick={handleClose}>Delete Post</MenuItem>
-        <MenuItem onClick={handleClose}>Report</MenuItem>
+        {/* <MenuItem onClick={handleClose}>Report</MenuItem> */}
       </Menu>
 
     </CardActions>

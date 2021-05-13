@@ -57,9 +57,9 @@ const useStyles = makeStyles((theme) => ({
   },
   }));
 
-  const imp={headers: {
-    'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-  }}
+  // const imp={headers: {
+  //   'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+  // }}
 export default function ProfileForm({prevStep,handleChange,handleSubmit,values}) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);

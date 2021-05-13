@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PostForm({postCounter,setPostCounter}) {
 
     const { userData } = useContext(UserContext);
-    const[imageData,setImageData]=useState(null)
+    const[imageData,setImageData]=useState('')
     const [previewFile, setpreviewFile] = useState(null)
 
     let imageFormObj = new FormData();
@@ -95,7 +95,7 @@ export default function PostForm({postCounter,setPostCounter}) {
         
             values.body=''
             setpreviewFile(null)
-            setImageData(null)
+            setImageData('')
         })
     }
 
@@ -130,7 +130,7 @@ export default function PostForm({postCounter,setPostCounter}) {
                     <PhotoCamera />
                 </IconButton>
             </label>
-            <Button disabled={(values.body!=='' || imageData!==null)?false:true}  onClick={onSubmit} className={classes.postButton} variant="contained" color="primary">
+            <Button disabled={(values.body!=='' || imageData!=='')?false:true}  onClick={onSubmit} className={classes.postButton} variant="contained" color="primary">
                 Post
             </Button>
         </div>
