@@ -38,21 +38,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const arr = [
-  {
-    chatName : "Tanmay Bhat",
-    lastMessage : "I thought you're gonna call me"
-  },{
-    chatName : "Jeff Bezos",
-    lastMessage : "Teri Alexa kaam nahi kar rahi"
-  },{
-    chatName : "Elon Musk",
-    lastMessage : "SN16 ka improved design teri assistant ko bhej diya hai"
-  },{
-    chatName : "Mukesh Ambani",
-    lastMessage : "Paise kam pad rahe hain do khoha aur bhej"
-  }
-]
 
 const ChatLeft = ({chats}) => {
     
@@ -83,7 +68,7 @@ const ChatLeft = ({chats}) => {
                     }
                     return (
                       <div key={i}>
-                        <PersonBox chatHead={chatHead} lastMessage={lastMessage.body}/> 
+                        <PersonBox chatHead={chatHead} lastMessage={lastMessage.body} groupName={group.groupName}/> 
                         <Divider variant="inset" component="li" />  
                       </div>
                     );

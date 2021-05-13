@@ -106,7 +106,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/chat" component={Chat} />
-        <Route exact path="/chat/pc/:groupId" component={ChatPersonal} /> {/* Personal chat*/}
+        <Route exact path="/chat/pc/:groupName" component={ChatPersonal} /> {/* Personal chat*/}
         <Route exact path="/community" component={Community} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/profile/view/:id" component={Profile} />
