@@ -54,7 +54,6 @@ export default function Home() {
     axios.get("http://localhost:5000/posts/all")
     .then((response)=>{
       var res=response.data
-      console.log(res);
       setPosts(res)
     })
     .catch((err)=>{
@@ -62,7 +61,6 @@ export default function Home() {
     })
   }, [postCounter])
 
-  console.log(userData);
   return (
     <div> 
     <Grid container direction="row" spacing={3}>

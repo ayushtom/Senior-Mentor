@@ -76,13 +76,15 @@ const useStyles = makeStyles((theme) => ({
 export default function PostForm({postCounter,setPostCounter}) {
 
     const { userData } = useContext(UserContext);
-    const[imageData,setImageData]=useState('')
+    const[imageData,setImageData]=useState(null)
     const [previewFile, setpreviewFile] = useState(null)
 
     let imageFormObj = new FormData();
     const submitPostCallback=()=>{
 
-        imageFormObj.append("body", values.body);
+        imageFormObj.append('body', values.body);
+        imageFormObj.append('attachment',imageData);
+
         
         axios.post("http://localhost:5000/post",imageFormObj,{
             headers:{
@@ -92,30 +94,16 @@ export default function PostForm({postCounter,setPostCounter}) {
             setPostCounter(postCounter+1)
         
             values.body=''
-            values.attachment=''
-            alert("Image has been successfully uploaded using multer");
+            setpreviewFile(null)
+            setImageData(null)
         })
     }
 
    
     function uploadImage(e) {
         console.log(e.target.files);
-        imageFormObj.append("attachment", e.target.files[0]);
-
-        // stores a readable instance of 
-        setImageData(imageFormObj)
+        setImageData(e.target.files[0])
         setpreviewFile(URL.createObjectURL(e.target.files[0])) 
-  
-        // the image being uploaded using multer
-        // axios.post(`${API_URL}`, imageFormObj)
-        //   .then((data) => {
-        //     if (data.data.success) {
-        //       alert("Image has been successfully uploaded using multer");
-        //     }
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //   });
     } 
 
     
@@ -142,7 +130,7 @@ export default function PostForm({postCounter,setPostCounter}) {
                     <PhotoCamera />
                 </IconButton>
             </label>
-            <Button onClick={onSubmit} className={classes.postButton} variant="contained" color="primary">
+            <Button disabled={(values.body!=='' || imageData!==null)?false:true}  onClick={onSubmit} className={classes.postButton} variant="contained" color="primary">
                 Post
             </Button>
         </div>

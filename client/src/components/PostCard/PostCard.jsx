@@ -12,6 +12,9 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import LikeButton from '../LikeButton/LikeButton'
 
+const API_URL = "http://localhost:5000";
+
+
 const useStyles = makeStyles((theme) => ({
     
     card:{
@@ -70,6 +73,8 @@ export default function PostCard({post}) {
         <Typography variant="body2" color="textPrimary" component="p">
         {post.body}
         </Typography>
+        <img className={classes.media} src={`${API_URL}`+`/`+`${post.attachment}`} alt=""/>
+
       </CardContent>
       <CardActions disableSpacing>
         <LikeButton like={like} setlike={setlike} />
