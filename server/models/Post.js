@@ -9,7 +9,7 @@ const PostSchema = new Schema({
     },
     title : String, 
     body : String, 
-    attachmentUrl : String, 
+    attachment : String, 
     comments:[
         {
             userId: 
