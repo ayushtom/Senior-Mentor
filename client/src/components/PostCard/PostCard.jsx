@@ -1,9 +1,10 @@
 import React,{useState,useContext} from 'react';
 import clsx from  'clsx';
 import moment from 'moment';
+import { Link } from 'react-router-dom'
 
 
-import {Card,Typography,CardHeader,CardContent,CardActions,Avatar,IconButton,Menu,MenuItem } from '@material-ui/core'
+import {Card,Typography,CardHeader,CardContent,CardActions,CardActionArea,Avatar,IconButton,Menu,MenuItem } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -12,6 +13,9 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import LikeButton from '../LikeButton/LikeButton'
 import CommentButton from '../CommentButton/CommentButton'
+import EachPost from '../../pages/EachPost/EachPost'
+
+import UserContext from '../../context/context'
 
 
 
@@ -53,7 +57,8 @@ export default function PostCard({post,postCounter,setPostCounter}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
 
-    
+    const { userData } = useContext(UserContext);
+
 
     var postFullname=post.userId.firstName+' '+post.userId.lastName;
 
@@ -64,8 +69,12 @@ export default function PostCard({post,postCounter,setPostCounter}) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    console.log(userData.token.userId);
+    
     return (
     <Card id={post._id} className={clsx(classes.card)}>
+    <CardActionArea component={Link} to={`/post/${post._id}`}>
+
     <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -81,6 +90,7 @@ export default function PostCard({post,postCounter,setPostCounter}) {
         title= {postFullname} 
         subheader={moment(post.createdAt).fromNow()}
       />
+
       <CardContent>
         <Typography variant="body2" color="textPrimary" component="p">
         {post.body}
@@ -91,6 +101,8 @@ export default function PostCard({post,postCounter,setPostCounter}) {
         
 
       </CardContent>
+      </CardActionArea>
+
       <CardActions disableSpacing>
             <LikeButton postCounter={postCounter} setPostCounter={setPostCounter} data={post.likes} postinfo={post._id}/>
             <CommentButton postCounter={postCounter} setPostCounter={setPostCounter} postinfo={post._id} data={post.comments}/>
@@ -102,12 +114,13 @@ export default function PostCard({post,postCounter,setPostCounter}) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Edit Post</MenuItem>
-        <MenuItem onClick={handleClose}>Delete Post</MenuItem>
-        {/* <MenuItem onClick={handleClose}>Report</MenuItem> */}
+        {userData.token && userData.token.userId===post.userId && (<MenuItem onClick={handleClose}>Edit Post</MenuItem>)}
+        {userData.token && userData.token.userId===post.userId && (<MenuItem onClick={handleClose}>Delete Post</MenuItem>)}
+        {userData.token && userData.token.userId!==post.userId && (<MenuItem onClick={handleClose}>Report</MenuItem>)}
       </Menu>
 
     </CardActions>
+
   </Card>
   );
 }

@@ -14,6 +14,7 @@ import NotificationPage from './pages/NotificationPage/NotificationPage'
 import MobilePostForm from './pages/MobilePostForm/MobilePostForm'
 import Chat from './pages/Chat/Chat' 
 import ChatPersonal from './pages/ChatPersonal/ChatPersonal' 
+import EachPost from './pages/EachPost/EachPost'
 
 import jwt_decode from "jwt-decode";
 
@@ -111,6 +112,8 @@ function App() {
         <Route exact path="/profile/view/:id" component={Profile} />
         <Route exact path="/notifications" component={NotificationPage} />
         <Route exact path="/createPost" component={MobilePostForm} />
+        <Route exact path="/post/:id" component={EachPost} />
+
 
 
         

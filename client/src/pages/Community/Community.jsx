@@ -27,7 +27,6 @@ export default function Community() {
         <TextField
             variant="outlined"
             fullWidth
-            id="Searchusers"
             label="Search Users"
             name="searchusers"
             autoFocus
@@ -61,6 +60,28 @@ export default function Community() {
                 </Select>
             </FormControl>
         </Grid>
+        <Grid item xs={12} sm={2}></Grid>
+        <Grid item xs={12} sm={4}>
+        <TextField
+            variant="outlined"
+            fullWidth
+            label="Search Skills"
+            name="searchskills"
+            autoFocus
+          />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+        <TextField
+            variant="outlined"
+            fullWidth
+            label="Search Company"
+            name="searchcompany"
+            autoFocus
+          />
+        </Grid>
+        <Grid item xs={12} sm={2}></Grid>
+
+        
         {response.length!==0 && response.map((profile,index)=>(
             <Grid item key={index} xs={12} sm={3}>
               <ProfileCard key={index} profile={profile} />            
