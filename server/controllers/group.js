@@ -76,10 +76,44 @@ module.exports = {
         }));                            
         return data; 
     },
-    
-    getPCMessages : async(groupName) =>{
+    getGroupInfobar : async(groupName, typeId, userId) => {
+        /*  
+            infobarName : 
+            description : 
+            image : 
+        */
+        let res = {
+            infobarName : "No group",
+            description : "No description"
+        }; 
+        console.log(typeId, typeof typeId);
+        if(typeId === 2) { 
+            let friendId = helpers.getFriendIdFromGroupName(groupName, userId); 
+            let data = await model.User.findById(friendId,"firstName lastName"); //attachment check
+            if(data){
+                res.infobarName = `${data.firstName} ${data.lastName}`
+            }
+        }
+
+        return res; 
+    }, 
+    getPCMessages : async(groupName) => {
         let group = await model.Group.findOne({groupName:groupName}); 
-        let messages = await model.Message.find({groupId : group._id}); 
+        let messages = null;
+        if(group){ 
+            messages = await model.Message.find({groupId : group._id})
+            .populate("userId","firstName lastName"); 
+        } else {
+            messages = [{
+                groupName : groupName,
+                userId : {
+                    firstName : "SM",
+                    lastName : "Bot"
+                },
+                body : "No chats with this person"
+            }]
+        }
+        
         return messages; 
     },
     addPCMessage : async (data) =>{
@@ -91,7 +125,8 @@ module.exports = {
             userId : userId, 
             body : body 
         }); 
-
+        message = await model.Message.findById(message._id)
+        .populate("userId","firstName lastName"); 
         return message; 
     },
     groupLastMessage  

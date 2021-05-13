@@ -45,20 +45,38 @@ module.exports = (io) => {
         setSocket(userId, socket.id);
 
 
-        socket.on("personal-chat",async (data)=>{
+        socket.on("user-message", async(data, callBack)=>{
             const { groupName , body } = data; 
-            const friendId = await helpers.getFriendIdFromGroupName(groupName); 
+            const friendId = await helpers.getFriendIdFromGroupName(groupName, userId); 
             const friendSocketId = getSocket(friendId);
-
+            console.log("group message", groupName, body); 
+            
             await groupControllers.findOrCreatePCGroup(groupName);
-
-            socket.broadcast.to(friendSocketId).emit("incoming-message",{
+            let message = await groupControllers.addPCMessage({
                 groupName : groupName,
-                groupType : 2,
-                from : userId,
-                to: friendId,
-                body : body
+                userId : userId, 
+                body : body 
             })
+            console.log(message); 
+            callBack();
+
+            io.to(socket.id).emit("message",{
+                groupName : groupName,
+                message : message 
+            })
+            io.to(friendSocketId).emit("message",{
+                groupName : groupName,
+                message : message 
+            })
+
+            // socket.broadcast.to(friendSocketId).emit("incoming-message",{
+            //     groupName : groupName,
+            //     groupType : 2,
+            //     from : userId,
+            //     to: friendId,
+            //     body : body
+            // })
+            
         })
     })
 }
