@@ -13,18 +13,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Input = () => {
+const Input = ({inputMessage, setInputMessage, sendInputMessage}) => {
     const classes = useStyles();
-
     return (
       <Box component="span" display="flex" flexDirection="row" justifyContent="space-between">
         <Box component="span" width="88%">
           <form  className={classes.root} noValidate autoComplete="off">
-            <TextField  fullWidth={true} id="filled-basic" label="Type here" variant="filled" />
+            <TextField  
+              fullWidth={true} 
+              id="filled-basic" 
+              label="Type here" 
+              variant="filled" 
+
+              value={inputMessage}
+              onChange={ ({ target: { value } }) => setInputMessage(value) }
+              onKeyPress={event => event.key === 'Enter' ? sendInputMessage(event) : null}
+            />
           </form>
         </Box>
         <Box width="10%"component="span" display="flex" flexDirection="column" justifyContent="center">
-          <SendIcon style={{ fontSize: "4rem"}}/>
+          <SendIcon style={{ fontSize: "4rem"}}
+           onClick={e => sendInputMessage(e)}
+          />
         </Box>
       </Box>
     );
