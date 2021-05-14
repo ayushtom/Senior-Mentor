@@ -8,7 +8,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-const me = "abc"; 
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -89,7 +88,7 @@ const RightMessage = ({message}) => {
     )
 }
 
-const Message = ({message})=>{
+const Message = ({message,myId})=>{
     const user = message.userId; 
     const fullName = `${user.firstName} ${user.lastName}`; 
 
@@ -97,7 +96,7 @@ const Message = ({message})=>{
     return (
         <>
             {
-                (message.userId._id === me) ?
+                (message.userId._id === myId) ?
                 <RightMessage message={message}/> :
                 <LeftMessage message={message}/>
             }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import {Link} from "react-router-dom"
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -38,28 +38,32 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const arr = [
-  {
-    chatName : "Tanmay Bhat",
-    lastMessage : "I thought you're gonna call me"
-  },{
-    chatName : "Jeff Bezos",
-    lastMessage : "Teri Alexa kaam nahi kar rahi"
-  },{
-    chatName : "Elon Musk",
-    lastMessage : "SN16 ka improved design teri assistant ko bhej diya hai"
-  },{
-    chatName : "Mukesh Ambani",
-    lastMessage : "Paise kam pad rahe hain do khoha aur bhej"
-  }
-]
 
-const ChatLeft = ({chats}) => {
+const ChatLeft = ({chats,newMessage,setNewMessage}) => {
     
+    const [chatArray,setChatArray] = useState([]);
+
+    useEffect(()=>{
+      setChatArray(chats); 
+    },[chats]);
+
+    useEffect(()=>{
+      if(newMessage){
+        setChatArray(prev => prev.map((chat)=>{
+          if(newMessage.groupId._id === chat.group._id){
+            chat.newMessages += 1; 
+            chat.lastMessage = newMessage; 
+          }
+          return chat; 
+        }))
+        setNewMessage(null); 
+      }
+    },[newMessage])
+
     // const {
     //   group, friend, lastMessage
     // } = chats; 
-
+    //const newMessageCountHash = {}; 
     const classes = useStyles();
     return (
         <Container maxWidth="lg" className={classes.container} style={{height: '100vh' }}>
@@ -73,8 +77,10 @@ const ChatLeft = ({chats}) => {
                 
               <List className={classes.list}>
                 { 
-                  chats.map((chat,i)=>{
-                    let { group, friend, lastMessage } = chat; 
+                   
+                  chatArray.map((chat,i)=>{
+                    let x = 0; 
+                    let { group, friend, lastMessage,newMessages } = chat; 
                     let chatHead = null;
                     if(friend) { 
                       chatHead = `${friend.firstName} ${friend.lastName}`
@@ -83,7 +89,7 @@ const ChatLeft = ({chats}) => {
                     }
                     return (
                       <div key={i}>
-                        <PersonBox chatHead={chatHead} lastMessage={lastMessage.body}/> 
+                        <PersonBox chatHead={chatHead} lastMessage={lastMessage.body} groupName={group.groupName} newMessages={newMessages}/> 
                         <Divider variant="inset" component="li" />  
                       </div>
                     );

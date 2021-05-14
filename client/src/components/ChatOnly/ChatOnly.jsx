@@ -9,8 +9,8 @@ import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Box from '@material-ui/core/Box';
-import Messages from "../ChatOnly/Messages/Messages";
-import Input from "../ChatOnly/Input/Input";
+import Messages from "./Messages/Messages";
+import Input from "./Input/Input";
 import { SocketContext } from '../../context/socketContext' 
 import UserContext from '../../context/context' 
 
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ChatRight = ({prevLink, groupName, typeId}) => {
+const ChatOnly = ({prevLink, groupName, typeId}) => {
     
     const [currentGroupName,setCurrentGroupName] = useState(groupName); 
     const [infobarName, setInfobarName] = useState('')
@@ -77,17 +77,17 @@ const ChatRight = ({prevLink, groupName, typeId}) => {
         let messages =  result.data 
         //console.log(result.data);
         setMessages(messages); 
-        // socket.on("message",(data)=>{
-        //   const { groupName, message } = data; 
-        //   console.log("reply received"); 
-        //   if(groupName === currentGroupName){
-        //     setMessages((messages) => [...messages,message]); 
-        //   }
-        // })
+        socket.on("message",(data)=>{
+          const { groupName, message } = data; 
+          console.log("reply received"); 
+          if(groupName === currentGroupName){
+            setMessages((messages) => [...messages,message]); 
+          }
+        })
       } 
       fetchData();
       return(()=>{
-        //socket.off("message"); 
+        socket.off("message"); 
       })
     },[currentGroupName]);
 
@@ -128,4 +128,4 @@ const ChatRight = ({prevLink, groupName, typeId}) => {
     )
 }
 
-export default ChatRight; 
+export default ChatOnly; 
