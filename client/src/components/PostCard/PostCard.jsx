@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function PostCard({post,postCounter,setPostCounter}) {
+export default function PostCard({post}) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -69,7 +69,6 @@ export default function PostCard({post,postCounter,setPostCounter}) {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    console.log(userData.token.userId);
     
     return (
     <Card id={post._id} className={clsx(classes.card)}>
@@ -104,8 +103,8 @@ export default function PostCard({post,postCounter,setPostCounter}) {
       </CardActionArea>
 
       <CardActions disableSpacing>
-            <LikeButton postCounter={postCounter} setPostCounter={setPostCounter} data={post.likes} postinfo={post._id}/>
-            <CommentButton postCounter={postCounter} setPostCounter={setPostCounter} postinfo={post._id} data={post.comments}/>
+            <LikeButton  data={post.likes} postinfo={post._id}/>
+            <CommentButton postinfo={post._id} data={post.comments}/>
         
         <Menu
         id="simple-menu"

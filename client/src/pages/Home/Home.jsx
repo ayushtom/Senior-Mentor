@@ -7,9 +7,10 @@ import CreateIcon from '@material-ui/icons/Create';
 
 
 import PostForm from '../../components/PostForm/PostForm'
-import PostCard from '../../components/PostCard/PostCard'
 import ActivityCard from '../../components/ActivityCard/ActivityCard'
 import UserContext from '../../context/context'
+import PostWall from '../../components/PostWall/PostWall'
+
 
 
 import {Grid,TextField} from '@material-ui/core'
@@ -69,17 +70,13 @@ export default function Home() {
         <Grid item className={classes.leftContainer} lg={2}>
           </Grid>
         <Grid item xs={12} md={8} lg={6}>
-          <Grid className={classes.middleContainer}container direction="column" spacing={3}>
+          <Grid container direction="column" spacing={3}>
             {userData.loggedIn && (
               <Grid item>
                 <PostForm postCounter={postCounter} setPostCounter={setPostCounter} />
               </Grid>
             )}
-            {posts.length!==0 && posts.map((post,index)=>(
-              <Grid item>
-                <PostCard postCounter={postCounter} setPostCounter={setPostCounter}  key={index} post={post}/>
-              </Grid>
-            ))}
+            <PostWall posts={posts}/>
           </Grid>
           
         </Grid>

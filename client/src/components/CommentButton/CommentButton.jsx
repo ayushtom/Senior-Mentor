@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function CommentButton({data,postinfo,userinfo,postCounter,setPostCounter}) {
+export default function CommentButton({data,postinfo}) {
     // const classes = useStyles();
-    console.log(data.length);
     const { userData } = useContext(UserContext);
+    const[commentCount,setCommentCount]=useState(data.length)
 
     const [openerror, setOpenerror] =useState(false);
     const [message,setMessage]=useState('');
@@ -30,7 +30,7 @@ export default function CommentButton({data,postinfo,userinfo,postCounter,setPos
     const [opendialog, setOpendialog] = useState(false);
     const handleDialogOpen = () => {
       
-      if(userData.loggedIn===false)
+      if(userData.token===null)
       {
         setOpenerror(true)
         setMessage("Please Login")
@@ -54,12 +54,12 @@ export default function CommentButton({data,postinfo,userinfo,postCounter,setPos
         
       <IconButton aria-label="Comment" onClick={handleDialogOpen}>
           <ChatIcon />
-          <Typography variant="subtitle2">{data.length}</Typography>
+          <Typography variant="subtitle2">{commentCount}</Typography>
           
         </IconButton>
         {openerror && (<ErrorMessage open={openerror} setOpen={setOpenerror} message={message} />)}
 
-        <CommentDialog open={opendialog} onClose={handleDialogClose} postid={postinfo} postCounter={postCounter} setPostCounter={setPostCounter}/>
+        <CommentDialog open={opendialog} onClose={handleDialogClose} postid={postinfo} commentCount={commentCount} setCommentCount={setCommentCount}/>
       </div>
 
   );

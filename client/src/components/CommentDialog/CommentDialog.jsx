@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CommentDialog(props) {
     // const classes = useStyles();
-    const { onClose, open,postid,postCounter,setPostCounter } = props;
+    const { onClose, open,postid,commentCount,setCommentCount } = props;
     const { userData } = useContext(UserContext);
 
   
@@ -42,7 +42,7 @@ export default function CommentDialog(props) {
       .then(()=>{
         onClose(open);
         values.body=''
-        setPostCounter(postCounter+1)
+        setCommentCount(commentCount+1)
       })
       
   }

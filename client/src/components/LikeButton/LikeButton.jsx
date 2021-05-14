@@ -30,14 +30,17 @@ const useStyles = makeStyles((theme) => ({
 export default function LikeButton({postinfo,data,postCounter,setPostCounter}) {
   const classes = useStyles();
   const { userData } = useContext(UserContext);
+  const [like, setlike] = useState(false)
+  const[likeCount,setLikeCount]=useState(data.length)
   useEffect(() => {
-    if(userData.loggedIn===true && data.find((like) => like.userId === userData.token.userId))
+    if(userData.token && userData.loggedIn===true && data.find((like) => like.userId === userData.token.userId))
     {
       setlike(true)
     }
   }, [data])
   const handleClick=()=>{
-    if(userData.loggedIn===false)
+    console.log(userData)
+    if(userData.token===null)
       {
         setOpenerror(true)
         setMessage("Please Login")
@@ -53,22 +56,29 @@ export default function LikeButton({postinfo,data,postCounter,setPostCounter}) {
       })
       .then(()=>{
         setlike(!like)
-        setPostCounter(postCounter+1)
+        if(!like===true)
+        {
+          setLikeCount(likeCount+1)
+        }
+        else
+        {
+          setLikeCount(likeCount-1)
+        }
+       
       })
+  
         
       }
   }
 
     const [openerror, setOpenerror] =useState(false);
-    const [like, setlike] = useState(false)
-
     const [message,setMessage]=useState('');
 
   return (
       <div>
         <IconButton onClick={handleClick} aria-label="Like">
           <FavoriteIcon className={like?classes.likeIcon:classes.unlikeIcon} />
-          <Typography variant="subtitle2">{data.length}</Typography>
+          <Typography variant="subtitle2">{likeCount}</Typography>
 
         </IconButton>
         {openerror && (<ErrorMessage open={openerror} setOpen={setOpenerror} message={message} />)}
