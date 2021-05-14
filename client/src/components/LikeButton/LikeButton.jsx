@@ -31,7 +31,7 @@ export default function LikeButton({postinfo,data,postCounter,setPostCounter}) {
   const classes = useStyles();
   const { userData } = useContext(UserContext);
   useEffect(() => {
-    if(userData.loggedIn===true && data.find((like) => like.userId === userData.token.userId))
+    if(userData.token && userData.loggedIn===true && data.find((like) => like.userId === userData.token.userId))
     {
       setlike(true)
     }
