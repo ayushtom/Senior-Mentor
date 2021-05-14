@@ -41,6 +41,8 @@ export default function Profile() {
   const[skillOpen,setSkillOpen]=useState(false)
 
 
+
+
   const handleIntroDialogOpen = () => {
       setIntroOpen(true);
   };
@@ -73,7 +75,6 @@ const handleSkillDialogClose = () => {
       })
     
   }, [])
-
   return (
   <Grid container>
 
@@ -100,7 +101,7 @@ const handleSkillDialogClose = () => {
       </Grid>
       {editflag && (
         <Grid item xs={1}>
-          <IconButton aria-label="Comment" onClick={handleIntroDialogOpen}>
+        <IconButton aria-label="Comment" onClick={handleIntroDialogOpen}>
             <CreateIcon />
           </IconButton>
         </Grid>
@@ -110,48 +111,15 @@ const handleSkillDialogClose = () => {
     </Grid>
     <Grid container  direction="row">
       <Grid item xs={12} sm={3}>
-          <Typography variant="h6">Skills</Typography>
-          <Chip
-            className={classes.skillnames}
-            label="React"
-            color="primary"
-          />
-          <Chip
-            className={classes.skillnames}
-            label="Vue"
-            color="primary"
-          />
-          <Chip
-            className={classes.skillnames}
-            label="Angular"
-            color="primary"
-          />
-          <Chip
-            className={classes.skillnames}
-            label="Node"
-            color="primary"
-          />
-          <Chip
-            className={classes.skillnames}
-            label="Mongodb"
-            color="primary"
-          />
-          <Chip
-            className={classes.skillnames}
-            label="express"
-            color="primary"
-          />
-          <Chip
-            className={classes.skillnames}
-            label="javascript
-            "
-            color="primary"
-          />
-          <Chip
-            className={classes.skillnames}
-            label="php"
-            color="primary"
-          />
+          <Typography variant="h6">Skills 
+          
+
+          </Typography>
+          
+          {response.skills && response.skills.length!==0 && response.skills.map((skill,index)=>(
+            <Chip className={classes.skillnames} key={index} color="primary" label={skill.skill}/>
+         ))}
+         
         
       </Grid>
       <Grid item sm={1}>
@@ -165,11 +133,12 @@ const handleSkillDialogClose = () => {
       )}
       </Grid>
       <Grid  className={classes.secondRow} item xs={12} sm={8}>
-        <UserInfoMenu />      
+        <UserInfoMenu editflag={editflag}/>      
       </Grid>
     </Grid>
+    
     <IntroDialog data={response} open={introOpen} onClose={handleIntroDialogClose}/>
-    <SkillDialog data={response} open={skillOpen} onClose={handleSkillDialogClose}/>
+    <SkillDialog data={response.skills} setResponse={setResponse} open={skillOpen} onClose={handleSkillDialogClose}/>
 
 </Grid>
 

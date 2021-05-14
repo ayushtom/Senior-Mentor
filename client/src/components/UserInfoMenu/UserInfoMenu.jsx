@@ -10,7 +10,7 @@ import ProjectCard from '../ProjectCard/ProjectCard'
 import Box from '@material-ui/core/Box';
 
 function TabPanel(props) {
-  const { value, index} = props;
+  const { value, index,editflag} = props;
   switch (index) {
     case 0:
         return (
@@ -23,11 +23,9 @@ function TabPanel(props) {
             {value === index && (
               <Box>
                 <Box >
-                  <ProjectCard />
+                  <ProjectCard editflag={editflag}/>
                   <Divider />
-                  <ProjectCard />
-                  <Divider />
-                  <ProjectCard />
+                  
 
                 </Box>
       
@@ -46,11 +44,9 @@ function TabPanel(props) {
           {value === index && (
             <Box>
               <Box>
-                <InternshipCard />
+                <InternshipCard editflag={editflag}/>
                 <Divider />
-                <InternshipCard />
-                <Divider />
-                <InternshipCard />
+                
 
               </Box>
     
@@ -101,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UserInfoMenu() {
+export default function UserInfoMenu({editflag}) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -135,9 +131,9 @@ export default function UserInfoMenu() {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction} />
-        <TabPanel value={value} index={1} dir={theme.direction} />
-        <TabPanel value={value} index={2} dir={theme.direction}/>
+        <TabPanel value={value} index={0} editflag={editflag} dir={theme.direction} />
+        <TabPanel value={value} index={1} editflag={editflag} dir={theme.direction} />
+        <TabPanel value={value} index={2} editflag={editflag} dir={theme.direction}/>
           
       </SwipeableViews>
     </div>

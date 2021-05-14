@@ -1,11 +1,12 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 
 import UserContext from '../../context/context'
-import { TextField,Grid,Button,Dialog, DialogTitle,DialogContent,DialogActions,DialogContentText} from '@material-ui/core';
+import { TextField,Chip,Grid,Button,Dialog, DialogTitle,DialogContent,DialogActions,DialogContentText} from '@material-ui/core';
 import {Typography,Box,Select,MenuItem,FormControl,InputLabel} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 
+import axios from 'axios'
 
 import { useForm } from '../../utils/hook';
 
@@ -29,13 +30,18 @@ const useStyles = makeStyles((theme) => ({
     }
   }))
 
-export default function IntroDialog(props) {
+export default function SkillDialog(props) {
     const classes = useStyles();
+    const { userData } = useContext(UserContext);
 
     const { onClose, open,data} = props;
-    const[values,setValues]=useState({
-        skills:data.skills
-    })
+    const[skills,setSkills]=useState([])
+    const[skillName,setSkillName]=useState('')
+    useEffect(()=>{
+        setSkills(
+            data)
+    },[props.data])
+
 
     const handleClose = () => {
         onClose(open);
@@ -43,25 +49,56 @@ export default function IntroDialog(props) {
 
     
     const onChange=(event)=>{
-        setValues({ ...values, [event.target.name]: event.target.value });
+        setSkillName(event.target.value);
+    }
+    const handleDelete=(skill)=>{
+        axios.delete(`http://localhost:5000/skill`,{
+            skill
+        },{
+          headers:{
+              authorization: userData.tokenNumber
+      }
+      })
+      .then((res)=>{
+        onClose(open);
+        console.log(res);
+      })
+      .catch((err)=>{
+          console.log(err);
+      })
+
     }
 
     const onSubmit=()=>{
+        axios.post(`http://localhost:5000/skill`,{
+        skill:skillName
+        },{
+          headers:{
+              authorization: userData.tokenNumber
+      }
+      })
+      .then(()=>{
+        onClose(open);
+        setSkillName('')
+      })
         
     }
-    
-
-    console.log(values);
   return (
      <Dialog
       fullWidth
-      maxWidth="md"
+      maxWidth="sm"
       onClose={handleClose} 
       aria-labelledby="simple-dialog-title" 
       open={open}>
       <DialogContent>
           <Grid container direction="row" spacing={1}>
-              <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
+          {skills && skills.length!==0 && skills.map((skill,index)=>(
+                <Chip  onDelete={()=>handleDelete(skill.skill)} className={classes.skillnames} key={index} color="primary" label={skill.skill}/>
+         ))}
+          
+            </Grid>
+              <Grid item xs={12}>
                 <TextField
                 fullWidth
                 variant="outlined"
@@ -70,14 +107,10 @@ export default function IntroDialog(props) {
                 label="Add Skills"
                 name="skills"
                 autoFocus
-                value={values.firstName}
+                value={skillName}
                 onChange={onChange}
                 />
             </Grid>
-            
-         
-              
-           
         </Grid>
       
           
@@ -86,7 +119,7 @@ export default function IntroDialog(props) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={onSubmit} color="primary">
+          <Button disabled={(skillName!=='')?false:true} onClick={onSubmit} color="primary">
             Save
           </Button>
         </DialogActions>

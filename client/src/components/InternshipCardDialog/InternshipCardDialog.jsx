@@ -1,4 +1,10 @@
 import React,{useState,useEffect} from 'react'
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 import UserContext from '../../context/context'
 import { TextField,Grid,Button,Dialog, DialogTitle,DialogContent,DialogActions,DialogContentText} from '@material-ui/core';
@@ -29,20 +35,27 @@ const useStyles = makeStyles((theme) => ({
     }
   }))
 
-export default function IntroDialog(props) {
+export default function InternshipCardDialog(props) {
     const classes = useStyles();
     const { onClose, open,data} = props;
 
     const[values,setValues]=useState({})
 
-    useEffect(()=>{
-        setValues({
-            firstName:data.firstName,
-            lastName:data.lastName,
-            branch:data.branch,
-            year:data.year
-        })
-    },[props.data])
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+
+    // useEffect(()=>{
+    //     setValues({
+    //         firstName:data.firstName,
+    //         lastName:data.lastName,
+    //         branch:data.branch,
+    //         year:data.year
+    //     })
+    // },[props.data])
 
     const handleClose = () => {
         onClose(open);
@@ -54,7 +67,7 @@ export default function IntroDialog(props) {
     }
 
     const onSubmit=()=>{
-        
+        onClose(open)
     }
     
 
@@ -66,83 +79,89 @@ export default function IntroDialog(props) {
       aria-labelledby="simple-dialog-title" 
       open={open}>
       <DialogContent>
-          <Grid container direction="row" spacing={1}>
-              <Grid item xs={12} sm={6}>
+          <Grid container direction="row" spacing={3}>
+              <Grid item xs={12}>
                 <TextField
                 fullWidth
+                multiline
                 variant="outlined"
                 margin="normal"
                 required
-                label="First Name"
+                label="Company"
                 name="firstName"
                 autoFocus
                 value={values.firstName}
                 onChange={onChange}
                 />
             </Grid>
-            <Grid item xs={12} sm={6}>
-                <TextField
-                fullWidth
-                variant="outlined"
-                margin="normal"
-                required
-                label="Last Name"
-                name="lastName"
-                autoFocus
-                value={values.lastName}
-                onChange={onChange}
-                />
-            </Grid>
-          <Grid item xs={12} sm={6}>
-          <FormControl fullWidth variant="outlined" className={classes.formControl1}>
-            <InputLabel id="demo-simple-select-outlined-label">Branch</InputLabel>
-                <Select  
-                name="branch"           
-                value={values.branch}
-                onChange={onChange}
-
-                >
-                    <MenuItem value="Computer Engineering">Computer Engineering</MenuItem>
-                    <MenuItem value="Electronics Engineering">Electronics Engineering</MenuItem>
-                    <MenuItem value="Production Engineering">Production Engineering</MenuItem>
-                    <MenuItem value="Information Technology">Information Technology</MenuItem>
-                </Select>
-            </FormControl>
-              
-            </Grid>
-            <Grid item xs={12} sm={6}>
-            <FormControl fullWidth variant="outlined" className={classes.formControl2}>
-            <InputLabel id="demo-simple-select-outlined-label">Year</InputLabel>
-                <Select
-                name="year"           
-                value={values.year}
-                labelId="demo-simple-select-filled-label"
-                id="demo-simple-select-filled"
-                onChange={onChange}
-
-                >
-                    <MenuItem value="1">First year</MenuItem>
-                    <MenuItem value="2">Second Year</MenuItem>
-                    <MenuItem value="3">Third Year</MenuItem>
-                    <MenuItem value="4">Fourth Year</MenuItem>
-                </Select>
-            </FormControl>
-            </Grid>
             <Grid item xs={12}>
                 <TextField
                 fullWidth
                 multiline
-                rows="4"
                 variant="outlined"
                 margin="normal"
                 required
-                label="About"
+                label="Designation"
+                name="firstName"
+                autoFocus
+                value={values.firstName}
+                onChange={onChange}
+                />
+            </Grid>
+            
+            <Grid item xs={12}>
+                <TextField
+                multiline
+                fullWidth
+                rows="6"
+                variant="outlined"
+                margin="normal"
+                required
+                label="Description"
                 name="lastName"
                 autoFocus
                 value={values.lastName}
                 onChange={onChange}
                 />
+                
             </Grid>
+          <Grid item xs={12} sm={6}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+          fullWidth
+          margin="normal"
+          id="date-picker-dialog"
+          label="Start Date"
+          format="MM/dd/yyyy"
+          value={selectedDate}
+          onChange={handleDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+          </MuiPickersUtilsProvider>
+          
+              
+            </Grid>
+            <Grid item xs={12} sm={6}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+          fullWidth
+          margin="normal"
+          id="date-picker-dialog"
+          label="End Date"
+          format="MM/dd/yyyy"
+          value={selectedDate}
+          onChange={handleDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+          </MuiPickersUtilsProvider>
+          
+              
+            </Grid>
+            
         </Grid>
       
           
@@ -151,6 +170,9 @@ export default function IntroDialog(props) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
+          <Button onClick={onSubmit} color="primary">
+            Delete
+        </Button>
           <Button onClick={onSubmit} color="primary">
             Save
           </Button>
