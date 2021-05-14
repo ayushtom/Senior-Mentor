@@ -126,7 +126,8 @@ module.exports = {
             body : body 
         }); 
         message = await model.Message.findById(message._id)
-        .populate("userId","firstName lastName"); 
+        .populate("userId","firstName lastName")
+        .populate("groupId","groupName typeId"); 
         return message; 
     },
     groupLastMessage  

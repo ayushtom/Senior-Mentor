@@ -49,7 +49,7 @@ module.exports = (io) => {
             const { groupName , body } = data; 
             const friendId = await helpers.getFriendIdFromGroupName(groupName, userId); 
             const friendSocketId = getSocket(friendId);
-            console.log("group message", groupName, body); 
+            //console.log("group message", groupName, body); 
             
             await groupControllers.findOrCreatePCGroup(groupName);
             let message = await groupControllers.addPCMessage({

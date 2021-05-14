@@ -69,7 +69,7 @@ export default function PostCard({post,postCounter,setPostCounter}) {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    console.log(userData.token.userId);
+    //console.log(userData.token.userId);
     
     return (
     <Card id={post._id} className={clsx(classes.card)}>
