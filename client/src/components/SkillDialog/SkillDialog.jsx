@@ -1,14 +1,12 @@
 import React,{useState,useEffect,useContext} from 'react'
 
 import UserContext from '../../context/context'
-import { TextField,Chip,Grid,Button,Dialog, DialogTitle,DialogContent,DialogActions,DialogContentText} from '@material-ui/core';
-import {Typography,Box,Select,MenuItem,FormControl,InputLabel} from '@material-ui/core'
+import { TextField,Chip,Grid,Button,Dialog, DialogTitle,DialogContent,DialogActions} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 
 import axios from 'axios'
 
-import { useForm } from '../../utils/hook';
 
 const useStyles = makeStyles((theme) => ({
   
@@ -38,8 +36,7 @@ export default function SkillDialog(props) {
     const[skills,setSkills]=useState([])
     const[skillName,setSkillName]=useState('')
     useEffect(()=>{
-        setSkills(
-            data)
+        setSkills(data)
     },[props.data])
 
 
@@ -53,7 +50,7 @@ export default function SkillDialog(props) {
     }
     const handleDelete=(skill)=>{
         axios.delete(`http://localhost:5000/skill`,{
-            skill
+            skill:skill
         },{
           headers:{
               authorization: userData.tokenNumber

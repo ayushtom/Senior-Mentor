@@ -29,7 +29,12 @@ export default function ProjectCard({editflag}) {
 
   return (
     <>
+    {editflag && (
+      <Paper elevation={0}  className={classes.root}>
+      <Button  onClick={handleProjectDialogOpen} variant="contained" color="primary">Add Project</Button>
      
+    </Paper>
+    )}
     
     <Paper elevation={0}  className={classes.root}>
         <Typography variant="subtitle1">Project Name:</Typography>

@@ -3,7 +3,6 @@ import React,{useState} from 'react';
 import {Paper,Typography,Button} from '@material-ui/core'
 import useStyles from './styles';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
 
 import InternshipCardDialog from '../InternshipCardDialog/InternshipCardDialog'

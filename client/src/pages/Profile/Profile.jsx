@@ -91,12 +91,12 @@ if(userData && userData.token) {
           <Typography variant="subtitle1" color="textSecondary">{dict[response.year]} , {response.branch}</Typography>
           
           <Typography variant="h6">About</Typography>
-          <Typography variant="body1">Lorem ipsum dolor sit derit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography>
+          <Typography variant="body1">{response.bio}</Typography>
         </Grid>
         <Grid className={classes.messageAndFriends}>
-          <Button color="primary">Add Friend</Button>
+          {/* <Button color="primary">Add Friend</Button> */}
           <Button  color="primary">Message</Button>
-          <Button  color="primary" startIcon={<CheckIcon />}>Friends</Button>
+          {/* <Button  color="primary" startIcon={<CheckIcon />}>Friends</Button> */}
           {(userId===currentProfileId) && (<Button  color="primary" onClick={(()=>{setEditFlag(!editflag)})}>{editflag?"Done":"Edit"}</Button>)}
 
 
@@ -140,7 +140,7 @@ if(userData && userData.token) {
       </Grid>
     </Grid>
     
-    <IntroDialog data={response} open={introOpen} onClose={handleIntroDialogClose}/>
+    <IntroDialog data={response} open={introOpen} changeflag={changeflag} setChangeflag={setChangeflag} onClose={handleIntroDialogClose}/>
     <SkillDialog data={response.skills} changeflag={changeflag} setChangeflag={setChangeflag} open={skillOpen} onClose={handleSkillDialogClose}/>
 
 </Grid>

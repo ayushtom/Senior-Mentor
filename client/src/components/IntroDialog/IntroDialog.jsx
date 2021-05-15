@@ -1,11 +1,12 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 
-import UserContext from '../../context/context'
 import { TextField,Grid,Button,Dialog, DialogTitle,DialogContent,DialogActions,DialogContentText} from '@material-ui/core';
 import {Typography,Box,Select,MenuItem,FormControl,InputLabel} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
+import UserContext from '../../context/context'
 
+import axios from 'axios'
 
 import { useForm } from '../../utils/hook';
 
@@ -31,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function IntroDialog(props) {
     const classes = useStyles();
-    const { onClose, open,data} = props;
+    const { userData } = useContext(UserContext);
+
+    const { onClose, open,data,changeflag,setChangeflag} = props;
 
     const[values,setValues]=useState({})
 
@@ -40,7 +43,8 @@ export default function IntroDialog(props) {
             firstName:data.firstName,
             lastName:data.lastName,
             branch:data.branch,
-            year:data.year
+            year:data.year,
+            bio:data.bio
         })
     },[props.data])
 
@@ -54,6 +58,22 @@ export default function IntroDialog(props) {
     }
 
     const onSubmit=()=>{
+
+      axios.put(`http://localhost:5000/profile`,{
+        firstName:values.firstName,
+        lastName:values.lastName,
+        year:values.year,
+        branch:values.branch,
+        bio:values.bio
+        },{
+          headers:{
+              authorization: userData.tokenNumber,
+      }
+      })
+      .then(()=>{
+        setChangeflag(changeflag+1)
+        onClose(open);
+      })
         
     }
     
@@ -137,9 +157,9 @@ export default function IntroDialog(props) {
                 margin="normal"
                 required
                 label="About"
-                name="lastName"
+                name="bio"
                 autoFocus
-                value={values.lastName}
+                value={values.bio}
                 onChange={onChange}
                 />
             </Grid>
