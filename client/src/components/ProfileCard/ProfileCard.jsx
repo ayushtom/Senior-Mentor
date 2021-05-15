@@ -44,7 +44,8 @@ export default function ProfileCard({profile}) {
   const classes = useStyles();
   //let myId = u
   return (
-    <Card className={classes.root}>
+    <Link to={`/profile/view/${profile._id}`}  style={{textDecoration:"none",color:"inherit"}}>
+      <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -80,5 +81,6 @@ export default function ProfileCard({profile}) {
         </Button>
       </CardActions>
     </Card>
+    </Link>
   );
 }
