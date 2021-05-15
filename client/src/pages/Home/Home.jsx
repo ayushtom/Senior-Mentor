@@ -13,6 +13,7 @@ import PostWall from '../../components/PostWall/PostWall'
 
 
 
+
 import {Grid,TextField} from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -64,6 +65,8 @@ export default function Home() {
     })
   }, [postCounter])
 
+  console.log(posts);
+
   return (
     <div> 
     <Grid container direction="row" spacing={3}>
@@ -76,7 +79,7 @@ export default function Home() {
                 <PostForm postCounter={postCounter} setPostCounter={setPostCounter} />
               </Grid>
             )}
-            <PostWall posts={posts}/>
+            <PostWall posts={posts} />
           </Grid>
           
         </Grid>

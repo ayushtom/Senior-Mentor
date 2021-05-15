@@ -134,6 +134,7 @@ export default function UserInfoMenu({editflag}) {
         <TabPanel value={value} index={0} editflag={editflag} dir={theme.direction} />
         <TabPanel value={value} index={1} editflag={editflag} dir={theme.direction} />
         <TabPanel value={value} index={2} editflag={editflag} dir={theme.direction}/>
+        
           
       </SwipeableViews>
     </div>

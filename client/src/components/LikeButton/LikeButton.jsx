@@ -35,7 +35,8 @@ export default function LikeButton({postinfo,data,postCounter,setPostCounter}) {
   useEffect(() => {
     if(userData.token && userData.loggedIn===true && data.find((like) => like.userId === userData.token.userId))
     {
-      setlike(true)
+      setlike(like.isLike)
+      console.log(like);
     }
   }, [data])
   const handleClick=()=>{
@@ -55,6 +56,10 @@ export default function LikeButton({postinfo,data,postCounter,setPostCounter}) {
       }
       })
       .then(()=>{
+        if(postCounter)
+        {
+          setPostCounter(postCounter+1)
+        }
         setlike(!like)
         if(!like===true)
         {

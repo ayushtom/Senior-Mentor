@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 
-import {Paper,Typography} from '@material-ui/core'
+import {Paper,Typography,Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -28,6 +28,9 @@ export default function ProjectCard({editflag}) {
   }; 
 
   return (
+    <>
+     
+    
     <Paper elevation={0}  className={classes.root}>
         <Typography variant="subtitle1">Project Name:</Typography>
         <Typography variant="body2">Amazon Clone</Typography> 
@@ -37,9 +40,7 @@ export default function ProjectCard({editflag}) {
         <Typography variant="body2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</Typography> 
         {editflag && (
           <>
-          <IconButton aria-label="delete" className={classes.margin}>
-          <DeleteIcon />
-        </IconButton>
+         
         <IconButton aria-label="edit" className={classes.margin} onClick={handleProjectDialogOpen}>
           <CreateIcon />
         </IconButton>
@@ -50,5 +51,6 @@ export default function ProjectCard({editflag}) {
 
         
     </Paper>
+    </>
   );
 }

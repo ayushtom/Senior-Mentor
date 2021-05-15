@@ -34,7 +34,7 @@ export default function SkillDialog(props) {
     const classes = useStyles();
     const { userData } = useContext(UserContext);
 
-    const { onClose, open,data} = props;
+    const { onClose, open,data,changeflag,setChangeflag} = props;
     const[skills,setSkills]=useState([])
     const[skillName,setSkillName]=useState('')
     useEffect(()=>{
@@ -60,7 +60,7 @@ export default function SkillDialog(props) {
       }
       })
       .then((res)=>{
-        onClose(open);
+        setChangeflag(changeflag+1)
         console.log(res);
       })
       .catch((err)=>{
@@ -78,6 +78,7 @@ export default function SkillDialog(props) {
       }
       })
       .then(()=>{
+        setChangeflag(changeflag+1)
         onClose(open);
         setSkillName('')
       })

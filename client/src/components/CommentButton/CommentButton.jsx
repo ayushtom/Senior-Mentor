@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function CommentButton({data,postinfo}) {
+export default function CommentButton({data,postinfo,postCounter,setPostCounter}) {
     // const classes = useStyles();
     const { userData } = useContext(UserContext);
     const[commentCount,setCommentCount]=useState(data.length)
@@ -58,9 +58,9 @@ export default function CommentButton({data,postinfo}) {
           
         </IconButton>
         {openerror && (<ErrorMessage open={openerror} setOpen={setOpenerror} message={message} />)}
-
-        <CommentDialog open={opendialog} onClose={handleDialogClose} postid={postinfo} commentCount={commentCount} setCommentCount={setCommentCount}/>
-      </div>
+        
+        
+          <CommentDialog open={opendialog} onClose={handleDialogClose} postid={postinfo} commentCount={commentCount} setCommentCount={setCommentCount}/>      </div>
 
   );
 }

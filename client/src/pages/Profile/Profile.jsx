@@ -36,6 +36,7 @@ export default function Profile() {
   const classes = useStyles();
   const { userData } = useContext(UserContext);
   const [response, setResponse] = useState({});
+  const[changeflag,setChangeflag]=useState(0)
   const[editflag,setEditFlag]=useState(false)
   const[introOpen,setIntroOpen]=useState(false)
   const[skillOpen,setSkillOpen]=useState(false)
@@ -62,10 +63,12 @@ const handleSkillDialogClose = () => {
     '3' :'Third Year',
     '4' :'Fourth Year'
   };
-  
+  let userId = null;
+if(userData && userData.token) {
+  userId = userData.token.userId;
+}
   const arr = window.location.href.split("/"); 
   const currentProfileId = arr[arr.length-1];
-  var userId=userData.token.userId
   useEffect(() => {
     axios
       .get("http://localhost:5000/profile/"+currentProfileId)
@@ -74,7 +77,7 @@ const handleSkillDialogClose = () => {
         setResponse(resp);
       })
     
-  }, [])
+  }, [changeflag])
   return (
   <Grid container>
 
@@ -138,7 +141,7 @@ const handleSkillDialogClose = () => {
     </Grid>
     
     <IntroDialog data={response} open={introOpen} onClose={handleIntroDialogClose}/>
-    <SkillDialog data={response.skills} setResponse={setResponse} open={skillOpen} onClose={handleSkillDialogClose}/>
+    <SkillDialog data={response.skills} changeflag={changeflag} setChangeflag={setChangeflag} open={skillOpen} onClose={handleSkillDialogClose}/>
 
 </Grid>
 

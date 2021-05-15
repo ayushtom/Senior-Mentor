@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function PostCard({post}) {
+export default function SeperatePostCard({post,postCounter,setPostCounter}) {
     const classes = useStyles();
     var postFullname=post.userId.firstName+' '+post.userId.lastName;
     
