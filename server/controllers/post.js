@@ -59,7 +59,8 @@ const addComment = async(userId, postId, body) => {
 
         const comment = new model.Comment({
             body : body, 
-            userId : userId 
+            userId : userId,
+            createdAt : new Date()
         })
 
         post.comments.push(comment)
