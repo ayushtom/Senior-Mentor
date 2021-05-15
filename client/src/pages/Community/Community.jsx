@@ -11,6 +11,7 @@ export default function Community() {
   const [branch, setBranch] = useState('All'); 
   const [year, setYear] = useState('All')
   const [name, setName] = useState('');  
+  const [skill, setSkill] = useState('')
 
   const handleBranchChange = (e) => {
     setBranch(e.target.value); 
@@ -20,6 +21,9 @@ export default function Community() {
   }
   const handleNameChange = (e) => {
     setName(e.target.value)
+  }
+  const hangleSkillsChange = (e) => {
+    setSkill(e.target.value)
   }
 
   const match = (searchWord, word) => {
@@ -31,6 +35,18 @@ export default function Community() {
     return 0; 
   }
   
+  const skillMatch = (searchWord, skillArray) => {
+    let f = 0; 
+    skillArray.forEach((elem)=>{
+      console.log(elem.skill.toLowerCase(), searchWord.toLowerCase()); 
+      if(match(searchWord, elem.skill)){
+        console.log("match"); 
+        f = 1; 
+      }
+    })
+    return f; 
+  }
+
   useEffect(() => {
     axios.get('http://localhost:5000/profiles')
     .then((res)=>{
@@ -95,6 +111,7 @@ export default function Community() {
             label="Search Skills"
             name="searchskills"
             autoFocus
+            onChange={hangleSkillsChange}
           />
         </Grid>
         <Grid item xs={12} sm={4}>
@@ -110,8 +127,8 @@ export default function Community() {
 
         
         {response.length!==0 && response.map((profile,index)=>{
-          
-          if((branch === 'All' || profile.branch === branch)  && ((year === 'All') || profile.year==year) && ((name === '') || match(name,`${profile.firstName} ${profile.lastName}`))) { 
+          //console.log(profile); 
+          if((branch === 'All' || profile.branch === branch)  && ((year === 'All') || profile.year==year) && ((name === '') || match(name,`${profile.firstName} ${profile.lastName}`)) && ((skill === '') || skillMatch(skill, profile.skills)) ) { 
             return (
               <Grid item key={index} xs={12} sm={3}>
                 <ProfileCard key={index} profile={profile} />            

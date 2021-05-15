@@ -206,7 +206,8 @@ const getProfile = async (userId) => {
 
 const getAllProfiles = async() => {
     try {   
-        let res = await model.User.find({},["-password"]);  
+        let res = await model.User.find({},["-password"])
+        .populate("skills projects");  
         return res; 
     } catch(err) { 
         Promise.reject(err); 
