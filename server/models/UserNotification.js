@@ -9,8 +9,8 @@ const NotificationSchema = new Schema({
     },
     message : String, 
     type: Number, // 1 -> pc from other person 
-    linkUrl : String // redirect to url on clicking notification
-     
+    route : String, // redirect to url on clicking notification
+    seen : Boolean 
 },
 {   
     timestamps: { createdAt: 'createdAt' } 
@@ -18,5 +18,5 @@ const NotificationSchema = new Schema({
 );
 
 
-const Message = mongoose.model("userNotification", NotificationSchema);
-module.exports = Message;
+const UserNotification = mongoose.model("userNotification", NotificationSchema);
+module.exports = UserNotification;

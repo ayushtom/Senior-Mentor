@@ -212,6 +212,35 @@ const getAllProfiles = async() => {
         Promise.reject(err); 
     }
 }
+
+const addNotification = async(data) => {
+    const {
+        userId, 
+        message,
+        type, 
+        route
+    } = data; 
+    try {   
+        let res = await model.UserNotification.create({
+            userId,
+            message,
+            type,
+            route
+        })
+    } catch(err){
+        Promise.reject(err); 
+    }
+}
+
+const getNotifications = async(userId) => {
+    const res = await model.UserNotification.find({ userId:userId,seen: false}); 
+    return res; 
+}
+
+const setNotificationSeen = async(notificationId) =>{
+    const res = await model.UserNotification.updateOne({_id:notificationId},{seen:true});
+    return res; 
+}
 /*
 const registerUser = async(data) => {
     try {
@@ -231,5 +260,8 @@ module.exports = {
     addOrUpdateInternship,
     addOrUpdateProject,
     addSkill,
-    removeSkill 
+    removeSkill,
+    addNotification,
+    getNotifications,
+    setNotificationSeen
 }

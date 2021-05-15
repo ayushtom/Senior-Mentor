@@ -1,5 +1,6 @@
 const { decodeToken }= require("../helpers/helpers");
 const groupControllers = require("../controllers/group");
+const userControllers = require("../controllers/user");
 const { getSocket, setSocket } = require("../controllers/sockets");
 const helpers = require("../helpers/helpers"); 
 
@@ -51,7 +52,17 @@ module.exports = (io) => {
             const friendSocketId = getSocket(friendId);
             //console.log("group message", groupName, body); 
             
-            await groupControllers.findOrCreatePCGroup(groupName);
+            let x = await groupControllers.findOrCreatePCGroup(groupName);
+            if(x && x.upserted){ 
+                userControllers.addNotification({
+                    userId : friendId,
+                    message : "You have a message from a new person",
+                    type : 1,
+                    route : `/chat/pc/${groupName}`,
+                    seen : false
+                })
+                console.log("New notification")
+            }   
             let message = await groupControllers.addPCMessage({
                 groupName : groupName,
                 userId : userId, 

@@ -65,7 +65,7 @@ router.post("/post", checkToken, upload.single('attachment'), async(req,res)=>{
     }
 })
 
-router.get("/post/:id", checkToken, async(req,res)=>{
+router.get("/post/:id", async(req,res)=>{
     const userId = res.locals.userId; 
     const postId = req.params.id; 
     try { 

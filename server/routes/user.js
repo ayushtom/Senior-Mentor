@@ -9,7 +9,8 @@ const {
 const {
     registerUser, loginUser, updateUserDetails, getProfile, getAllProfiles, findByEmail,
     addOrUpdateInternship, addOrUpdateProject,
-    addSkill, removeSkill 
+    addSkill, removeSkill,
+    addNotification, getNotifications, setNotificationSeen
 } = require("../controllers/user");
 
 router.post("/register", async(req,res)=>{
@@ -244,6 +245,42 @@ router.post("/checkEmailExists", async(req,res)=>{
     } catch(err) {
         console.log(err.code, err.err, err);
         res.status(500).json(err); 
+    }
+})
+
+router.get("/notifications", checkToken, async(req,res)=>{
+    try {
+        const userId = res.locals.userId; 
+        console.log("USER ID ", userId);
+        let result = await getNotifications(userId); 
+        return res.status(200).json(result); 
+    } catch(err){
+        console.log(err); 
+        if(err.status){
+            res.status(err.status).json({
+                error : err.message
+            })
+        } else {
+            res.status(500).json({message:"there was a problem"}); 
+        }
+    }
+})
+
+router.put("/notification/:notificationId", checkToken, async(req,res)=>{
+    try { 
+        //const userId = res.locals.userId;
+        const notificationId = req.params.notificationId;
+        const result = await setNotificationSeen(notificationId); 
+        res.status(200).json(result); 
+    } catch(err) { 
+        console.log(err); 
+        if(err.status){
+            res.status(err.status).json({
+                error : err.message
+            })
+        } else {
+            res.status(500).json({message:"there was a problem"}); 
+        }
     }
 })
 
