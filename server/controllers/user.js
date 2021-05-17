@@ -226,15 +226,18 @@ const addNotification = async(data) => {
             userId,
             message,
             type,
-            route
+            route,
+            seen: false
         })
+        console.log("Notification created"); 
+        return res; 
     } catch(err){
         Promise.reject(err); 
     }
 }
 
 const getNotifications = async(userId) => {
-    const res = await model.UserNotification.find({ userId:userId,seen: false}); 
+    const res = await model.UserNotification.find({ userId:userId, seen: false}); 
     return res; 
 }
 

@@ -11,6 +11,9 @@ import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import Box from '@material-ui/core/Box';
+import Notification from '../../components/Notification/Notification'
 
 const useStyles = makeStyles({
   notifs:{
@@ -19,54 +22,8 @@ const useStyles = makeStyles({
 
 });
 
-
 export default function NotificationPage() {
-  const classes = useStyles();
-  const { userData } = useContext(UserContext);
-  const [notifications, setNotifications] = useState([]); 
-
-  useEffect(()=>{
-    let token = null;
-    if(userData) { 
-      token = userData.tokenNumber; 
-    }
-    token = localStorage.getItem('auth-token'); 
-    if(token){
-      axios.defaults.headers.common['authorization'] = token; 
-    }
-    const fetchData = async () => {
-      const res = await axios.get(`http://localhost:5000/notifications`);
-      const notifications = res.data; 
-      console.log(notifications); 
-      setNotifications(notifications); 
-    } 
-    fetchData();
-  },[]);
-
   return (
-    <div>
-      {
-        notifications.map((notification, i)=>{
-          return (
-            <ListItem alignItems="flex-start">
-              <Grid container direction="row" spacing={1}>
-                <Grid item md={9} sm={9} xs={9}>
-                    <Link to={{ pathname : `${notification.route}`}} style={{textDecoration:"none",color:"inherit"}} >
-                      <ListItemText
-                        primary={"New Chat"}
-                        secondary={
-                          <React.Fragment>
-                            {notification.message}
-                          </React.Fragment>
-                        }
-                      />
-                    </Link>
-                </Grid>
-              </Grid>
-            </ListItem>  
-          )
-        })
-      }
-    </div>
-  );
+    <Notification occupyParts={8} /> 
+  )
 }

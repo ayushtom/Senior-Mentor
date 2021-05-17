@@ -266,6 +266,7 @@ router.get("/notifications", checkToken, async(req,res)=>{
     }
 })
 
+//notification seen
 router.put("/notification/:notificationId", checkToken, async(req,res)=>{
     try { 
         //const userId = res.locals.userId;

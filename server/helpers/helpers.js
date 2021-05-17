@@ -58,6 +58,7 @@ module.exports = {
         });
     },
     getFriendIdFromGroupName : (groupName, userId)=>{
+        if(!groupName) return null; 
         const arr = groupName.split("-");
         if(arr[0] == userId){
             return arr[1]; 

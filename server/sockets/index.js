@@ -39,12 +39,12 @@ module.exports = (io) => {
     });
 
 
-    io.on("connection",(socket)=>{
+    io.on("connection", async (socket)=>{
         console.log("Heree", socket.id, socket.userId);
 
         const userId = socket.userId; 
         setSocket(userId, socket.id);
-
+        const user = await userControllers.getProfile(userId); 
 
         socket.on("user-message", async(data, callBack)=>{
             const { groupName , body } = data; 
@@ -56,12 +56,12 @@ module.exports = (io) => {
             if(x && x.upserted){ 
                 userControllers.addNotification({
                     userId : friendId,
-                    message : "You have a message from a new person",
+                    message : `You have a message from ${user.firstName} ${user.lastName}`,
                     type : 1,
                     route : `/chat/pc/${groupName}`,
                     seen : false
                 })
-                console.log("New notification")
+                console.log(`New notification from ${userId} to ${friendId}`);
             }   
             let message = await groupControllers.addPCMessage({
                 groupName : groupName,

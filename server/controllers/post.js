@@ -52,17 +52,36 @@ const getPostById = async(postId) => {
     }  
 }
 
+
+const addCommentNotification = async (postId, commentById) => {
+    try {
+        const post = await model.Post.findById(postId);
+        const commentByUser = await model.User.findById(commentById); 
+
+        let res = await model.UserNotification.create({
+            userId : post.userId,
+            message : `${commentByUser.firstName} ${commentByUser.lastName} commented on your post`,
+            type : 2,
+            route : `/post/${postId}`,
+            seen: false
+        })
+
+        return res; 
+    } catch(err){
+        Promise.reject(err); 
+    }  
+}
+
 const addComment = async(userId, postId, body) => {
     try {
         const post = await model.Post.findById(postId);
-        const user = await model.User.findById(userId); 
-
+        
         const comment = new model.Comment({
             body : body, 
             userId : userId,
             createdAt : new Date()
         })
-
+        addCommentNotification(postId, userId);
         post.comments.push(comment)
         await post.save(); 
         return post; 
@@ -70,6 +89,7 @@ const addComment = async(userId, postId, body) => {
         Promise.reject(err); 
     }  
 }
+
 
 const toggleLike = async(userId, postId) => {
     try {

@@ -81,6 +81,7 @@ const ChatLeft = ({chats,newMessage,setNewMessage}) => {
                   chatArray.map((chat,i)=>{
                     let x = 0; 
                     let { group, friend, lastMessage,newMessages } = chat; 
+                    let lastMessageBody = lastMessage ? lastMessage.body : "";
                     let chatHead = null;
                     if(friend) { 
                       chatHead = `${friend.firstName} ${friend.lastName}`
@@ -89,7 +90,7 @@ const ChatLeft = ({chats,newMessage,setNewMessage}) => {
                     }
                     return (
                       <div key={i}>
-                        <PersonBox chatHead={chatHead} lastMessage={lastMessage.body} groupName={group.groupName} newMessages={newMessages}/> 
+                        <PersonBox chatHead={chatHead} lastMessage={lastMessageBody} groupName={group.groupName} newMessages={newMessages}/> 
                         <Divider variant="inset" component="li" />  
                       </div>
                     );

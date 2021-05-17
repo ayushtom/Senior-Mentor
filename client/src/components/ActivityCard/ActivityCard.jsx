@@ -4,7 +4,7 @@ import {Card,CardHeader,Typography,CardActions,Button,Divider} from '@material-u
 import {Link} from 'react-router-dom'
 
 import useStyles from './styles';
-
+import Notification from '../Notification/Notification'; 
 
 export default function ActivityCard() {
     const classes = useStyles();
@@ -14,11 +14,11 @@ export default function ActivityCard() {
         <CardHeader title="Activity Tab"/>
         <Divider />
         <CardActions>
-          <Link to="/notifications">
-          <Button size="small">Show More</Button>
-
-          </Link>
+          <Notification occupyParts={12}/> 
         </CardActions>
+        <Link to="/notifications">
+          <Button size="small">Show More</Button>
+        </Link>
       </Card>
   );
 }
