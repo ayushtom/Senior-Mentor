@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -6,14 +6,14 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-import UserContext from '../../context/context'
 import { TextField,Grid,Button,Dialog, DialogTitle,DialogContent,DialogActions,DialogContentText} from '@material-ui/core';
-import {Typography,Box,Select,MenuItem,FormControl,InputLabel} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 
+import UserContext from '../../context/context'
 
-import { useForm } from '../../utils/hook';
+import axios from 'axios'
+
 
 const useStyles = makeStyles((theme) => ({
   
@@ -36,15 +36,85 @@ const useStyles = makeStyles((theme) => ({
   }))
 
 export default function ProjectCardDialog(props) {
-    const classes = useStyles();
-    const { onClose, open,data} = props;
+  const classes = useStyles();
+    const { userData } = useContext(UserContext);
+
+    const { onClose, open,data,changeflag,setChangeflag} = props;
+    const[startDate,setStartDate]=useState(null)
+    const[endDate,setEndDate]=useState(null)
+
 
     const[values,setValues]=useState({})
 
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    useEffect(()=>{
+        setValues({
+            title:data.title,
+            description:data.title,
+            
+        })
+        setStartDate(data.startDate)
+        setEndDate(data.endDate)
+    },[props.data])
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+    const handleClose = () => {
+        onClose(open);
+    };
+
+    
+    const onChange=(event)=>{
+        setValues({ ...values, [event.target.name]: event.target.value });
+    }
+
+    const onSubmit=()=>{
+      if(data.projectId)
+      {
+      axios.post(`http://localhost:5000/project`,{
+        title:values.title,
+        description:values.description,
+        startDate:startDate,
+        endDate:endDate,
+        },{
+          headers:{
+              authorization: userData.tokenNumber,
+      }
+      })
+      .then(()=>{
+        setChangeflag(changeflag+1)
+        onClose(open);
+      })
+        
+    }
+    else
+    {
+      axios.put(`http://localhost:5000/project`,{
+        projectId:data.projectId,
+        title:values.title,
+        description:values.description,
+        startDate:startDate,
+        endDate:endDate,
+        },{
+          headers:{
+              authorization: userData.tokenNumber,
+      }
+      })
+      .then(()=>{
+        setChangeflag(changeflag+1)
+        onClose(open);
+      })
+        
+    }
+
+    
+}
+    
+
+  
+
+  const handlestartDateChange = (date) => {
+    setStartDate(date);
+  };
+  const handleendDateChange = (date) => {
+    setEndDate(date);
   };
 
 
@@ -57,18 +127,8 @@ export default function ProjectCardDialog(props) {
     //     })
     // },[props.data])
 
-    const handleClose = () => {
-        onClose(open);
-    };
-
     
-    const onChange=(event)=>{
-        setValues({ ...values, [event.target.name]: event.target.value });
-    }
-
-    const onSubmit=()=>{
-        onClose(open)
-    }
+    
     
 
   return (
@@ -88,9 +148,9 @@ export default function ProjectCardDialog(props) {
                 margin="normal"
                 required
                 label="Title"
-                name="firstName"
+                name="title"
                 autoFocus
-                value={values.firstName}
+                value={values.title}
                 onChange={onChange}
                 />
             </Grid>
@@ -103,9 +163,9 @@ export default function ProjectCardDialog(props) {
                 margin="normal"
                 required
                 label="Description"
-                name="lastName"
+                name="description"
                 autoFocus
-                value={values.lastName}
+                value={values.description}
                 onChange={onChange}
                 />
             </Grid>
@@ -114,11 +174,11 @@ export default function ProjectCardDialog(props) {
           <KeyboardDatePicker
           fullWidth
           margin="normal"
-          id="date-picker-dialog"
+          name="startDate"
           label="Start Date"
           format="MM/dd/yyyy"
-          value={selectedDate}
-          onChange={handleDateChange}
+          value={startDate}
+          onChange={handlestartDateChange}
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
@@ -132,11 +192,11 @@ export default function ProjectCardDialog(props) {
           <KeyboardDatePicker
           fullWidth
           margin="normal"
-          id="date-picker-dialog"
           label="End Date"
           format="MM/dd/yyyy"
-          value={selectedDate}
-          onChange={handleDateChange}
+          name="endDate"
+          value={endDate}
+          onChange={handleendDateChange}
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
@@ -166,5 +226,6 @@ export default function ProjectCardDialog(props) {
       
       </Dialog>
   );
-}
 
+
+        }

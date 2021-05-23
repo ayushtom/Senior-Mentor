@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -6,14 +6,14 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-import UserContext from '../../context/context'
 import { TextField,Grid,Button,Dialog, DialogTitle,DialogContent,DialogActions,DialogContentText} from '@material-ui/core';
 import {Typography,Box,Select,MenuItem,FormControl,InputLabel} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
+import UserContext from '../../context/context'
 
+import axios from 'axios'
 
-import { useForm } from '../../utils/hook';
 
 const useStyles = makeStyles((theme) => ({
   
@@ -36,16 +36,67 @@ const useStyles = makeStyles((theme) => ({
   }))
 
 export default function InternshipCardDialog(props) {
-    const classes = useStyles();
-    const { onClose, open,data} = props;
+  const classes = useStyles();
+  const { userData } = useContext(UserContext);
 
-    const[values,setValues]=useState({})
+  const { onClose, open,data,changeflag,setChangeflag} = props;
+  const[startDate,setStartDate]=useState(null)
+  const[endDate,setEndDate]=useState(null)
 
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+  const[values,setValues]=useState({})
+
+  useEffect(()=>{
+      setValues({
+          companyName:data.companyName,
+          description:data.description,
+          designation:data.designation,
+
+          
+      })
+      // setStartDate(data.startDate)
+      // setEndDate(data.endDate)
+  },[props.data])
+
+  const handleClose = () => {
+      onClose(open);
   };
+
+  
+  const onChange=(event)=>{
+      setValues({ ...values, [event.target.name]: event.target.value });
+  }
+
+  const onSubmit=()=>{
+
+    axios.post(`http://localhost:5000/internship`,{
+      companyName:values.companyName,
+      designation:values.designation,
+      description:values.description,
+      startDate:startDate,
+      endDate:endDate,
+      },{
+        headers:{
+            authorization: userData.tokenNumber,
+    }
+    })
+    .then(()=>{
+      setChangeflag(changeflag+1)
+      onClose(open);
+    })
+      
+  }
+  
+  
+
+
+
+const handlestartDateChange = (date) => {
+  setStartDate(date);
+};
+const handleendDateChange = (date) => {
+  setEndDate(date);
+};
 
 
     // useEffect(()=>{
@@ -57,20 +108,7 @@ export default function InternshipCardDialog(props) {
     //     })
     // },[props.data])
 
-    const handleClose = () => {
-        onClose(open);
-    };
-
     
-    const onChange=(event)=>{
-        setValues({ ...values, [event.target.name]: event.target.value });
-    }
-
-    const onSubmit=()=>{
-        onClose(open)
-    }
-    
-
   return (
      <Dialog
       fullWidth
@@ -88,7 +126,7 @@ export default function InternshipCardDialog(props) {
                 margin="normal"
                 required
                 label="Company"
-                name="firstName"
+                name="companyName"
                 autoFocus
                 value={values.firstName}
                 onChange={onChange}
@@ -102,7 +140,7 @@ export default function InternshipCardDialog(props) {
                 margin="normal"
                 required
                 label="Designation"
-                name="firstName"
+                name="designation"
                 autoFocus
                 value={values.firstName}
                 onChange={onChange}
@@ -118,7 +156,7 @@ export default function InternshipCardDialog(props) {
                 margin="normal"
                 required
                 label="Description"
-                name="lastName"
+                name="description"
                 autoFocus
                 value={values.lastName}
                 onChange={onChange}
@@ -133,8 +171,8 @@ export default function InternshipCardDialog(props) {
           id="date-picker-dialog"
           label="Start Date"
           format="MM/dd/yyyy"
-          value={selectedDate}
-          onChange={handleDateChange}
+          value={startDate}
+          onChange={handlestartDateChange}
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
@@ -151,8 +189,8 @@ export default function InternshipCardDialog(props) {
           id="date-picker-dialog"
           label="End Date"
           format="MM/dd/yyyy"
-          value={selectedDate}
-          onChange={handleDateChange}
+          value={endDate}
+          onChange={handleendDateChange}
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}

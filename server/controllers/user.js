@@ -197,7 +197,7 @@ const getProfile = async (userId) => {
         let res = await model.User.findOne({
                 _id : userId
         },["-password"])
-        .populate("projects skills intenships")
+        .populate("projects skills internships")
         return res; 
     } catch(err) {
         Promise.reject(err); 

@@ -136,7 +136,7 @@ if(userData && userData.token) {
       )}
       </Grid>
       <Grid  className={classes.secondRow} item xs={12} sm={8}>
-        <UserInfoMenu editflag={editflag}/>      
+        <UserInfoMenu editflag={editflag} changeflag={changeflag} setChangeflag={setChangeflag} data={response}/>      
       </Grid>
     </Grid>
     

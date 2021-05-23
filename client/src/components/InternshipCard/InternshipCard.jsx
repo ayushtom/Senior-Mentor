@@ -7,7 +7,7 @@ import CreateIcon from '@material-ui/icons/Create';
 
 import InternshipCardDialog from '../InternshipCardDialog/InternshipCardDialog'
 
-export default function InternshipCard({editflag}) {
+export default function InternshipCard({editflag,changeflag,setChangeflag,data}) {
   const[internOpen,setInternOpen]=useState(false)
 
   const classes = useStyles();
@@ -18,22 +18,24 @@ const handleInternDialogClose = () => {
   setInternOpen(false);
 }; 
 
+const startdate = new Date(data.startDate)
+  const enddate = new Date(data.endDate)
+  console.log(data);
   return (
     <>
-    {editflag && (
-      <Paper elevation={0}  className={classes.root}>
-      <Button  onClick={handleInternDialogOpen} variant="contained" color="primary">Add Internship</Button>
-     
-    </Paper>
-    )}
+    
     <Paper elevation={0}  className={classes.root}>
         <Typography variant="subtitle1">Company Name:</Typography>
-        <Typography variant="body2">Amazon</Typography> 
-        <Typography variant="subtitle1">Duration:</Typography>
-        <Typography  variant="body2">2 months</Typography>
-        <Typography variant="subtitle1">About:</Typography>
+        <Typography variant="body2">{data.companyName}</Typography> 
+        <Typography variant="subtitle1">Designation:</Typography>
+        <Typography  variant="body2">{data.designation}</Typography>
+        <Typography variant="subtitle1">Description:</Typography>
        
-        <Typography variant="body2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</Typography>
+        <Typography variant="body2">{data.description}</Typography>
+        <Typography variant="subtitle1">Start Date:</Typography>
+        <Typography variant="body2"> {startdate.toLocaleDateString()}</Typography> 
+        <Typography variant="subtitle1">End Date:</Typography>
+        <Typography variant="body2"> {enddate.toLocaleDateString()}</Typography> 
         {editflag && (
           <>
           
@@ -43,7 +45,7 @@ const handleInternDialogClose = () => {
         </>
         )}
 
-        <InternshipCardDialog open={internOpen} onClose={handleInternDialogClose}/>
+        <InternshipCardDialog open={internOpen} onClose={handleInternDialogClose} changeflag={changeflag} setChangeflag={setChangeflag} data={data}/>
     </Paper>
     </>
   );
