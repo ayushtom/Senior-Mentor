@@ -49,8 +49,9 @@ export default function SkillDialog(props) {
         setSkillName(event.target.value);
     }
     const handleDelete=(skill)=>{
+      console.log(skill);
         axios.delete(`http://localhost:5000/skill`,{
-            skill:skill
+            skill
         },{
           headers:{
               authorization: userData.tokenNumber

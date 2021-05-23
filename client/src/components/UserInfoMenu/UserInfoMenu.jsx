@@ -133,6 +133,25 @@ function TabPanel(props) {
             </div>
           );
 
+          case 3:
+            return (
+              <div
+                role="tabpanel"
+                hidden={value !== index}
+                id={`full-width-tabpanel-${index}`}
+                aria-labelledby={`full-width-tab-${index}`}
+              >
+                {value === index && (
+                  <Box>
+                    <Box mt={5}>
+                      All posts
+                    </Box>
+          
+                  </Box>
+                )}
+              </div>
+            );
+
   
     default:
       break;
@@ -180,6 +199,8 @@ export default function UserInfoMenu({editflag,data,changeflag,setChangeflag}) {
           <Tab label="Projects"  />
           <Tab label="Internships"  />
           <Tab label="Resume"  />
+          <Tab label="Posts"  />
+
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -190,7 +211,8 @@ export default function UserInfoMenu({editflag,data,changeflag,setChangeflag}) {
         <TabPanel value={value} index={0} changeflag={changeflag} setChangeflag={setChangeflag} data={data} editflag={editflag} dir={theme.direction} />
         <TabPanel value={value} index={1} changeflag={changeflag} setChangeflag={setChangeflag} data={data} editflag={editflag} dir={theme.direction} />
         <TabPanel value={value} index={2}  changeflag={changeflag} setChangeflag={setChangeflag} editflag={editflag} dir={theme.direction}/>
-        
+        <TabPanel value={value} index={3}  changeflag={changeflag} setChangeflag={setChangeflag} editflag={editflag} dir={theme.direction}/>
+
           
       </SwipeableViews>
     </div>
