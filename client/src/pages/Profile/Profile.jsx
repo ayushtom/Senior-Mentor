@@ -7,12 +7,12 @@ import axios from 'axios'
 import defaultUser from '../../assets/img/defaultUser.jpg'
 
 import { makeStyles } from '@material-ui/core/styles';
-import CheckIcon from '@material-ui/icons/Check';
 import UserContext from '../../context/context'
 
 import UserInfoMenu from '../../components/UserInfoMenu/UserInfoMenu'
 import IntroDialog from '../../components/IntroDialog/IntroDialog';
 import SkillDialog from '../../components/SkillDialog/SkillDialog'
+const API_URL = "http://localhost:5000";
 const useStyles = makeStyles((theme) => ({
   
   messageAndFriends:{
@@ -28,9 +28,18 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     objectFit:"contain",
   },
+  editprofileImage:{
+    width: "80%",
+    height: "80%",
+    objectFit:"contain",
+  },
   secondRow:{
     marginTop:"2rem"
-  }
+  },
+  mediainput: {
+    display: 'none',
+  },
+
 }))
 export default function Profile() {
   const classes = useStyles();
@@ -40,6 +49,7 @@ export default function Profile() {
   const[editflag,setEditFlag]=useState(false)
   const[introOpen,setIntroOpen]=useState(false)
   const[skillOpen,setSkillOpen]=useState(false)
+  const[imageData,setImageData]=useState('')
 
 
 
@@ -75,16 +85,61 @@ if(userData && userData.token) {
       .then((res) => {
         const resp = res.data;
         setResponse(resp);
+        setImageData(resp.imageLink)
       })
     
   }, [changeflag])
+
+  function uploadImage(e) {
+    // console.log(e.target.files);
+    
+    // stores a readable instance of 
+    let imageFormObj = new FormData();
+    imageFormObj.append("attachment", e.target.files[0]);
+
+    // the image being uploaded using multer
+    axios.put(`http://localhost:5000/profile`,imageFormObj,{
+            headers:{
+                authorization: userData.tokenNumber
+        }})
+        .then((responsenew)=>{
+          // setResponse(responsenew)
+          // setImageData(responsenew.imageLink)
+          setChangeflag(changeflag+1)
+        })
+  } 
+
+    
+
+        
+        
+ 
   return (
   <Grid container>
 
     <Grid container direction="row">
       <Grid item xs={12} sm={4}>
-        <img className={classes.profileImage} src={defaultUser} alt=""/>
+        <img className={editflag?classes.editprofileImage:classes.profileImage} src={(imageData===null)?defaultUser:`${API_URL}`+`/`+`${imageData}`} alt=""/>
+        {editflag && (
+          <>
+        <input
+        onChange={(event)=>{uploadImage(event)}}
+        accept="image/*"
+        className={classes.mediainput}
+        id="contained-button-file"
+        multiple
+        type="file"
+      />
+      <label htmlFor="contained-button-file">
+        <Button  size="medium" variant="contained" color="primary" component="span">
+          Upload
+        </Button>
+      </label>
+      </>
+      )}
+
       </Grid>
+      
       <Grid item xs={11} sm={7}> 
         <Grid>
           <Typography variant="h4">{response.firstName} {response.lastName}</Typography>

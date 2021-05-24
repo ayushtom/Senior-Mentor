@@ -62,7 +62,7 @@ export default function PostCard({post}) {
 
     <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label="recipe" className={classes.avatar} >
             {post.userId.firstName.charAt(0)}
           </Avatar>
         }

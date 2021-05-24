@@ -68,12 +68,12 @@ const updateUserDetails = async(data) => {
         
         const {
             userId, email, firstName, lastName, year, branch,
-            skillset, bio, resumeAttachment
+            skillset, bio, resumeAttachment,imageLink
         } = data; 
          
         const res = await model.User.findOneAndUpdate({_id : userId},{
             email, firstName, lastName, year, branch,
-            skillset, bio, resumeAttachment 
+            skillset, bio, resumeAttachment ,imageLink
         },{new: true, omitUndefined: true});
         console.log("Here ", res); 
         return res; 

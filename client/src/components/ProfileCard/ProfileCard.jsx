@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React,{useContext,useState} from 'react';
 import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import {Card,CardActionArea ,CardActions,CardContent,CardMedia,Button,Typography } from '@material-ui/core';
@@ -32,6 +32,7 @@ const useStyles = makeStyles({
 
 export default function ProfileCard({profile}) {
   const { userData } = useContext(UserContext); 
+  const[imageData,setImageData]=useState(null)
   const myId = userData.token.userId; 
   const friendId = profile._id; 
   let groupName = null; 
@@ -40,17 +41,14 @@ export default function ProfileCard({profile}) {
   } else {
     groupName = `${friendId}-${myId}`
   }
-
   const classes = useStyles();
   //let myId = u
   return (
     <Link to={`/profile/view/${profile._id}`}  style={{textDecoration:"none",color:"inherit"}}>
       <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={defaultUser}
-        />
+        <img className={classes.media} src={(profile.imageLink)?`http://localhost:5000/`+`${profile.imageLink}`:defaultUser} alt="" />
+        
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {profile.firstName} {profile.lastName}

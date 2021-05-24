@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 var createError = require('http-errors')
+const multer = require('multer');
 
 const {
     checkToken 
@@ -12,6 +13,36 @@ const {
     addSkill, removeSkill,
     addNotification, getNotifications, setNotificationSeen
 } = require("../controllers/user");
+
+//to store image in uploads folder
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + file.originalname);
+    }
+});
+
+//filter to check the type of file uploaded 
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        // rejects storing a file
+        cb(null, false);
+    }
+}
+
+//final upload function called in post method
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+        //50MB
+    },
+    fileFilter: fileFilter
+});
 
 router.post("/register", async(req,res)=>{
     try {
@@ -55,7 +86,7 @@ router.post("/login", async(req,res)=>{
     }
 })  
 
-router.put("/profile", checkToken, async(req,res)=>{
+router.put("/profile", checkToken,upload.single('attachment'), async(req,res)=>{
     try {
         const userId = res.locals.userId; 
     
@@ -64,10 +95,14 @@ router.put("/profile", checkToken, async(req,res)=>{
             skillset, bio, resumeAttachment
         } = req.body; 
         console.log(req.body); 
-
+        let imageLink = null;
+        if(req.file){
+            console.log("ABC ABCB ", req.file.path); 
+            imageLink = req.file.path; 
+        }
         const result = await updateUserDetails({
             userId, email, firstName, lastName, year, branch,
-            skillset, bio, resumeAttachment
+            skillset, bio, resumeAttachment,imageLink
         })    
         res.status(200).json(result)
     } catch(err) {
