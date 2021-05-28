@@ -180,10 +180,11 @@ const addSkill = async(userId, skill)=>{
 const removeSkill = async(userId, skill)=>{
     try { 
         const user = await model.User.findById(userId);
-        user.skills = removeSkillFromArray(user.skills, skill); 
+        user.skills.pull({_id : skill}); 
         await user.save();
         return ({
-            message : "skill deleted"
+            message : "skill deleted",
+            skills : user.skills
         }); 
     } catch(err) { 
         console.log(err); 

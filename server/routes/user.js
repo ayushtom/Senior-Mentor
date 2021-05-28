@@ -159,7 +159,7 @@ router.put("/project",checkToken,async(req,res) => {
         } = req.body; 
 
         if(!projectId){
-            res.status(500).json({error : "Can't update project without project id"});
+            return res.status(500).json({error : "Can't update project without project id"});
         }
 
         const project = await addOrUpdateProject({
@@ -168,9 +168,13 @@ router.put("/project",checkToken,async(req,res) => {
         res.status(200).json(project); 
     } catch(err) { 
         console.log(err); 
-        res.status(err.status).json({
-            error : err.message 
-        })
+        if(!err.status) {
+            res.status(500).json("Internal Server error")
+        } else {
+            res.status(err.status).json({
+                error : err.message 
+            })
+        }
     }
 })
 
@@ -190,7 +194,14 @@ router.post("/internship",checkToken,async(req,res) => {
         res.status(200).json(internship); 
     } catch(err) { 
         console.log(err); 
-        res.status(500).json(err); 
+        if(!err.status) {
+            res.status(500).json("Internal Server error")
+        } else {
+            res.status(err.status).json({
+                error : err.message 
+            })
+        }
+        //res.status(500).json(err); 
     }
 })
 
@@ -216,9 +227,13 @@ router.put("/internship",checkToken,async(req,res) => {
          
     } catch(err) { 
         console.log(err); 
-        res.status(err.status).json({
-            error : err.message 
-        })
+        if(!err.status) {
+            res.status(500).json("Internal Server error")
+        } else {
+            res.status(err.status).json({
+                error : err.message 
+            })
+        }
     }
 })
 
@@ -232,9 +247,13 @@ router.post("/skill", checkToken, async(req,res) => {
 
     } catch(err) { 
         console.log("Here", err); 
-        res.status(err.status).json({
-            error : err.message 
-        })
+        if(!err.status) {
+            res.status(500).json("Internal Server error")
+        } else {
+            res.status(err.status).json({
+                error : err.message 
+            })
+        }
     }
 })
 
