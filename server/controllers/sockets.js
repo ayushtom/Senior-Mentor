@@ -1,6 +1,7 @@
 let userSockets = {}; // userId -> socketId
 
 const setSocket = (userId, socketId) => {
+    if(!userId) return; 
     userSockets[userId] = socketId;
 }
 

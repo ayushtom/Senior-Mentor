@@ -20,9 +20,10 @@ module.exports = (io) => {
             decodeToken(token,(data)=>{
                 if(!data){
                     console.log("Unauthorized socket connection");
-                    const err = new Error("not authorized");
-                    err.data = { content: "Please retry later" }; // additional details
-                    next(err);
+                    next(); 
+                    // const err = new Error("not authorized");
+                    // err.data = { content: "Please retry later" }; // additional details
+                    // next(err);
                     
                 } else {
                     socket.userId = data.userId
@@ -30,23 +31,48 @@ module.exports = (io) => {
                 }
             });
         } else {
-            console.log("No token passed");
-            const err = new Error("No token passed");
-            err.data = { content: "Please retry later" }; // additional details
-            next(err);
+            next();
+            // console.log("No token passed");
+            // const err = new Error("No token passed");
+            // err.data = { content: "Please retry later" }; // additional details
+            // next(err);
         }
         
     });
 
 
     io.on("connection", async (socket)=>{
-        console.log("Heree", socket.id, socket.userId);
+        
 
-        const userId = socket.userId; 
+        let userId = socket.userId; 
         setSocket(userId, socket.id);
-        const user = await userControllers.getProfile(userId); 
+        let user = null;
+        if(userId){
+            user = await userControllers.getProfile(userId); 
+        }
+        console.log(`Socket id : ${socket.id}, userId : ${userId}`);
+
+        socket.on("authorize-socket",async(data,callBack)=>{
+            const { token } = data; 
+            decodeToken(token,async (data)=>{
+                if(!data){
+                    console.log("Socket authorization attempt failed");
+                } else {
+                    console.log("Socket authorization complete")
+                    userId = data.userId;
+                    setSocket(userId, socket.id);
+                    user = await userControllers.getProfile(userId); 
+                }
+            });
+            callBack();
+        })
 
         socket.on("user-message", async(data, callBack)=>{
+
+            if(!user || !userId){
+                return callBack();
+            }
+
             const { groupName , body } = data; 
             const friendId = await helpers.getFriendIdFromGroupName(groupName, userId); 
             const friendSocketId = getSocket(friendId);
