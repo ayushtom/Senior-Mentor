@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {useHistory} from 'react-router-dom'
 import axios from 'axios'
 import UserContext from '../../context/context'
-
+import { SocketContext } from '../../context/socketContext' 
 import jwt_decode from "jwt-decode";
 
 import {Avatar,Button,TextField,Grid,Box,Typography,Container} from '@material-ui/core';
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const socket = useContext(SocketContext);
   const history = useHistory();
   const [open, setOpen] =useState(false);
   const [message,setMessage]=useState('');
@@ -47,7 +48,8 @@ export default function Login() {
 
   const loginUserCallback=async ()=>{
     try
-    {
+    { 
+      
       const loginRes=await axios.post(
         'http://localhost:5000/login',
         values
@@ -60,6 +62,7 @@ export default function Login() {
         tokenNumber:loginRes.data.jwt
       });
       console.log(decoded);
+      socket.emit("authorize-socket",{token : loginRes.data.jwt },()=>{})
       history.push('/');
 
     }
