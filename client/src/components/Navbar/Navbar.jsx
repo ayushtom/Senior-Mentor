@@ -17,15 +17,21 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    
+  
+    display: 'flex'
   },
   appBar: {
+    ...theme.typography.fontPrime,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+  heading : {
+    ...theme.typography.fontPrime,
+    fontSize : "2rem",
+    fontWeight : "600"
+  }, 
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
@@ -53,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
+  },
+  menuElement : {
+    ...theme.typography.fontPrime
   },
   notifContainer:{
     // position:"fixed",
@@ -93,8 +102,8 @@ export default function Navbar({open,setOpen}) {
           <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" className={clsx(classes.menuButton, open && classes.hide)}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Senior Mentor
+          <Typography variant="h6" noWrap className={classes.heading}>
+            Seniormentor
           </Typography>
 
           
@@ -108,7 +117,7 @@ export default function Navbar({open,setOpen}) {
           </IconButton>
         </div>
         
-        <List>
+        <List >
             <ListItem button component={Link} to={'/'} key="0">
               <ListItemText primary="Home" />
             </ListItem>

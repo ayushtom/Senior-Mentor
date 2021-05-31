@@ -5,7 +5,7 @@ import axios from 'axios'
 import UserContext from '../../context/context'
 import { SocketContext } from '../../context/socketContext' 
 import jwt_decode from "jwt-decode";
-
+import smgif from "../../assets/img/smgif.gif";
 import {Avatar,Button,TextField,Grid,Box,Typography,Container} from '@material-ui/core';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -85,10 +85,11 @@ export default function Login() {
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        {/* <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
+        </Avatar> */}
+        <Avatar alt="logo" variant="square" src={smgif} style={{ width:"15vh", height:"15vh", padding:"1px"}}/>
+        <Typography component="h1" variant="h3">
           Sign in
         </Typography>
         {open && (<ErrorMessage open={open} setOpen={setOpen} message={message} />)}
