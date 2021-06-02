@@ -11,7 +11,6 @@ const theme = createMuiTheme({
   typography : {
     fontPrime : {
       fontFamily : '"Nunito"', //['"Nunito"','sans-serif'].join(','),
-      
     }
   },
   palette: {

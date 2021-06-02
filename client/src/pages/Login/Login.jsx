@@ -22,6 +22,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  heading : {
+    ...theme.typography.fontPrime,
+    fontSize : "3rem",
+    fontWeight : "600"
+  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
@@ -89,7 +94,7 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar> */}
         <Avatar alt="logo" variant="square" src={smgif} style={{ width:"15vh", height:"15vh", padding:"1px"}}/>
-        <Typography component="h1" variant="h3">
+        <Typography component="h1" variant="h3" className={classes.heading}>
           Sign in
         </Typography>
         {open && (<ErrorMessage open={open} setOpen={setOpen} message={message} />)}

@@ -1,5 +1,7 @@
 import React,{useState,useContext} from 'react';
 import axios from 'axios';
+import smgif from "../../assets/img/smgif.gif";
+
 import clsx from 'clsx';
 
 import {Avatar,Button,TextField,CircularProgress,Box,Typography,Container} from '@material-ui/core';
@@ -18,6 +20,11 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+    },
+    heading : {
+      ...theme.typography.fontPrime,
+      fontSize : "3rem",
+      fontWeight : "600"
     },
     avatar: {
       margin: theme.spacing(1),
@@ -115,10 +122,11 @@ export default function AccessForm({nextStep,values,handleChange}) {
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        {/* <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
+        </Avatar> */}
+        <Avatar alt="logo" variant="square" src={smgif} style={{ width:"15vh", height:"15vh", padding:"1px"}}/>
+        <Typography component="h1" variant="h3" className={classes.heading}>
           Sign Up
         </Typography>
         {open && (<ErrorMessage open={open} setOpen={setOpen} message={message} />)}
