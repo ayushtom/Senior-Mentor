@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment'; 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -22,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
     text : {
         color : 'white'
     },
+    time : {
+        textAlign : 'right',
+        fontSize : "0.7rem"
+    },
     textLeft: {
         textAlign:'left', 
         backgroundColor: '#454545',
@@ -30,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: theme.spacing(1,2,0,1)
     },
     textRight: {
-        textAlign:'right', 
+        textAlign:'left', 
         backgroundColor: '#0D94FB',
         padding: theme.spacing(1,2),
         marginRight: theme.spacing(0),
@@ -51,7 +56,9 @@ const LeftMessage = ({message}) => {
                         secondary={
                             <React.Fragment>
                                 <Typography className={classes.text}>{message.body}</Typography>
+                                <Typography className={classes.time}>{moment(message.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Typography>
                             </React.Fragment>
+                            
                         }
                     />
                 </Box>
@@ -72,6 +79,7 @@ const RightMessage = ({message}) => {
                         secondary={
                             <React.Fragment>
                                 <Typography className={classes.text}>{message.body}</Typography>
+                                <Typography className={classes.time}>{moment(message.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Typography>
                             </React.Fragment>
                         }
                     />
