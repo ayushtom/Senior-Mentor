@@ -119,7 +119,7 @@ if(userData && userData.token) {
 
     <Grid container direction="row">
       <Grid item xs={12} sm={4}>
-        <img className={editflag?classes.editprofileImage:classes.profileImage} src={(imageData===null)?defaultUser:`${API_URL}`+`/`+`${imageData}`} alt=""/>
+        <img className={editflag?classes.editprofileImage:classes.profileImage} src={(!imageData)?defaultUser:`${API_URL}`+`/`+`${imageData}`} alt=""/>
         {editflag && (
           <>
         <input

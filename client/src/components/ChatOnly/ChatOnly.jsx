@@ -16,12 +16,15 @@ import UserContext from '../../context/context'
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        heigth : "80%", 
-        margin : theme.spacing(1), 
+        //heigth : "80%", 
+        margin : theme.spacing(0), 
         padding: theme.spacing(0),
         textAlign: 'center',
         color: 'black'
     },
+    box : {
+      height : "86vh"
+    }, 
     infobar : {
       backgroundColor : "#424242",
       padding : theme.spacing(2),
@@ -109,8 +112,8 @@ const ChatOnly = ({prevLink, groupName, typeId}) => {
 
     const classes = useStyles();
     return (
-        <Container className={classes.container} style={{  height: '100vh' }}>
-              <Box display="flex" flexDirection="column" justifyContent="space-between">
+        <Container className={classes.container} >
+              <Box className={classes.box} display="flex" flexDirection="column" justifyContent="space-between">
                 <Box className={classes.infobar}>
                   <Box display="flex" justifyContent="space-between"> 
                     <Box><Link to={prevLink}><ChevronLeftIcon style={{color:"white"}}/></Link></Box>

@@ -11,28 +11,30 @@ import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      minWidth : "30%", 
-      maxWidth: "60%", 
-      marginTop : theme.spacing(1)
+      minWidth : "8%", 
+      maxWidth: "80%", 
+      color : 'black',
+      marginTop : theme.spacing(0.5)
     },
     inline: {
       display: 'inline',
     },
+    text : {
+        color : 'white'
+    },
     textLeft: {
         textAlign:'left', 
-        backgroundColor: 'grey',
-        color : 'white',
+        backgroundColor: '#454545',
         padding: theme.spacing(1,2),
-        marginLeft: theme.spacing(2),
-        borderRadius: theme.spacing(1,4,0,1)
+        marginLeft: theme.spacing(0),
+        borderRadius: theme.spacing(1,2,0,1)
     },
     textRight: {
         textAlign:'right', 
-        backgroundColor: '#25D366',
-        color : 'white',
+        backgroundColor: '#0D94FB',
         padding: theme.spacing(1,2),
-        marginRight: theme.spacing(2),
-        borderRadius: theme.spacing(4,1,1,0)
+        marginRight: theme.spacing(0),
+        borderRadius: theme.spacing(2,1,1,0)
     }
 }));
 
@@ -42,18 +44,13 @@ const LeftMessage = ({message}) => {
     const fullName = `${user.firstName} ${user.lastName}`; 
     return (
         <Box display="flex" justifyContent="flex-start" style={{marginLeft:"1rem"}}>
-                <Box display="flex" flexDirection="column" justifyContent="center">
-                    <Box>
-                        <Avatar alt={fullName} src="/static/images/avatar/1.jpg" />
-                    </Box>
-                </Box>
-                <Box>
+                <Box className={classes.root}>
                     <ListItemText 
                         className={classes.textLeft}
-                        primary={fullName}
+                        //primary={fullName}
                         secondary={
                             <React.Fragment>
-                            {message.body}
+                                <Typography className={classes.text}>{message.body}</Typography>
                             </React.Fragment>
                         }
                     />
@@ -68,22 +65,17 @@ const RightMessage = ({message}) => {
     const fullName = `${user.firstName} ${user.lastName}`; 
     return (
         <Box display="flex" justifyContent="flex-end" style={{marginRight:"1rem"}}>
-                <Box>
+                <Box className={classes.root}>
                     <ListItemText
                         className={classes.textRight}
-                        primary={fullName}
+                        // primary={fullName}
                         secondary={
                             <React.Fragment>
-                            {message.body}
+                                <Typography className={classes.text}>{message.body}</Typography>
                             </React.Fragment>
                         }
                     />
-                </Box>
-                <Box display="flex" flexDirection="column" justifyContent="center">
-                    <Box>
-                        <Avatar alt={fullName} src="/static/images/avatar/1.jpg" />
-                    </Box>
-                </Box>
+                </Box>     
         </Box>
     )
 }

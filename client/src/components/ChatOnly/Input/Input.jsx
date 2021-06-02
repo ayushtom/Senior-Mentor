@@ -17,7 +17,7 @@ const Input = ({inputMessage, setInputMessage, sendInputMessage}) => {
     const classes = useStyles();
     return (
       <Box component="span" display="flex" flexDirection="row" justifyContent="space-between">
-        <Box component="span" width="88%">
+        <Box component="span" width="85%">
           <form  className={classes.root} noValidate autoComplete="off">
             <TextField  
               fullWidth={true} 
@@ -31,8 +31,8 @@ const Input = ({inputMessage, setInputMessage, sendInputMessage}) => {
             />
           </form>
         </Box>
-        <Box width="10%"component="span" display="flex" flexDirection="column" justifyContent="center">
-          <SendIcon style={{ fontSize: "4rem"}}
+        <Box width="10%" component="span" display="flex" flexDirection="column" justifyContent="center">
+          <SendIcon style={{ fontSize: "2rem"}}
            onClick={e => sendInputMessage(e)}
           />
         </Box>
