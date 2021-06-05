@@ -19,6 +19,7 @@ Features
 > <li> Search anyone by skills, name, branch, skill, etc. </li>
 > <li> Reach out to anyone via a chat interface</li>
 > <li> Get all notifications on a separate tab </li>
+> <li> Responsive UI </li>
 > </ul>
 
 Images and Demo
