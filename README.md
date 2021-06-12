@@ -49,9 +49,21 @@ Installation
   ```
   Change the name of .env.example file from each client and server folders to .env
 
+High Level Design 
+---
+```
+Use case diagram for Seniormentor
+```
+
+<img align="center" src="client/src/assets/img/hld.png" />
+
 Low Level Design
 ---
 ```
-// Will be added in some time
+UML diagram for Seniormentor
+Note : Although it's a NoSQL db, the database design would be as shown below
+if it were a relational database.
+Collections are connected using refs. 
 ```
+<img align="center" src="client/src/assets/img/uml.png" />
 
