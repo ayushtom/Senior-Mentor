@@ -13,8 +13,8 @@ import ProjectCardDialog from '../ProjectCardDialog/ProjectCardDialog'
 const useStyles = makeStyles((theme) => ({
   
     root:{
-        width:"80%",
-        margin:"0",
+        width:"90%",
+        margin:"1rem",
         
     },
     bullet: {
