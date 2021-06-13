@@ -50,7 +50,7 @@ export default function SkillDialog(props) {
     }
     const handleDelete=(skill)=>{
       console.log(skill);
-        axios.delete(`http://localhost:5000/skill`,{
+        axios.delete(`${process.env.REACT_APP_API_ENDPOINT}/skill`,{
             skill
         },{
           headers:{
@@ -68,7 +68,7 @@ export default function SkillDialog(props) {
     }
 
     const onSubmit=()=>{
-        axios.post(`http://localhost:5000/skill`,{
+        axios.post(`${process.env.REACT_APP_API_ENDPOINT}/skill`,{
         skill:skillName
         },{
           headers:{

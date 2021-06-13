@@ -68,7 +68,7 @@ export default function ProjectCardDialog(props) {
     const onSubmit=()=>{
       if(data.projectId)
       {
-      axios.post(`http://localhost:5000/project`,{
+      axios.post(`${process.env.REACT_APP_API_ENDPOINT}/project`,{
         title:values.title,
         description:values.description,
         startDate:startDate,
@@ -86,7 +86,7 @@ export default function ProjectCardDialog(props) {
     }
     else
     {
-      axios.put(`http://localhost:5000/project`,{
+      axios.put(`${process.env.REACT_APP_API_ENDPOINT}/project`,{
         projectId:data.projectId,
         title:values.title,
         description:values.description,

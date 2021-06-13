@@ -82,7 +82,7 @@ export default function ProfileForm({prevStep,handleChange,handleSubmit,values})
           }
           else
           {
-          axios.post("http://localhost:5000/register",
+          axios.post(`${process.env.REACT_APP_API_ENDPOINT}/register`,
           {
             email:values.email,
             firstName:values.firstName,

@@ -56,7 +56,7 @@ export default function Login() {
     { 
       
       const loginRes=await axios.post(
-        'http://localhost:5000/login',
+        `${process.env.REACT_APP_API_ENDPOINT}/login`,
         values
       );
       localStorage.setItem('auth-token', loginRes.data.jwt);

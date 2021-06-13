@@ -78,18 +78,22 @@ function App() {
   useEffect(() => {
     const checkLoggedIn = async () => {
       let tokenval = localStorage.getItem('auth-token');
-      if (tokenval === null) {
+      if (!tokenval || tokenval == '' || jwt_decode(tokenval).exp < Date.now() / 1000) {
+        console.log("Expired token reset")
         localStorage.setItem('auth-token', '');
-        tokenval = '';
-      }
-      if(tokenval!=='')
-      var decoded = jwt_decode(tokenval);
+        setUserData({
+          token:null,
+          loggedIn:false,
+          tokenNumber:null
+        });
+      } else {
+        var decoded = jwt_decode(tokenval);
         setUserData({
           token:decoded,
           loggedIn:true,
           tokenNumber:tokenval
         });
-      
+      }
     };
     checkLoggedIn();
   }, []);

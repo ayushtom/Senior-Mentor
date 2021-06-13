@@ -58,7 +58,7 @@ export default function IntroDialog(props) {
 
     const onSubmit=()=>{
 
-      axios.put(`http://localhost:5000/profile`,{
+      axios.put(`${process.env.REACT_APP_API_ENDPOINT}/profile`,{
         firstName:values.firstName,
         lastName:values.lastName,
         year:values.year,

@@ -13,7 +13,7 @@ import InfoBar from '../../components/InfoBar/InfoBar'
 
 import axios from 'axios'
 
-const API_URL = "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_ENDPOINT;
 
 
 const useStyles = makeStyles({
@@ -52,7 +52,7 @@ export default function EachPost() {
     const arr = window.location.href.split("/"); 
     const currentPostId = arr[arr.length-1];
     useEffect(() => {
-      axios.get(`http://localhost:5000/post/${currentPostId}`)
+      axios.get(`${process.env.REACT_APP_API_ENDPOINT}/post/${currentPostId}`)
       .then((response)=>{
         setPost(response.data)
       })

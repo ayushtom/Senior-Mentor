@@ -48,7 +48,7 @@ export default function Community() {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:5000/profiles')
+    axios.get(`${process.env.REACT_APP_API_ENDPOINT}/profiles`)
     .then((res)=>{
         const resp = res.data; 
         setResponse(resp)

@@ -50,7 +50,7 @@ export default function LikeButton({postinfo,data,postCounter,setPostCounter}) {
       else
       {
 
-        axios.put(`http://localhost:5000/post/like/${postinfo}`,{},{
+        axios.put(`${process.env.REACT_APP_API_ENDPOINT}/post/like/${postinfo}`,{},{
           headers:{
               authorization: userData.tokenNumber
       }

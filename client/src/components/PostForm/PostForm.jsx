@@ -86,7 +86,7 @@ export default function PostForm({postCounter,setPostCounter}) {
         imageFormObj.append('attachment',imageData);
 
         
-        axios.post("http://localhost:5000/post",imageFormObj,{
+        axios.post(`${process.env.REACT_APP_API_ENDPOINT}/post`,imageFormObj,{
             headers:{
                 authorization: userData.tokenNumber
         }})

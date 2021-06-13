@@ -97,7 +97,7 @@ export default function AccessForm({nextStep,values,handleChange}) {
              
           }
           else
-          {axios.post("http://localhost:5000/checkEmailExists",{
+          {axios.post(`${process.env.REACT_APP_API_ENDPOINT}/checkEmailExists`,{
             email:values.email
           })
           .then((res)=>{

@@ -64,7 +64,7 @@ const ChatOnly = ({prevLink, groupName, typeId}) => {
         }
   
         try {
-          let res1 = await axios.get(`http://localhost:5000/groupInfobar/${groupName}`,{
+          let res1 = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/groupInfobar/${groupName}`,{
             params : {
               typeId : typeId
             }
@@ -75,7 +75,7 @@ const ChatOnly = ({prevLink, groupName, typeId}) => {
         }
         
          
-        let oldmessageEndpoint = `http://localhost:5000/groupMessages/${groupName}`; 
+        let oldmessageEndpoint = `${process.env.REACT_APP_API_ENDPOINT}/groupMessages/${groupName}`; 
         let result = await axios.get(oldmessageEndpoint); 
         let messages =  result.data 
         //console.log(result.data);

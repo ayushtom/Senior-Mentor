@@ -32,7 +32,7 @@ export default function CommentDialog(props) {
     };
     const submitCommentCallback=()=>{
       
-      axios.post(`http://localhost:5000/post/comment/${postid}`,{
+      axios.post(`${process.env.REACT_APP_API_ENDPOINT}/post/comment/${postid}`,{
         body:values.body
         },{
           headers:{

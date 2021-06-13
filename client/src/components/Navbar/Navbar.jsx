@@ -122,13 +122,13 @@ export default function Navbar({open,setOpen}) {
               <ListItemText primary="Home" />
             </ListItem>
 
-            {!userData.loggedIn && (
+            {(!userData.loggedIn || !userData.token ) && (
               <ListItem button component={Link} to={'/login'} key="1">
               <ListItemText primary="Login" />
             </ListItem>
             )}
             
-            {!userData.loggedIn && (
+            {(!userData.loggedIn || !userData.token ) && (
               <ListItem button component={Link} to={'/register'} key="2">
               <ListItemText primary="Register" />
             </ListItem>

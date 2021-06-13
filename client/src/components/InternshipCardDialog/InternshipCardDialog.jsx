@@ -69,7 +69,7 @@ export default function InternshipCardDialog(props) {
 
   const onSubmit=()=>{
 
-    axios.post(`http://localhost:5000/internship`,{
+    axios.post(`${process.env.REACT_APP_API_ENDPOINT}/internship`,{
       companyName:values.companyName,
       designation:values.designation,
       description:values.description,

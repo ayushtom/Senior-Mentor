@@ -55,7 +55,7 @@ export default function Home() {
   
 
   useEffect(() => {
-    axios.get("http://localhost:5000/posts/all")
+    axios.get(`${process.env.REACT_APP_API_ENDPOINT}/posts/all`)
     .then((response)=>{
       var res=response.data
       setPosts(res)

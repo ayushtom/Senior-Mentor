@@ -39,7 +39,7 @@ const Chat = () => {
 
   useEffect( ()=>{
     const reqFunc = async () => { 
-      let result = await axios.get(`http://localhost:5000/groups`); 
+      let result = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/groups`); 
       let chats =  result.data 
       chats.forEach((x)=>{
         x.newMessages = 0;

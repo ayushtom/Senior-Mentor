@@ -12,7 +12,7 @@ import UserContext from '../../context/context'
 import UserInfoMenu from '../../components/UserInfoMenu/UserInfoMenu'
 import IntroDialog from '../../components/IntroDialog/IntroDialog';
 import SkillDialog from '../../components/SkillDialog/SkillDialog'
-const API_URL = "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_ENDPOINT;
 const useStyles = makeStyles((theme) => ({
   
   messageAndFriends:{
@@ -81,7 +81,7 @@ if(userData && userData.token) {
   const currentProfileId = arr[arr.length-1];
   useEffect(() => {
     axios
-      .get("http://localhost:5000/profile/"+currentProfileId)
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/profile/`+currentProfileId)
       .then((res) => {
         const resp = res.data;
         setResponse(resp);
@@ -98,7 +98,7 @@ if(userData && userData.token) {
     imageFormObj.append("attachment", e.target.files[0]);
 
     // the image being uploaded using multer
-    axios.put(`http://localhost:5000/profile`,imageFormObj,{
+    axios.put(`${process.env.REACT_APP_API_ENDPOINT}/profile`,imageFormObj,{
             headers:{
                 authorization: userData.tokenNumber
         }})

@@ -42,7 +42,7 @@ export default function Notification({occupyParts}) {
       axios.defaults.headers.common['authorization'] = token; 
     }
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:5000/notifications`);
+      const res = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/notifications`);
       const notifications = res.data; 
       setNotifications(notifications); 
     } 
@@ -50,7 +50,7 @@ export default function Notification({occupyParts}) {
   },[]);
 
   const seenNotification = async (notificationId) => {
-    const res = await axios.put(`http://localhost:5000/notification/${notificationId}`);
+    const res = await axios.put(`${process.env.REACT_APP_API_ENDPOINT}/notification/${notificationId}`);
     if(res.data){ 
       setNotifications(prev => prev.filter((x)=>{
         return (x._id !== notificationId)
