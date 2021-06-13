@@ -81,7 +81,7 @@ if(userData && userData.token) {
   const currentProfileId = arr[arr.length-1];
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/profile/`+currentProfileId)
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/profile/${currentProfileId}`)
       .then((res) => {
         const resp = res.data;
         setResponse(resp);
