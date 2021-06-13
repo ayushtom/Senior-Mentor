@@ -44,6 +44,10 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
+router.get("/", async(req,res)=>{
+    console.log("Server for seniormentor is up and running"); 
+})
+
 router.post("/register", async(req,res)=>{
     try {
         const {
