@@ -24,9 +24,13 @@ Features
 
 Images and Demo
 ---
-```
-// Will be added in some time
-```
+
+<div>
+  <img src="./zdocs/gif1.gif" width="200" height="400"/>
+  <img src="./zdocs/gif2.gif" width="200" height="400"/>
+  <img src="./zdocs/gif3.gif" width="200" height="400"/>
+</div>
+
 
 Installation  
 --- 

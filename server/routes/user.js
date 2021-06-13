@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 var createError = require('http-errors')
 const multer = require('multer');
-
+const helpers = require('../helpers/helpers'); 
 const {
     checkToken 
 } = require("../middlewares/checkToken"); 
@@ -45,6 +45,7 @@ const upload = multer({
 });
 
 router.get("/", async(req,res)=>{
+    console.log(helpers.hashData('iamtomar')); 
     return res.json({
         message : "server for senior mentor in up an running ."
     })
