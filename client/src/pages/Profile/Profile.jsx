@@ -130,8 +130,8 @@ if(userData && userData.token) {
         multiple
         type="file"
       />
-      <label htmlFor="contained-button-file">
-        <Button  size="medium" variant="contained" color="primary" component="span">
+      <label htmlFor="contained-button-file" >
+        <Button  size="medium" variant="contained" color="primary" component="span" style={{marginTop:"1rem", marginLeft:"0.5rem"}}>
           Upload
         </Button>
       </label>

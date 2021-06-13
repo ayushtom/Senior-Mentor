@@ -15,6 +15,7 @@ const useStyles = makeStyles({
 
     },
     media: {
+      marginTop:"1rem",
       height: 150,
       width: '100%',
       objectFit:"contain"
@@ -62,21 +63,25 @@ export default function ProfileCard({profile}) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Add Friend
-        </Button>
-        <Button size="small" color="primary">
-          <Link 
+        {
+        (friendId !== myId) && (
+        <>
+          <Button size="small" color="primary">
+            Add Friend
+          </Button>
+          <Button size="small" color="primary">
+            <Link 
             to={{
               pathname : `/chat/pc/${groupName}`,
               state : { friendName :`${profile.firstName} ${profile.lastName}`}
             }} 
             style={{textDecoration:"none",color:"inherit"}}
-            
             >
-            Message
-          </Link>
-        </Button>
+              Message
+            </Link>
+          </Button>
+        </> 
+        )}
       </CardActions>
     </Card>
     </Link>

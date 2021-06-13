@@ -59,7 +59,7 @@ function TabPanel(props) {
               <Box>
               {editflag && (
                   <Paper elevation={0}  className={classes.root}>
-                    <Button  onClick={handleProjectDialogOpen} variant="contained" color="primary">Add Project</Button>
+                    <Button  onClick={handleProjectDialogOpen} variant="contained" color="primary" style={{margin:"1rem"}}>Add Project</Button>
      
                     </Paper>
                 )}
@@ -90,7 +90,7 @@ function TabPanel(props) {
             <Box>
             {editflag && (
                   <Paper elevation={0}  className={classes.root}>
-                    <Button  onClick={handleInternDialogOpen} variant="contained" color="primary">Add Internship</Button>
+                    <Button  onClick={handleInternDialogOpen} variant="contained" color="primary" style={{margin:"1rem"}}>Add Internship</Button>
      
                     </Paper>
                 )}
@@ -124,8 +124,8 @@ function TabPanel(props) {
             >
               {value === index && (
                 <Box>
-                  <Box mt={5}>
-                    Resume
+                  <Box m={2} >
+                    Upload Resume
                   </Box>
         
                 </Box>
@@ -143,10 +143,9 @@ function TabPanel(props) {
               >
                 {value === index && (
                   <Box>
-                    <Box mt={5}>
+                    <Box m={3}>
                       All posts
                     </Box>
-          
                   </Box>
                 )}
               </div>
