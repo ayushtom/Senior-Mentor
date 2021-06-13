@@ -68,7 +68,8 @@ export default function ProjectCardDialog(props) {
     const onSubmit=()=>{
       if(data.projectId)
       {
-      axios.post(`${process.env.REACT_APP_API_ENDPOINT}/project`,{
+      console.log("project", data); 
+      axios.put(`${process.env.REACT_APP_API_ENDPOINT}/project`,{
         title:values.title,
         description:values.description,
         startDate:startDate,
@@ -86,7 +87,7 @@ export default function ProjectCardDialog(props) {
     }
     else
     {
-      axios.put(`${process.env.REACT_APP_API_ENDPOINT}/project`,{
+      axios.post(`${process.env.REACT_APP_API_ENDPOINT}/project`,{
         projectId:data.projectId,
         title:values.title,
         description:values.description,
@@ -134,7 +135,7 @@ export default function ProjectCardDialog(props) {
   return (
      <Dialog
       fullWidth
-      maxWidth="md"
+      maxWidth="sm"
       onClose={handleClose} 
       aria-labelledby="simple-dialog-title" 
       open={open}>
