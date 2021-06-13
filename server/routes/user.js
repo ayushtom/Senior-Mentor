@@ -45,9 +45,9 @@ const upload = multer({
 });
 
 router.get("/", async(req,res)=>{
-    res.render(` 
-    <h1> Server for seniormentor is up and running </h1> 
-    `)
+    return res.json({
+        message : "server for senior mentor in up an running ."
+    })
 })
 
 router.post("/register", async(req,res)=>{
