@@ -15,7 +15,7 @@ const io = socketio(server,{
 require("./sockets/index.js")(io);
 
 
-server.listen(process.env.port || 5000, async ()=>{
+server.listen(process.env.PORT || 5000, async ()=>{
     try {   
         console.log("Seniormentor server is running");
         console.log(process.env.URI); 
