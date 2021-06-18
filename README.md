@@ -13,7 +13,7 @@
 
 <br>
 
-> Checkout => https://seniormentor.netlify.app/ 
+Checkout https://seniormentor.netlify.app/ 
 
 Features 
 ---
