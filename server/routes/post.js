@@ -1,58 +1,41 @@
 const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/post")
-const multer = require('multer');
-
+const { uploadFile } = require("../helpers/helpers")
 const {
     checkToken
 } = require("../middlewares/checkToken");
+var createError = require('http-errors')
 
- 
-//to store image in uploads folder
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + file.originalname);
-    }
-});
-
-//filter to check the type of file uploaded 
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-        cb(null, true);
-    } else {
-        // rejects storing a file
-        cb(null, false);
-    }
-}
-
-//final upload function called in post method
-const upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 * 5
-        //50MB
-    },
-    fileFilter: fileFilter
-});
-
-
-router.post("/post", checkToken, upload.single('attachment'), async(req,res)=>{
+router.post("/post", checkToken, async(req,res)=>{
+    console.log("running post")
+    console.log(req.files); 
     const userId = res.locals.userId; 
+    let attachment = req.files.attachment; 
+    if(attachment.length){
+        attachment = attachment[0]; 
+    }
+    console.log("Attachment", attachment); 
+
+    let fileName = attachment.name;
+    let extension = fileName.split(".")[1]; 
+    const file = attachment.data;
+
     try { 
         const { 
             title, body 
         } = req.body; 
 
-        let attachment = null;
-        if(req.file){
-            console.log("ABC ABCB ", req.file.path); 
-            attachment = req.file.path; 
+        const { 
+            error, publicURL 
+        } = await uploadFile('posts', 'public', file, extension); 
+
+        if(error) {
+            throw createError("501", error)
         }
-         
+
         console.log("Adding new post");
+        let attachment = publicURL; 
         const result = await postController.newPost(userId, {
             title, body, attachment
         })

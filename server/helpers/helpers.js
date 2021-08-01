@@ -1,8 +1,13 @@
+require('dotenv').config(); 
+
 const { sign } = require("jsonwebtoken");
 const { genSaltSync, hashSync } = require('bcryptjs');
 const model = require("../models/index"); 
 const jwt = require('jsonwebtoken');
 const jwtsalt = process.env.JWT_SALT 
+const { createClient } = require('@supabase/supabase-js')
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_PUBLIC_ANON_KEY);
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     giveToken : (data) => { 
@@ -64,6 +69,36 @@ module.exports = {
             return arr[1]; 
         } else {
             return arr[0]; 
+        }
+    },
+    uploadFile : async (bucketName, bucketFolder, file, fileExtension) => {
+        let fileName = uuidv4(); 
+        const uploadPath = `${bucketFolder}/${fileName}.${fileExtension}`; 
+        console.log(bucketName, bucketFolder, fileName, uploadPath)
+        let res = await supabase.storage
+        .from(bucketName)
+        .upload(uploadPath, file)
+        
+        if(res.error){
+            return {
+                error : res.error 
+            }
+        }
+
+        const { publicURL, error } = supabase
+        .storage
+        .from(bucketName)
+        .getPublicUrl(uploadPath)
+        
+        if(error){
+            return {
+                error : error
+            }
+        }
+        
+        return {
+            data : res.data, 
+            publicURL : publicURL 
         }
     }
 }
