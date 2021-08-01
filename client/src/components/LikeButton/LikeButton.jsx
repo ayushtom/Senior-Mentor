@@ -33,7 +33,7 @@ export default function LikeButton({postinfo,data,postCounter,setPostCounter}) {
   const [like, setlike] = useState(false)
   const[likeCount,setLikeCount]=useState(data.length)
   useEffect(() => {
-    if(userData.token && userData.loggedIn===true && data.find((like) => like.userId === userData.token.userId))
+    if(userData.token && userData.loggedIn===true && like && data.find((like) => like.userId === userData.token.userId))
     {
       setlike(like.isLike)
       console.log(like);
@@ -45,7 +45,6 @@ export default function LikeButton({postinfo,data,postCounter,setPostCounter}) {
       {
         setOpenerror(true)
         setMessage("Please Login")
-
       }
       else
       {

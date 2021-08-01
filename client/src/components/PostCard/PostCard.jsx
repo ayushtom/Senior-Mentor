@@ -76,7 +76,7 @@ export default function PostCard({post}) {
         {post.body}
         </Typography>
         {post.attachment && (
-          <img className={classes.image} src={`${API_URL}`+`/`+`${post.attachment}`} alt=""/>
+          <img className={classes.image} src={post.attachment} alt=""/>
         )}
         
 

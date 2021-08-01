@@ -76,7 +76,7 @@ export default function SeperatePostCard({post,postCounter,setPostCounter}) {
         {post.body}
         </Typography>
         {post.attachment && (
-          <img className={classes.image} src={`${API_URL}`+`/`+`${post.attachment}`} alt=""/>
+          <img className={classes.image} src={post.attachment} alt=""/>
         )}
         
 
